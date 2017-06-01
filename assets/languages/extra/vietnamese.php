@@ -312,17 +312,17 @@ $wo['call_action'] = array(
 );
 
 $wo['products_categories'] = array(
-    '0' => 'All',
-    '1' => 'Apparel & Accessories',
-    '2' => 'Autos & Vehicles',
-    '3' => 'Baby & Children\'s Products',
-    '4' => 'Beauty Products & Services',
-    '5' => 'Computers & Peripherals',
-    '6' => 'Consumer Electronics',
-    '7' => 'Dating Services',
-    '8' => 'Financial Services',
-    '9' => 'Gifts & Occasions',
-    '10' => 'Home & Garden'
+    '0' => 'Tất cả',
+    '1' => 'Đồ ăn nhanh',
+    '2' => 'Xe cộ',
+    '3' => 'Bất động sản',
+    '4' => 'Đồ điện tử',
+    '5' => 'Thời trang, đồ dùng cá nhân',
+    '6' => 'Nội ngoại thất, đồ gia dụng',
+    '7' => 'Giải trí, thể thao, sở thích ',
+    '8' => 'Đồ dùng văn phòng, công - nông nghiệp',
+    '9' => 'Việc làm, dịch vụ',
+    '10'=>'Loại khác'
 );
 
 ?>
