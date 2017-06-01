@@ -400,6 +400,7 @@
             echo '<div class="product-name">' . $wo['lang']['product_name'] . ':<br><span class="product-description">' . $wo['story']['product']['name'] . '</span></div><br>';
             echo '<div class="product-name">' . $wo['lang']['description'] . ':<br><span class="product-description">' . $wo['story']['product']['description'] . '</span></div><br>';
             echo '<div class="product-name">' . $wo['lang']['price'] . ': <span class="product-price">' . $wo['config']['classified_currency_s'] . $wo['story']['product']['price'] . ' (' . $wo['config']['classified_currency'] . ')</span></div><br>';
+            echo '<div class="product-name">' . $wo['lang']['phone_number'] . ':<br><span class="product-description">' . $wo['story']['product']['phone'] . '</span></div><br>';
             if (!empty($wo['story']['product']['location'])) {
                echo '<div class="product-name">' . $wo['lang']['location'] . ': <span class="product-description"><i class="fa fa-map-marker"></i> ' . $wo['story']['product']['location'] . '</span></div><br>';
             } 
