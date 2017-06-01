@@ -1305,6 +1305,9 @@ textarea.form-control { resize: none !important; }
 	}}
 @media (max-width: 767px) { #filter-by-sidebar { display: none; }
   .filter-by-home { display: block; }
+	.cover-search-form{
+		display: none;
+	}
   .header-container .logo img { width: 30%; }
   #sidebar-latest-products .cool-style { float: left !important; }
   .header-container .User-Name { display: none; }
@@ -1317,7 +1320,7 @@ textarea.form-control { resize: none !important; }
   #navbar-searchbox { position: fixed;background: #fff;width: 100%;left: 0;top: 44px;z-index: 99;box-shadow: 0 2px 3px rgba(0, 0, 0, 0.26); }
   #navbar-searchbox .search-input{width: 100%;}
   .navbar .search-container .search-dropdown-container{left: -155px;width: 680px;top: 81px;margin-left: 0px !important;}
-  .content-container{margin-top: 75px !important;}
+  /*.content-container{margin-top: 75px !important;}*/
   .nav > .navbar-home { display: none; }
   .navbar-nav { float: left; margin-left: -16px; }
   .navbar-home { display: none; }
