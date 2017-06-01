@@ -313,16 +313,16 @@ $wo['call_action'] = array(
 
 $wo['products_categories'] = array(
     '0' => 'All',
-    '1' => 'Apparel & Accessories',
-    '2' => 'Autos & Vehicles',
-    '3' => 'Baby & Children\'s Products',
-    '4' => 'Beauty Products & Services',
-    '5' => 'Computers & Peripherals',
-    '6' => 'Consumer Electronics',
-    '7' => 'Dating Services',
-    '8' => 'Financial Services',
-    '9' => 'Gifts & Occasions',
-    '10' => 'Home & Garden'
+    '1' => 'Fast food',
+    '2' => 'Vehicle',
+    '3' => 'Real Estate',
+    '4' => 'Electronic devices',
+    '5' => 'Fashion, Personal belongings',
+    '6' => 'Interior, Furniture',
+    '7' => 'Entertainment, Sports, Hobbles',
+    '8' => 'Office supplies, Agricultural - industry',
+    '9' => 'Employment, Services',
+    '10'=>'Other types'
 );
 
 ?>

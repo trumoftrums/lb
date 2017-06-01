@@ -6947,7 +6947,7 @@ if ($f == 'get_no_posts_name') {
 }
 if ($f == 'products') {
     if ($s == 'create' && Wo_CheckSession($hash_id) === true) {
-        if (empty($_POST['name']) || empty($_POST['category']) || empty($_POST['description'])) {
+        if (empty($_POST['name']) || empty($_POST['category']) || empty($_POST['description']) || empty($_POST['phone'])) {
             $errors[] = $error_icon . $wo['lang']['please_check_details'];
         } else if (empty($_POST['price'])) {
             $errors[] = $error_icon . $wo['lang']['please_choose_price'];
@@ -6983,6 +6983,7 @@ if ($f == 'products') {
                 'name' => Wo_Secure($_POST['name']),
                 'category' => Wo_Secure($_POST['category']),
                 'description' => Wo_Secure($_POST['description']),
+                'phone' => Wo_Secure($_POST['phone']),
                 'time' => Wo_Secure(time()),
                 'price' => $price,
                 'type' => $type,
@@ -7038,7 +7039,7 @@ if ($f == 'products') {
         exit();
     }
     if ($s == 'edit' && Wo_CheckSession($hash_id) === true) {
-        if (empty($_POST['name']) || empty($_POST['category']) || empty($_POST['description'])) {
+        if (empty($_POST['name']) || empty($_POST['category']) || empty($_POST['description']) || empty($_POST['phone'])) {
             $errors[] = $error_icon . $wo['lang']['please_check_details'];
         } else if (empty($_POST['price'])) {
             $errors[] = $error_icon . $wo['lang']['please_choose_price'];
@@ -7071,6 +7072,7 @@ if ($f == 'products') {
                 'name' => $_POST['name'],
                 'category' => $_POST['category'],
                 'description' => $_POST['description'],
+                'phone' => Wo_Secure($_POST['phone']),
                 'price' => $price,
                 'location' => Wo_Secure($_POST['location']),
                 'type' => $type
