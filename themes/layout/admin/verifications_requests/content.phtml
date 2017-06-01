@@ -1,0 +1,61 @@
+<?php 
+Wo_UpdateSeenVerifications();
+?>
+<div class="list-group setting-verification-container">
+   <div class="list-group-item"><i class="fa fa-fw fa-check-circle"></i> <?php echo $wo['lang']['verifications_requests']; ?></div>
+   <div class="setting-well">
+      <table class="table table-hover table-bordered table-striped table-condensed setting-table">
+         <thead>
+            <tr>
+               <th><?php echo $wo['lang']['id'];?></th>
+               <th><?php echo $wo['lang']['user'];?> </th>
+               <th><?php echo $wo['lang']['type'];?> </th>
+               <th><?php echo $wo['lang']['action'];?></th>
+            </tr>
+         </thead>
+         <tbody class="result">
+            <?php 
+               $reports = Wo_GetVerifications();
+               if (count($reports) > 0) {
+                 foreach ($reports as $wo['verification']) {
+                    echo Wo_LoadPage('admin/verifications_requests/verification-list');
+                 }
+               } 
+               ?>
+         </tbody>
+      </table>
+      <div class="no-result">
+         <?php 
+            if (count($reports) == 0) {
+              echo '<span class="center-text">' . $wo['lang']['no_new_verification_requests'] . '</span>';
+            }
+            ?>
+      </div>
+   </div>
+</div>
+<script>
+function Wo_DeleteVerification(id) {
+  var delete_icon = $('.setting-verification-container').find('#VerificationID_' + id).find('.delete-verification');
+  Wo_progressIconLoader(delete_icon);
+  $.get(Wo_Ajax_Requests_File(), {f:'admin_setting', s:'delete_verification', id:id}, function(data) {
+    if (data.status == 200) {
+      $('#VerificationID_' + id).fadeOut(300, function() {
+        $(this).remove();
+      }); 
+    }
+  });
+}
+
+function Wo_Verify(id,verification_id,type) {
+  var verify_icon = $('.setting-verification-container').find('#VerificationID_' + verification_id).find('.verify');
+  Wo_progressIconLoader(verify_icon);
+  $.get(Wo_Ajax_Requests_File(), {f:'admin_setting', s:'verify_user', id:id, verification_id:verification_id, type:type}, function(data) {
+    if (data.status == 200) {
+      $('#VerificationID_' + verification_id).fadeOut(300, function() {
+        $(this).remove();
+      }); 
+    }
+  });
+}
+
+</script>

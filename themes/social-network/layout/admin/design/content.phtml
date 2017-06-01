@@ -1,0 +1,241 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-paint-brush"></i> Design</div>
+   <div class="setting-well page-margin">
+      <form action="" method="post" class="admin-design-setting form-horizontal">
+      <h4>Welcome Page</h4>
+      <hr>
+      <div class="form-group">
+          <label class="col-sm-4" for="logo">Background Image (1920x1080) </label>  
+            <div class="col-md-6 input-group">
+                  <span class="btn btn-default btn-file">
+                     <i class="fa fa-camera" ></i>
+                     <input type="file" id="background-image" accept="image/x-png, image/gif, image/jpeg" name="background">
+                  </span>
+            </div>
+      </div>
+      <div class="form-group" id="emo-form">
+               <label class="col-sm-4"></label>  
+               <div class="col-md-6 input-group">
+                  <input type="text" class="form-control input-md" readonly>
+               </div>
+      </div>
+      <br>
+      <div class="form-group">
+          <label class="col-sm-4" for="favicon">Favicon</label>  
+            <div class="col-md-6 input-group">
+                  <span class="btn btn-default btn-file">
+                     <i class="fa fa-camera"></i>
+                     <input type="file" id="favicon" accept="image/x-png, image/gif, image/jpeg" name="favicon">
+                  </span>
+            </div>
+      </div>
+      <div class="form-group emo-form" id="emo-form">
+          <label class="col-sm-4"></label>  
+          <div class="col-md-6 input-group">
+            <input type="text" class="form-control input-md" readonly>
+         </div>
+      </div>
+      <br>
+      <h4>Header</h4>
+      <hr>
+       <div class="form-group">
+          <label class="col-sm-4" for="logo">Logo (470x75) </label>  
+            <div class="col-md-6 input-group">
+                  <span class="btn btn-default btn-file">
+                     <i class="fa fa-camera" ></i>
+                     <input type="file" id="logo-image" accept="image/x-png, image/gif, image/jpeg" name="logo">
+                  </span>
+            </div>
+         </div>
+         <div class="form-group" id="photo-form">
+               <label class="col-sm-4"></label>  
+               <div class="col-md-6 input-group">
+                  <input type="text" class="form-control input-md" readonly>
+               </div>
+         </div>
+         <div class="form-group">
+            <label class="col-sm-4" for="header_background">Header background color</label>  
+            <div class="col-md-6 input-group class-1">
+               <input type="text" class="form-control" name="header_background" value="<?php echo $wo['config']['header_background'];?>">
+               <span class="input-group-addon"><i></i></span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-sm-4" for="header_hover_border">Home button background color</label>  
+            <div class="col-md-6 input-group class-2">
+               <input type="text" class="form-control" name="header_hover_border" value="<?php echo $wo['config']['header_hover_border'];?>"> 
+               <span class="input-group-addon"><i></i></span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-sm-4" for="header_color">Header icon/text color</label>  
+            <div class="col-md-6 input-group class-3">
+               <input type="text" class="form-control" name="header_color" value="<?php echo $wo['config']['header_color'];?>">
+               <span class="input-group-addon"><i></i></span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-sm-4" for="header_search_color">Header search input color</label>  
+            <div class="col-md-6 input-group class-15">
+               <input type="text" class="form-control" name="header_search_color" value="<?php echo $wo['config']['header_search_color'];?>">
+               <span class="input-group-addon"><i></i></span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-sm-4" for="header_button_shadow">Header buttons text shadow color</label>  
+            <div class="col-md-6 input-group class-16">
+               <input type="text" class="form-control" name="header_button_shadow" value="<?php echo $wo['config']['header_button_shadow'];?>">
+               <span class="input-group-addon"><i></i></span>
+            </div>
+         </div>
+         <br>
+         <h4>Body</h4>
+         <hr>
+         <div class="form-group">
+            <label class="col-sm-4" for="body_background">Body background color</label>  
+            <div class="col-md-6 input-group class-4">
+               <input type="text" class="form-control" name="body_background" value="<?php echo $wo['config']['body_background'];?>">
+               <span class="input-group-addon"><i></i></span>
+            </div>
+         </div>
+         <br>
+         <h4>Buttons</h4>
+         <hr>
+         <div class="form-group">
+            <label class="col-sm-4" for="btn_color">Text color</label>  
+            <div class="col-md-6 input-group class-5">
+               <input type="text" class="form-control" name="btn_color" value="<?php echo $wo['config']['btn_color'];?>">
+               <span class="input-group-addon"><i></i></span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-sm-4" for="btn_background_color">Background color</label>  
+            <div class="col-md-6 input-group class-6">
+               <input type="text" class="form-control" name="btn_background_color" value="<?php echo $wo['config']['btn_background_color'];?>">
+               <span class="input-group-addon"><i></i></span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-sm-4" for="btn_hover_color">Hover color</label>  
+            <div class="col-md-6 input-group class-7">
+               <input type="text" class="form-control" name="btn_hover_color" value="<?php echo $wo['config']['btn_hover_color'];?>">
+               <span class="input-group-addon"><i></i></span>
+            </div>
+         </div>
+          <div class="form-group">
+            <label class="col-sm-4" for="btn_disabled">Disabled button background color</label>  
+            <div class="col-md-6 input-group class-17">
+               <input type="text" class="form-control" name="btn_disabled" value="<?php echo $wo['config']['btn_disabled'];?>">
+               <span class="input-group-addon"><i></i></span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-sm-4" for="btn_hover_background_color">Hover background color</label>  
+            <div class="col-md-6 input-group class-8">
+               <input type="text" class="form-control" name="btn_hover_background_color" value="<?php echo $wo['config']['btn_hover_background_color'];?>">
+               <span class="input-group-addon"><i></i></span>
+            </div>
+         </div>
+         <br>
+         <h4>Setting sidebar</h4>
+         <hr>
+          <div class="form-group">
+            <label class="col-sm-4" for="setting_header_color">Header text color</label>  
+            <div class="col-md-6 input-group class-9">
+               <input type="text" class="form-control" name="setting_header_color" value="<?php echo $wo['config']['setting_header_color'];?>">
+               <span class="input-group-addon"><i></i></span>
+            </div>
+         </div>
+          <div class="form-group">
+            <label class="col-sm-4" for="setting_header_background">Header background color</label>  
+            <div class="col-md-6 input-group class-10">
+               <input type="text" class="form-control" name="setting_header_background" value="<?php echo $wo['config']['setting_header_background'];?>">
+               <span class="input-group-addon"><i></i></span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-sm-4" for="setting_sidebar_color">List Text color</label>  
+            <div class="col-md-6 input-group class-10">
+               <input type="text" class="form-control" name="setting_sidebar_color" value="<?php echo $wo['config']['setting_sidebar_color'];?>">
+               <span class="input-group-addon"><i></i></span>
+            </div>
+         </div>
+          <div class="form-group">
+            <label class="col-sm-4" for="setting_sidebar_background">List Background color</label>  
+            <div class="col-md-6 input-group class-11">
+               <input type="text" class="form-control" name="setting_sidebar_background" value="<?php echo $wo['config']['setting_sidebar_background'];?>">
+               <span class="input-group-addon"><i></i></span>
+            </div>
+         </div>
+          <div class="form-group">
+            <label class="col-sm-4" for="setting_active_sidebar_color">List active text color</label>  
+            <div class="col-md-6 input-group class-12">
+               <input type="text" class="form-control" name="setting_active_sidebar_color" value="<?php echo $wo['config']['setting_active_sidebar_color'];?>">
+               <span class="input-group-addon"><i></i></span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-sm-4" for="setting_active_sidebar_background">List active background color</label>  
+            <div class="col-md-6 input-group class-13">
+               <input type="text" class="form-control" name="setting_active_sidebar_background" value="<?php echo $wo['config']['setting_active_sidebar_background'];?>">
+               <span class="input-group-addon"><i></i></span>
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-sm-4" for="chat_outgoing_background">Chat outgoing message background color</label>  
+            <div class="col-md-6 input-group class-18">
+               <input type="text" class="form-control" name="chat_outgoing_background" value="<?php echo $wo['config']['chat_outgoing_background'];?>">
+               <span class="input-group-addon"><i></i></span>
+            </div>
+         </div>
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+         <div class="form-group">
+            <label class="col-sm-4"></label>  
+            <div class="col-md-6">
+               <button type="submit" class="btn btn-main">
+               <i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i>  <?php echo $wo['lang']['save']?>
+               </button>   
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+<script type="text/javascript">
+$(function() {
+   $("#logo-image").change(function () {
+         var filename = $(this).val().replace(/C:\\fakepath\\/i, '');
+         $("#photo-form input").val(filename);
+         $("#photo-form").slideDown(200);
+    });
+   $("#background-image").change(function () {
+         var filename = $(this).val().replace(/C:\\fakepath\\/i, '');
+         $("#emo-form input").val(filename);
+         $("#emo-form").slideDown(200);
+    });
+   $("#favicon").change(function () {
+         var filename = $(this).val().replace(/C:\\fakepath\\/i, '');
+         $(".emo-form input").val(filename);
+         $(".emo-form").slideDown(200);
+    });
+	$('.class-1, .class-2, .class-3, .class-4, .class-5, .class-6, .class-7, .class-8, .class-9, .class-10, .class-11, .class-12, .class-13, .class-15, .class-16, .class-17, .class-18').colorpicker();
+    $('form.admin-design-setting').ajaxForm({
+      url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=update_design_setting',
+      beforeSend: function() {
+        Wo_progressIconLoader($('form.admin-design-setting').find('button'));
+      },
+      success: function(data) {
+        if (data.status == 200) {
+          $('form.admin-design-setting button').html('<i class="fa fa-check"></i> <?php echo $wo["lang"]["saved"];?>');
+          window.location.reload();
+          setTimeout(function () {
+            $('form.admin-design-setting button').html('<i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i>  <?php echo $wo["lang"]["save"]?>');
+          }, 2000);
+          
+          Wo_progressIconLoader($('form.admin-design-setting').find('button'));
+
+        } 
+      }
+    });
+});
+</script>

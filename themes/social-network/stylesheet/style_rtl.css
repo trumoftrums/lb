@@ -1,0 +1,295 @@
+.options-buttons {
+    left: -20px;
+}
+.profile-container .card.hovercard .user-avatar {
+    margin-right: 10px;
+}
+.post-options {
+    left: 0 !important;
+    right: auto !important;
+}
+.panel .meta {
+    margin-right: 60px;
+}
+.sidebar-conatnier .profile-style .card.hovercard .info .title {
+    left: -90px;
+}
+.header-brand {
+    float: right !important;
+    margin-right: 0 !important;
+}
+.pricing {
+    padding-right: 0 !important;
+}
+.nav-names {
+    margin-right: 115px !important;
+    margin-left:0 !important;
+}
+.search-dropdown-result li {
+    padding-right: 10px;
+}
+.emo-comment {
+    left: 33px !important;
+    right: auto !important;
+}
+.emo-message {
+    left: 80px !important;
+    right: auto !important;
+}
+.text-sender-container textarea {
+    padding-right: 10px !important;
+    padding-left: 40px !important;
+}
+.emo-message-container {
+    left: 0 !important;
+    right: auto !important;
+}
+.textarea {
+    padding-left: 40px;
+    padding-right: 5px !important;
+}
+.wowonder-well img {
+    float: right;
+    margin-left: 10px;
+}
+.previous-btn {
+    left: 30.5% !important;
+}
+.next-btn {
+    right: 0 !important;
+}
+.post .post-footer .comments-list .comment .comment-body,
+.lightbox-post-footer .comments-list .comment .comment-body {
+    margin-left: 0 !important;
+}
+.wowonder-well .profile-style {
+    float: right;
+}
+.profile-style .avatar img {
+    margin-left: 10px !important;
+    margin-right: 0 !important;
+}
+.home-sidebar.profile-style .user-follow-btn{
+   padding-left: 10px;
+}
+.post .post-heading .avatar {
+    margin-right: 5px;
+}
+.post-fetched-url img {
+    margin-right: 0 !important;
+    margin-left: 10px !important;
+}
+.user-fetch .user-information {
+    margin-right: 100px !important;
+    margin-left:auto !important; 
+}
+.user-fetch .user-name {
+    margin-right: 10px !important;
+}
+.pin-icon {
+    left: 11px;
+
+}
+.search-dropdown-container {
+    margin-right: 15px !important;
+}
+.messages-wrapper .user-avatar {
+    margin-left: 10px;
+}
+.messages-container {
+    overflow-x: hidden;
+}
+
+.profile-cover-changer .btn-file {
+    float: right !important;
+}
+.chat-container {
+    left: 0;
+    border-right: 1px solid #ededed;
+}
+.chat-container input {
+    border-right: 0 !important;
+}
+.chat_main {
+    left: 195px !important;
+    right: auto !important;
+}
+.chat_main:nth-child(2) {
+    left: 440px !important;
+    right: auto !important;
+}
+.chat_main:nth-child(3) {
+    left: 685px !important;
+    right: auto !important;
+}
+.chat-user-desc .col-sm-4 {
+    padding-right: 15px !important;
+    padding-left: 5px !important;
+}
+.chat-user-desc .col-sm-8 {
+    padding-left: 10px !important;
+    padding-right: 0 !important;
+}
+#re-calling-modal .col-md-2 {
+    padding-left: 15px !important;
+    padding-left: 0 !important;
+}
+.chat-textarea #sendMessage {
+    padding-left: 60px;
+}
+.chat-textarea .input-group-btn {
+    left: 30px;
+}
+b,
+strong {
+    margin-left: 7px !important;
+}
+.search-container .search-input,
+.post-footer .form-control.textarea,
+.messages-search-users-form input,
+.publisher-hidden-option input {
+    direction: rtl;
+}
+.navbar-right .dropdown-menu.notifications-dropdown {
+    left: 0 !important;
+    right: auto;
+}
+.messages-recipients-list img {
+    margin-left: 5px;
+}
+.recipient-chat-user img {
+    margin-right: 10px;
+    margin-left:5px
+}
+.profile-container .card.hovercard .info .title {
+    top: -33px !important;
+    left: -180px !important;
+}
+
+.filter-text {
+    font-size: 14px !important;
+}
+.publisher-box .publisher-hidden-option {
+    margin-left: 10px;
+}
+.publisher-box .charsLeft-post {
+    margin-right: 5px;
+}
+.chat-opacity {
+    width: 190px !important;
+}
+.post .post-heading .meta .title a b {
+    font-size: 13px;
+}
+.post .post-heading .meta .title a {
+    margin-right: 0px !important;
+}
+.post .post-footer .comments-list .comment .avatar {
+    margin-left: 10px !important;
+}
+.post .post-footer .comments-list .comment .comment-body {
+    margin-left: 0px !important;
+    margin-right: 50px !important;
+}
+.user-fetch .user-avatar {
+    margin-right: 5px;
+}
+.user-fetch .user-name {
+    left: auto !important;
+    right: 30%;
+}
+.activities-wrapper * {
+    font-size: 11px;
+}
+.activities-wrapper .ajax-time {
+    font-size: 10px;
+}
+.notification-list .notification-user-avatar img {
+    margin-right: 0 !important;
+    margin-left: 5px !important;
+}
+.sidebar-conatnier .profile-style .card.hovercard .info .title {
+    top: -23px !important;
+    left: -80px !important;
+    font-size: 15px !important;
+}
+.search-dropdown-result .search-user-avatar img {
+    margin-left: 7px;
+}
+.small-last-seen {
+    font-size: 11px !important;
+}
+.sidebar-page-data .sidebar-listed-page-avatar img {
+    padding:0px 0px 1px 1px !important;
+}
+.sidebar-page-data .sidebar-listed-page-name {
+    right: 8px !important;
+    left: auto !important;
+}
+.sidebar-page-data .sidebar-listed-page-like-btn {
+    left: 8px !important;
+    right: auto !important;
+}
+.chat-status {
+    right: auto !important;
+    left: 7px !important;
+}
+.user-details:before {
+    left: auto;
+    right: 10px;
+}
+.video-icon {
+    cursor: pointer;
+    margin-right: 0 !important;
+    margin-left: 4px !important;
+}
+.lightbox-content .comment-section {
+    border-top-right-radius:0 !important;
+    border-bottom-right-radius:0 !important;
+    border-top-left-radius:3px !important;
+    border-bottom-left-radius:3px !important;
+}
+.lightbox-content .comment-section .post-info {
+    padding-right: 10px;
+}
+.lightbox-post-footer .comment .avatar {
+    margin-left: 10px;
+}
+.post .post-footer .comments-list .comment .comment-body, .lightbox-post-footer .comments-list .comment .comment-body {
+    margin-right: 50px;
+}
+.answers input {
+    padding-right: 5px !important;
+    padding-left: 100px;
+}
+.create-album {
+    margin-left: 5px;
+    margin-right: 0 !important;
+}
+.image-comment {
+    right: auto !important;
+    left: 25px;
+}
+@media (max-width: 600px) {
+    .profile-container .card.hovercard .user-avatar {
+        float: right !important;
+    }
+    .profile-container .card {
+        border-bottom-right-radius: 3px !important;
+    }
+    .profile-container .card.hovercard .info .title {
+        top: -28px !important;
+        left: -100px !important;
+    }
+    .options-buttons {
+        left: -10px !important;
+        right: auto !important;
+    }
+}
+@media (max-width: 767px) {
+    .header-brand {
+        right: 10px !important;
+        margin-left: 0px !important;
+        margin-top: -3px;
+    }
+}

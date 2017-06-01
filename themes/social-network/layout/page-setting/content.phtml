@@ -1,0 +1,26 @@
+<?php
+$wo['setting_page'] = 'general-setting';
+$pages_array = array(
+   'general-setting',
+   'profile-setting',
+   'social-links',
+   'delete-page',
+   'avatar-setting',
+   'design-setting'
+   );
+if (!empty($_GET['link3'])) {
+   if (in_array($_GET['link3'], $pages_array)) {
+      $wo['setting_page'] = $_GET['link3'];
+   }
+}
+?>
+<div class="page-margin">
+   <div class="row setting-panel">
+      <div class="col-md-8">
+         <?php echo Wo_LoadPage("page-setting/" . $wo['setting_page']); ?>
+      </div>
+      <div class="col-md-4">
+          <?php echo Wo_LoadPage('page-setting/page-setting-sidebar');?>
+      </div>
+   </div>
+</div>

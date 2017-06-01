@@ -1,0 +1,37 @@
+<div class="alert alert-info">
+  <?php 
+  $earn_users = str_replace('{amount}', $wo['config']['amount_ref'], $wo['lang']['earn_users']);
+  $earn_users_pro = str_replace('{amount}', $wo['config']['amount_ref'], $wo['lang']['earn_users_pro']);
+  ?>
+	<?php if($wo['config']['affiliate_type'] == 0) { ?>
+  <i class="fa fa-money"></i> <?php echo $earn_users; ?>
+  <?php } else { ?>
+  <i class="fa fa-money"></i> <?php echo $earn_users_pro; ?>
+  <?php } ?>
+</div>
+<div class="list-group">
+  <div class="list-group-item"><i class="fa fa-fw fa-users"></i> <?php echo $wo['lang']['my_affiliates'];?> <?php if(Wo_IsAdmin() === true) { ?><a href="<?php echo $wo['setting']['url'];?>" data-ajax="?link1=timeline&u=<?php echo $wo['setting']['username'] ?>">(<?php echo $wo['setting']['name'];?>)</a><?php } ?><span class="<?php echo Wo_RightToLeft('pull-right'); ?>" ><a href="<?php echo Wo_SeoLink('index.php?link1=setting&page=payments');?>" data-ajax="?link1=setting&page=payments"></i> <?php echo $wo['lang']['my_balance'];?>: $<?php echo $wo['setting']['balance'];?></a></span></div>
+   <div class="setting-well">
+      <div class="affiliates-link">
+      	 <div class="affiliates-image">
+      	 	<img src="<?php  echo $wo['setting']['avatar']; ?>" alt="My Image">
+      	 </div>
+      	 <div class="affiliates-desc">
+      	    <?php $link = $wo['config']['site_url'] . '/?ref=' . $wo['setting']['username'];?>
+      	 	<?php echo $wo['lang']['your_ref_link'];?>: <br><a href="<?php echo $link;?>"><?php echo $link;?></a>
+      	 </div>
+      </div>
+      <Br>
+      <hr>
+      <div class="referres">
+      	 	<?php
+      	 	$refs = Wo_GetReferrers();
+      	 	if (count($refs) > 0) {
+      	 	 	foreach ($refs as $key => $wo['ref']) {
+      	 	 		echo Wo_LoadPage('setting/refs');
+      	 	 	}
+      	 	} 
+      	 	?>
+      </div>
+   </div>
+</div>

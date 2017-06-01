@@ -1,0 +1,129 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-bullhorn"></i> <?php echo $wo['lang']['announcement']; ?></div>
+   <div class="setting-well">
+     <form method="post" action="" class="setting-announcement-container">
+            <h5><?php echo $wo['lang']['new_announcement'];?> <small>(HTML allowed)</small></h5>
+            <div class="form-group">
+               <textarea name="announcement_text" class="form-control" rows="5" cols="10"></textarea>
+            </div>
+            <div class="row">
+               <div class="col-sm-3 pull-left">
+                  <button type="submit" name="save_setting" class="form-control  btn-main">
+                  <i class="fa fa-plus progress-icon" data-icon="fa-plus"></i> <?php echo $wo['lang']['add'];?>
+                  </button>
+               </div>
+         </form>
+         </div>
+         <div class="page-margin">
+            <hr>
+            <h5><?php echo $wo['lang']['active_announcements'];?></h5>
+            <div class="active-announcements announcements">
+               <?php
+                  $activeAnnouncements = Wo_GetActiveAnnouncements();
+                  
+                  if (count($activeAnnouncements) < 1) {
+                    
+                    echo '<h5 class="no-active-announcements"><small>' . $wo['lang']['there_are_no_active_announcements'] . '</small></h5>';
+                  } else {
+                  foreach ($activeAnnouncements as $wo['activeAnnouncement']) {
+                  
+                     echo Wo_LoadPage('admin/announcement/active-list');
+                     
+                  }
+                  }
+                  ?>
+            </div>
+         </div>
+         <div class="page-margin">
+            <hr>
+            <h5><?php echo $wo['lang']['inactive_announcements'];?></h5>
+            <div class="inactive-announcements announcements">
+               <?php 
+                  $inactiveAnnouncements = Wo_GetInactiveAnnouncements();
+                  
+                   if (count($inactiveAnnouncements) < 1) {
+                    
+                    echo '<h5 class="no-inactive-announcements"><small>' . $wo['lang']['there_are_no_inactive_announcements'] . '</small></h5>';
+                  } else {
+                  foreach ($inactiveAnnouncements as $wo['inactiveAnnouncement']) {
+                  
+                     echo Wo_LoadPage('admin/announcement/inactive-list');
+                     
+                  } 
+                  }
+                  ?>
+            </div>
+         </div>
+   </div>
+</div>
+<script>
+$(function () {
+   $('form.setting-announcement-container').ajaxForm({
+      url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=add_new_announcement',
+      beforeSend: function () {
+         Wo_progressIconLoader($('form.setting-announcement-container').find('button'));
+      },
+      success: function (data) {
+         if (data.status == 200) {
+            $('.no-active-announcements').hide(100);
+            $('.active-announcements').prepend(data.text);
+         }
+         Wo_progressIconLoader($('form.setting-announcement-container').find('button'));
+      }
+   });
+});
+
+function Wo_DeleteAnnouncement(id) {
+   var announcement_container = $('.announcements').find('.announcement-' + id);
+   $.get(Wo_Ajax_Requests_File(), {
+      f: 'admin_setting',
+      s: 'delete_announcement',
+      id: id
+   }, function (data) {
+      if (data.status == 200) {
+         announcement_container.slideUp(200, function () {
+            $(this).remove();
+         });
+      }
+   });
+}
+
+function Wo_DisableAnnouncement(id) {
+   var announcement_container = $('.active-announcements').find('.announcement-' + id);
+   var inactiveannouncement_container = $('.inactive-announcements');
+   $.get(Wo_Ajax_Requests_File(), {
+      f: 'admin_setting',
+      s: 'disable_announcement',
+      id: id
+   }, function (data) {
+      if (data.status == 200) {
+         announcement_container.slideUp(200, function () {
+            $(this).remove();
+         });
+         if (data.html.length != 0) {
+            $('.no-inactive-announcements').hide(100);
+            inactiveannouncement_container.prepend(data.html);
+         }
+      }
+   });
+}
+
+function Wo_ActivateAnnouncement(id) {
+   var announcement_container = $('.inactive-announcements').find('.announcement-' + id);
+   var activeannouncement_container = $('.active-announcements');
+   $.get(Wo_Ajax_Requests_File(), {
+      f: 'admin_setting',
+      s: 'activate_announcement',
+      id: id
+   }, function (data) {
+      if (data.status == 200) {
+         announcement_container.slideUp(200, function () {
+            $(this).remove();
+         });
+         if (data.html.length != 0) {
+            activeannouncement_container.prepend(data.html);
+         }
+      }
+   });
+}
+</script>

@@ -1,0 +1,39 @@
+<div class="message-contnaier <?php echo ($wo['message']['onwer'] == 0) ? 'incoming pull-left' : 'outgoing pull-right';?>" id="messageId_<?php echo $wo['message']['id']; ?>">
+<?php if ($wo['message']['onwer'] == 0): ?>
+<div class="message-user-image pull-left">
+  <img src="<?php echo $wo['message']['messageUser']['avatar']?>" alt="User image">
+</div>
+<?php endif ?>
+<div class="messages-wrapper messages-text message-model <?php echo ($wo['message']['onwer'] == 0) ? 'pull-left' : 'pull-right';?>" data-message-id="<?php echo $wo['message']['id'] ?>" onclick="Wo_ShowMessageOptions(<?php echo $wo['message']['id'] ?>);">
+   <div class="clear"></div>
+   <div class="message">
+      <p class="message-text" dir="auto">
+         <?php echo $wo['message']['text'] ?>
+      </p>
+      <div class="message-media">
+         <div class="clear"></div>
+          <?php
+          if (isset($wo['message']['media']) && !empty($wo['message']['media'])) {
+              $media = array(
+                  'type' => 'message',
+                  'storyId' => $wo['message']['id'],
+                  'filename' => $wo['message']['media'],
+                  'name' => $wo['message']['mediaFileName']
+              );
+              echo Wo_DisplaySharedFile($media, 'message');
+          }
+          ?>
+      </div>
+      <div class="time ajax-time text-right" title="<?php echo date('c',$wo['message']['time']); ?>">
+        <?php echo Wo_Time_Elapsed_String($wo['message']['time']);?>
+      </div>
+   </div>
+</div>
+<?php if($wo['message']['messageUser']['user_id'] == $wo['user']['user_id']) { ?>
+  <div class="message-seen message-details"></div>
+<?php } ?>
+<div class="deleteMessage <?php echo ($wo['message']['onwer'] == 0) ? 'right': '';?>" onclick="Wo_DeleteMessage(<?php echo $wo['message']['id'] ?>);">
+  <i class="fa fa-trash-o progress-icon" data-icon="trash-o"></i>
+</div>
+</div>
+<div class="clear"></div>

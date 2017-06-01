@@ -1,0 +1,120 @@
+<script>
+function Wo_RegisterFollow(id, is_confirm) {
+  var _follow_con = $('[id=Follow-' + id + ']');
+  is_confirm_f = 0;
+  if (is_confirm == 1) {
+    is_confirm_f = 1;
+  }
+  <?php if ($wo['config']['connectivitySystem'] == 0) { ?>
+  html_ = '<button type="button" onclick="Wo_RegisterFollow(' + id + ', ' + is_confirm_f + ')" class="btn-active btn btn-default btn-sm"><i class="fa fa-check progress-icon" data-icon="check"></i><span class="button-text"> <?php echo $wo["lang"]["following_btn"];?></span></button>';
+  if (is_confirm_f == 1) {
+    html_ = '<button type="button" onclick="Wo_RegisterFollow(' + id + ', ' + is_confirm_f + ')" class="btn-requested btn btn-default btn-sm"><i class="fa fa-clock-o progress-icon" data-icon="clock-o"></i><span class="button-text"> <?php echo $wo["lang"]["requested"];?></span></button>';
+  }
+  if (_follow_con.find('button').hasClass('btn-active') || _follow_con.find('button').hasClass('btn-requested')) {
+    html_ = '<button type="button" onclick="Wo_RegisterFollow(' + id + ', ' + is_confirm_f + ')" class="btn btn-default btn-sm"><i class="fa fa-plus-square progress-icon" data-icon="plus-square"></i><span class="button-text"> <?php echo $wo["lang"]["follow"];?></span></button>';
+  }
+  <?php } else { ?>
+  html_ = '<button type="button" onclick="Wo_RegisterFollow(' + id + ')" class="btn-requested btn btn-default btn-sm"><i class="fa fa-clock-o progress-icon" data-icon="clock-o"></i><span class="button-text"> <?php echo $wo["lang"]["requested"];?></span></button>';
+  if (_follow_con.find('button').hasClass('btn-requested') || _follow_con.find('button').hasClass('btn-active')) {
+    html_ = '<button type="button" onclick="Wo_RegisterFollow(' + id + ')" class="btn btn-default btn-sm"><i class="fa fa-plus-square progress-icon" data-icon="plus-square"></i><span class="button-text"> <?php echo $wo["lang"]["add_friend"];?></span></button>';
+  }
+  <?php } ?>
+  _follow_con.html(html_);
+  $.get(Wo_Ajax_Requests_File(), {f: 'follow_user', following_id: id}, function(data) {
+    if (data.can_send == 1) {
+      Wo_SendMessages();
+    }
+  });
+}
+function Wo_RegisterGroupJoin(id, is_confirm) {
+  var _join_con = $('[id=join-' + id + ']');
+  is_confirm_ = 0;
+  if (is_confirm == 1) {
+    is_confirm_ = 1;
+  }
+  html_join = '<button type="button" onclick="Wo_RegisterGroupJoin(' + id + ', ' + is_confirm_ + ')" class="btn-active btn btn-default btn-sm"><i class="fa fa-check progress-icon" data-icon="check"></i><span class="button-text"> <?php echo $wo["lang"]["joined"];?></span></button>';
+  if (is_confirm_ == 1) {
+    html_join = '<button type="button" onclick="Wo_RegisterGroupJoin(' + id + ', ' + is_confirm_ + ')" class="btn-requested btn btn-default btn-sm"><i class="fa fa-clock-o progress-icon" data-icon="clock-o"></i><span class="button-text"> <?php echo $wo["lang"]["requested"];?></span></button>';
+  }
+  if (_join_con.find('button').hasClass('btn-requested') || _join_con.find('button').hasClass('btn-active')) {
+    html_join = '<button type="button" onclick="Wo_RegisterGroupJoin(' + id + ', ' + is_confirm_ + ')" class="btn btn-default btn-sm"><i class="fa fa-plus-square progress-icon" data-icon="plus-circle"></i><span class="button-text"> <?php echo $wo["lang"]["join"];?></span></button>';
+  }
+  _join_con.html(html_join);
+  $.get(Wo_Ajax_Requests_File(), {f: 'join_group', group_id: id}, function (data) {
+    if (data.can_send == 1) {
+      Wo_SendMessages();
+    }
+  });
+}
+function Wo_RegisterPageLike(id) {
+  element_like = $('[id=like-' + id + ']');
+  html_like = '<button type="button" onclick="Wo_RegisterPageLike(' + id + ')" class="btn-active btn btn-default btn-sm"><i class="fa fa-check progress-icon" data-icon="check"></i><span class="button-text"> <?php echo $wo["lang"]["liked"];?></span></button>';
+  if (element_like.find('button').hasClass('btn-active')) {
+  	html_like = '<button type="button" onclick="Wo_RegisterPageLike(' + id + ')" class="btn btn-default btn-sm"><i class="fa fa-thumbs-up progress-icon" data-icon="thumbs-up"></i><span class="button-text"> <?php echo $wo["lang"]["like"];?></span></button>';
+  }
+  element_like.html(html_like);
+  $.get(Wo_Ajax_Requests_File(), {f: 'like_page', page_id: id}, function (data) {
+    if(data.status == 200) {
+      if ($('.sidebar-listed-page-like').attr('data-type') == "sidebar") {
+        setTimeout(function () {
+          Wo_ReloadSideBarPages();
+        }, 500);
+      }
+    }
+    if (data.can_send == 1) {
+      Wo_SendMessages();
+    }
+  });
+}
+
+function Wo_RegisterLike(post_id) {
+  var post = $('[id=post-' + post_id + ']');
+  html_like = '<span class="active-like"><i class="fa fa-thumbs-up progress-icon" data-icon="thumbs-up"></i><span class="like-btn-mobile"> <?php echo $wo["lang"]["liked"];?></span></span>';
+  if (post.find("[id^=like-button]").parent().find('.active-like').length > 0) {
+  	html_like = '<i class="fa fa-thumbs-up progress-icon" data-icon="thumbs-up"></i> <span class="like-btn-mobile"> <?php echo $wo["lang"]["like"];?></span>';
+  } 
+  <?php if ($wo['config']['second_post_button'] == 'dislike') { ?>
+   post.find("[id^=wonder-button]").html('<i class="fa fa-thumbs-down progress-icon" data-icon="thumbs-down"></i> <span class="like-btn-mobile"> <?php echo $wo["lang"]["dislike"];?></span>');
+  <?php } ?>
+  post.find("[id^=like-button]").html(html_like);
+  $.get(Wo_Ajax_Requests_File(), {f: 'posts', s: 'register_like', post_id: post_id}, function (data) {
+    if(data.status == 200) {
+      post.find("[id^=likes]").text(data.likes);
+    } else {
+      post.find("[id^=likes]").text(data.likes);
+    }
+    if (data.can_send == 1) {
+      Wo_SendMessages();
+    }
+  });
+}
+
+function Wo_RegisterWonder(post_id) {
+  var post = $('[id=post-' + post_id + ']');
+  wonder_icon = '<?php echo $wo["second_post_button_icon"]?>';
+  wonder_lang = "<?php echo $wo['lang']['wonder']; ?>";
+  wonder_lang_2 = "<?php echo $wo['lang']['wondered']; ?>";
+  <?php if ($wo['config']['second_post_button'] == 'dislike') { ?>
+  wonder_lang = "<?php echo $wo['lang']['dislike']; ?>";
+  wonder_lang_2 = "<?php echo $wo['lang']['disliked']; ?>";
+  <?php } ?>
+  html_wonder = '<span class="active-wonder"><i class="fa fa-' + wonder_icon + ' progress-icon" data-icon="' + wonder_icon + '"></i> <span class="like-btn-mobile">' + wonder_lang_2 + '</span></span>';
+  if (post.find("[id^=wonder-button]").parent().find('.active-wonder').length > 0) {
+  	html_wonder = '<i class="fa fa-' + wonder_icon + ' progress-icon" data-icon="' + wonder_icon + '"></i> <span class="like-btn-mobile">' + wonder_lang + '</span>';
+  } 
+  post.find("[id^=wonder-button]").html(html_wonder);
+  <?php if ($wo['config']['second_post_button'] == 'dislike') { ?>
+   post.find("[id^=like-button]").html('<i class="fa fa-thumbs-up progress-icon" data-icon="thumbs-up"></i> <span class="like-btn-mobile"> <?php echo $wo["lang"]["like"];?></span>');
+  <?php } ?>
+  $.get(Wo_Ajax_Requests_File(), {f: 'posts', s: 'register_wonder', post_id: post_id}, function (data) {
+    if(data.status == 200) {
+      post.find("[id^=wonders]").text(data.wonders);
+    } else {
+      post.find("[id^=wonders]").text(data.wonders);
+    }
+    if (data.can_send == 1) {
+      Wo_SendMessages();
+    }
+  });
+}
+</script>

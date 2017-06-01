@@ -1,0 +1,7 @@
+<tr class="setting-postlist" id="<?php echo $wo['langs_'];?>">
+   <td><?php echo $wo['langs'];?></td>
+   <td>
+      <a class="delete-post pointer" href="<?php echo Wo_SeoLink('index.php?link1=admincp&page=edit_lang&id=' . $wo['langs_']);?>"><i class="fa fa-pencil-square progress-icon" data-icon="trash-o"></i> Edit language</a> | 
+      <span class="delete-field pointer" onclick="Wo_DeleteLang('<?php echo $wo['langs_'];?>');"><i class="fa fa-trash-o progress-icon" data-icon="trash-o"></i> Delete language</span>
+   </td>
+</tr>

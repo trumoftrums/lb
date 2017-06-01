@@ -1,0 +1,8 @@
+<div class="welcome-header">
+     <?php if ($wo['config']['user_registration'] == 1): ?>
+     	<div class="absul-right">
+   		   <button class="create-account" onclick="location.href='<?php echo Wo_SeoLink('index.php?link1=register');?>';"><?php echo $wo['lang']['sign_up']?></button>
+   	    </div>
+     <?php endif ?>
+   	<div class="clear"></div>
+</div>

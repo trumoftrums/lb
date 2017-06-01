@@ -1,0 +1,117 @@
+<div class="modal fade" id="re-talking-modal" role="dialog" data-backdrop="static" data-keyboard="false">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title"><?php echo $wo['lang']['audio_call'];?></h4>
+         </div>
+         <div class="modal-body">
+            <div class="row">
+              <div class="col-md-2" style="<?php echo ($wo['language_type'] == 'rtl') ? 'padding-left: 0; padding-right: 15px;' : 'padding-right:0; ';?>">
+                <img src="<?php echo $wo['incall']['in_call_user']['avatar'];?>" alt="" class="hidden-mobile-image">
+              </div>
+              <div class="col-md-10">
+                <p><?php echo $wo['lang']['audio_call_desc'];?><b> <?php echo $wo['incall']['in_call_user']['name'];?></b></p>
+              </div>
+              <div class="clear"></div>
+              <div id="remote-media">
+                  <h3><i class="fa fa-spin fa-spinner"></i> <?php echo $wo['lang']['please_wait']?></h3>
+              </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+             <button type="button" class="mdbtn btn decline-call btn-default" onclick="Wo_CloseCall('<?php echo $wo['incall']['id'];?>');"><i class="fa fa-times progress-icon" data-icon="times"></i> <?php echo $wo['lang']['cancel'];?></button>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+var conversationsClient;
+var activeConversation;
+var previewMedia;
+
+// check for WebRTC
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+if (!navigator.getUserMedia) {
+  //$('#remote-media h3').text('Sorry, WebRTC is not available in your browser.');
+}
+var accessToken = "";
+$(function () {
+  accessToken = '<?php echo $wo['incall']['access_token'];?>';
+  var accessManager = new Twilio.AccessManager(accessToken);
+  conversationsClient = new Twilio.Conversations.Client(accessManager);
+  conversationsClient.listen().then(
+  clientConnected,
+     function (error) {
+       alert(error.message);
+     }
+  );
+});
+
+// successfully connected!
+function clientConnected(call_id) {
+  conversationsClient.on('invite', function (invite) {
+    invite.accept({localStreamConstraints:{audio:true,video:false}}).then(conversationStarted);
+  });
+    var inviteTo = '<?php echo $wo['incall']['call_id'];?>';
+    if (activeConversation) {
+      // add a participant
+      activeConversation.invite(inviteTo);
+    } else {
+      // create a conversation
+      var options = {};
+      if (previewMedia) {
+        options.localMedia = previewMedia;
+      }
+      options.localStreamConstraints = { video: false, audio: true };
+      var is_invited = <?php echo ($wo['incall']['user'] == 1) ? 1: 0;?>;
+      if (is_invited == 0) {
+        conversationsClient.inviteToConversation(inviteTo, options).then(
+        conversationStarted,
+        function (error) {
+          console.error('Unable to create conversation', error);
+        }
+      );
+      }
+    }
+};
+
+// conversation is live
+function conversationStarted(conversation) {
+  activeConversation = conversation;
+  // draw local video, if not already previewing
+  if (!previewMedia) {
+    //conversation.localMedia.attach('#local-media');
+  }
+  // when a participant joins, draw their video on screen
+  conversation.on('participantConnected', function (participant) {
+    $('#remote-media').empty();
+   participant.media.attach('#remote-media');
+  });
+  // when a participant disconnects, note in log
+  conversation.on('participantDisconnected', function (participant) {
+    alert("Connection has been lost.");
+    window.location.href = '<?php echo $wo['config']['site_url'];?>';
+  });
+
+  // when the conversation ends, stop capturing local video
+  conversation.on('ended', function (conversation) {
+    conversation.localMedia.stop();
+    conversation.disconnect();
+    activeConversation = null;
+  });
+  $(document).on('click', 'a[data-ajax]', function(e) {
+    CloseConnections(conversation);
+  });
+  $(document).on('click', '.decline-call', function(e) {
+    CloseConnections(conversation);
+  });
+};
+
+function CloseConnections(conversation) {
+    conversation.localMedia.stop();
+    conversation.disconnect();
+    activeConversation = null;
+}
+
+
+</script>

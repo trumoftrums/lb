@@ -1,0 +1,27 @@
+<?php /* page content */
+		global $ad, $ad_id, $ad_content;
+?>
+<div class="container mt20">
+	<div class="row">
+		<div class="col-md-11">
+		
+			<?php /* left panel */ ?>
+				<div class="col-sm-12" style="padding:0px;"><?php include "ads_header.phtml"; ?></div>
+			<?php /* left panel */ ?>	
+		
+<div class="panel panel-default">
+    <div class="panel-heading"><?php echo $ad_content['title']; ?></div>
+	<div class="panel-body">
+  <?php 
+  if($ad_content['template'] != ''){ 	
+  include $ad_content['template'];
+  }
+  ?>
+   </div>
+    </div>
+</div>
+
+<?php /* left panel */ ?>
+	</div>
+</div>
+<?php /* page content */ ?>

@@ -1,0 +1,490 @@
+<?php
+$selected_cacheSystem_yes = ($wo['config']['cacheSystem'] == 1) ? ' checked' : '';
+$selected_cacheSystem_no  = ($wo['config']['cacheSystem'] == 0) ? ' checked' : '';
+
+$selected_chatSystem_yes  = ($wo['config']['chatSystem'] == 1) ? ' checked' : '';
+$selected_chatSystem_no   = ($wo['config']['chatSystem'] == 0) ? ' checked' : '';
+
+$selected_emailValidation_yes   = ($wo['config']['emailValidation'] == 1) ? ' checked' : '';
+$selected_emailValidation_no   = ($wo['config']['emailValidation'] == 0) ? ' checked' : '';
+
+$selected_emailNotification_yes = ($wo['config']['emailNotification'] == 1) ? ' checked' : '';
+$selected_emailNotification_no = ($wo['config']['emailNotification'] == 0) ? ' checked' : '';
+
+$selected_seoLink_yes           = ($wo['config']['seoLink'] == 1) ? ' checked' : '';
+$selected_seoLink_no            = ($wo['config']['seoLink'] == 0) ? ' checked' : '';
+
+$selected_fileSharing_yes       = ($wo['config']['fileSharing'] == 1) ? ' checked' : '';
+$selected_fileSharing_no        = ($wo['config']['fileSharing'] == 0) ? ' checked' : '';
+
+$selected_useSeoFrindly_yes     = ($wo['config']['useSeoFrindly'] == 1) ? ' checked' : '';
+$selected_useSeoFrindly_no      = ($wo['config']['useSeoFrindly'] == 0) ? ' checked' : '';
+
+$selected_message_seen_yes   = ($wo['config']['message_seen'] == 1) ? ' checked' : '';
+$selected_message_seen_no   = ($wo['config']['message_seen'] == 0) ? ' checked' : '';
+
+$selected_message_typing_yes = ($wo['config']['message_typing'] == 1) ? ' checked' : '';
+$selected_message_typing_no = ($wo['config']['message_typing'] == 0) ? ' checked' : '';
+
+$selected_user_lastseen_yes   = ($wo['config']['user_lastseen'] == 1)   ? ' checked' : '';
+$selected_user_lastseen_no   = ($wo['config']['user_lastseen'] == 0)   ? ' checked' : '';
+
+$selected_delete_yes   = ($wo['config']['deleteAccount'] == 1)   ? ' checked' : '';
+$selected_delete_no   = ($wo['config']['deleteAccount'] == 0)   ? ' checked' : '';
+
+$selected_profileVisit_yes   = ($wo['config']['profileVisit'] == 1)   ? ' checked' : '';
+$selected_profileVisit_no   = ($wo['config']['profileVisit'] == 0)   ? ' checked' : '';
+
+$selected_online_sidebar_yes   = ($wo['config']['online_sidebar'] == 1)   ? ' checked' : '';
+$selected_online_sidebar_no   = ($wo['config']['online_sidebar'] == 0)   ? ' checked' : '';
+
+$selected_profile_privacy_yes   = ($wo['config']['profile_privacy'] == 1)   ? ' checked' : '';
+$selected_profile_privacy_no   = ($wo['config']['profile_privacy'] == 0)   ? ' checked' : '';
+
+$selected_video_upload_yes   = ($wo['config']['video_upload'] == 1)   ? ' checked' : '';
+$selected_video_upload_no   = ($wo['config']['video_upload'] == 0)   ? ' checked' : '';
+
+$selected_audio_upload_yes   = ($wo['config']['audio_upload'] == 1)   ? ' checked' : '';
+$selected_audio_upload_no   = ($wo['config']['audio_upload'] == 0)   ? ' checked' : '';
+
+$selected_sms_or_email_email   = ($wo['config']['sms_or_email'] == 'mail')   ? ' checked' : '';
+$selected_sms_or_email_sms   = ($wo['config']['sms_or_email'] == 'sms')   ? ' checked' : '';
+
+$selected_css_upload  = ($wo['config']['css_upload'] == '1')   ? ' checked' : '';
+$selected_css_upload_no   = ($wo['config']['css_upload'] == '0')   ? ' checked' : '';
+
+$selected_smooth_loading  = ($wo['config']['smooth_loading'] == '1')   ? ' checked' : '';
+$selected_smooth_loading_no   = ($wo['config']['smooth_loading'] == '0')   ? ' checked' : '';
+
+$selected_games  = ($wo['config']['games'] == '1')   ? ' checked' : '';
+$selected_games_no   = ($wo['config']['games'] == '0')   ? ' checked' : '';
+
+$selected_pages  = ($wo['config']['pages'] == '1')   ? ' checked' : '';
+$selected_pages_no   = ($wo['config']['pages'] == '0')   ? ' checked' : '';
+
+$selected_classified  = ($wo['config']['classified'] == '1')   ? ' checked' : '';
+$selected_classified_no   = ($wo['config']['classified'] == '0')   ? ' checked' : '';
+
+$selected_group  = ($wo['config']['groups'] == '1')   ? ' checked' : '';
+$selected_group_no   = ($wo['config']['groups'] == '0')   ? ' checked' : '';
+
+$selected_developers_page  = ($wo['config']['developers_page'] == '1')   ? ' checked' : '';
+$selected_developers_page_no   = ($wo['config']['developers_page'] == '0')   ? ' checked' : '';
+
+$selected_user_registration  = ($wo['config']['user_registration'] == '1')   ? ' checked' : '';
+$selected_user_registration_no   = ($wo['config']['user_registration'] == '0')   ? ' checked' : '';
+$selected_maintenance_mode  = ($wo['config']['maintenance_mode'] == '1')   ? ' checked' : '';
+$selected_maintenance_mode_no   = ($wo['config']['maintenance_mode'] == '0')   ? ' checked' : '';
+
+?>
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-cog"></i> <?php echo $wo['lang']['general_setting']; ?></div>
+   <div class="setting-well page-margin">
+      <form action="" method="post" class="admin-general-setting form-horizontal">
+         <div class="form-group">
+            <label class="col-md-3" for="maintenance_mode">Maintenance mode</label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="maintenance_mode-0">
+               <input type="radio" name="maintenance_mode" id="maintenance_mode-0" value="1" <?php echo $selected_maintenance_mode; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="maintenance_mode-1">
+               <input type="radio" name="maintenance_mode" id="maintenance_mode-1" value="0" <?php echo $selected_maintenance_mode_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block">Turn the whole site in Maintenance mode. <br><span style="color:red;">You can get the site back by visiting /admincp</span></span>
+            </div>
+
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-3" for="seoLink"><?php echo $wo['lang']['smooth_links']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="seoLink-0">
+               <input type="radio" name="seoLink" id="seoLink-0" value="1" <?php echo $selected_seoLink_yes; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="seoLink-1">
+               <input type="radio" name="seoLink" id="seoLink-1" value="0" <?php echo $selected_seoLink_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block"><?php echo $wo['lang']['smooth_links_info']; ?></span>
+               <?php if (function_exists('apache_get_modules')) { if (!in_array('mod_rewrite', apache_get_modules())) { ?>
+               <span class="help-block" style="color:red">Please install mod_rewrite before enabling smooth links.</span>
+               <?php } } ?>
+            </div>
+
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="smooth_loading"><?php echo $wo['lang']['smooth_loading']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="smooth_loading-0">
+               <input type="radio" name="smooth_loading" id="smooth_loading-0" value="1" <?php echo $selected_smooth_loading; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="smooth_loading-1">
+               <input type="radio" name="smooth_loading" id="smooth_loading-1" value="0" <?php echo $selected_smooth_loading_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block">Enable smooth loading to save bandwidths (Recommended for shared hosting)</span> 
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="profile_privacy"><?php echo $wo['lang']['profile_privacy']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="profile_privacy-0">
+               <input type="radio" name="profile_privacy" id="profile_privacy-0" value="1" <?php echo $selected_profile_privacy_yes; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="profile_privacy-1">
+               <input type="radio" name="profile_privacy" id="profile_privacy-1" value="0" <?php echo $selected_profile_privacy_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block"><?php echo $wo['lang']['profile_privacy_info']; ?></span> 
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="user_registration">User registration</label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="user_registration-0">
+               <input type="radio" name="user_registration" id="user_registration-0" value="1" <?php echo $selected_user_registration; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="user_registration-1">
+               <input type="radio" name="user_registration" id="user_registration-1" value="0" <?php echo $selected_user_registration_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block">Allow users to create accounts.</span> 
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-3" for="fileSharing"><?php echo $wo['lang']['file_sharing']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="fileSharing-0">
+               <input type="radio" name="fileSharing" id="fileSharing-0" value="1" <?php echo $selected_fileSharing_yes; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="fileSharing-1">
+               <input type="radio" name="fileSharing" id="fileSharing-1" value="0" <?php echo $selected_fileSharing_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block"><?php echo $wo['lang']['file_sharing_info']; ?></span> 
+            </div>
+         </div>
+
+         <div class="form-group">
+            <label class="col-md-3" for="video_upload"><?php echo $wo['lang']['video_upload']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="video_upload-0">
+               <input type="radio" name="video_upload" id="video_upload-0" value="1" <?php echo $selected_video_upload_yes; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="video_upload-1">
+               <input type="radio" name="video_upload" id="video_upload-1" value="0" <?php echo $selected_video_upload_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block"><?php echo $wo['lang']['video_upload_info']; ?></span> 
+            </div>
+         </div>
+
+         <div class="form-group">
+            <label class="col-md-3" for="audio_upload"><?php echo $wo['lang']['audio_upload']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="audio_upload-0">
+               <input type="radio" name="audio_upload" id="audio_upload-0" value="1" <?php echo $selected_audio_upload_yes; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="audio_upload-1">
+               <input type="radio" name="audio_upload" id="audio_upload-1" value="0" <?php echo $selected_audio_upload_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block"><?php echo $wo['lang']['audio_upload_info']; ?></span> 
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-3" for="online_sidebar"><?php echo $wo['lang']['online_users']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="online_sidebar-0">
+               <input type="radio" name="online_sidebar" id="online_sidebar-0" value="1" <?php echo $selected_online_sidebar_yes; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="online_sidebar-1">
+               <input type="radio" name="online_sidebar" id="online_sidebar-1" value="0" <?php echo $selected_online_sidebar_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block"><?php echo $wo['lang']['online_sidebar_admin_label']; ?></span> 
+            </div>
+         </div>
+
+         <div class="form-group">
+            <label class="col-md-3" for="useSeoFrindly"><?php echo $wo['lang']['seo_friendly_url']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="useSeoFrindly-0">
+               <input type="radio" name="useSeoFrindly" id="useSeoFrindly-0" value="1" <?php echo $selected_useSeoFrindly_yes; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="useSeoFrindly-1">
+               <input type="radio" name="useSeoFrindly" id="useSeoFrindly-1" value="0" <?php echo $selected_useSeoFrindly_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block"><?php echo $wo['lang']['seo_frindly_info']; ?></span> 
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-3" for="emailValidation">Enable user validation</label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="emailValidation-0">
+               <input type="radio" name="emailValidation" id="emailValidation-0" value="1" <?php echo $selected_emailValidation_yes; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="emailValidation-1">
+               <input type="radio" name="emailValidation" id="emailValidation-1" value="0" <?php echo $selected_emailValidation_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block"><?php echo $wo['lang']['email_validation_info']; ?></span> 
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="emailValidation">Validation type</label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="sms_or_email-0">
+               <input type="radio" name="sms_or_email" id="sms_or_email-0" value="mail" <?php echo $selected_sms_or_email_email; ?>>
+               E-mail
+               </label> 
+               <label class="radio-inline" for="sms_or_email-1">
+               <input type="radio" name="sms_or_email" id="sms_or_email-1" value="sms" <?php echo $selected_sms_or_email_sms; ?>>
+               SMS
+               </label>
+               <span class="help-block">Choose the validation type, by SMS or E-mail, if you choose SMS, make sure you have configured the SMS configration.</span> 
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="emailNotification"><?php echo $wo['lang']['email_notification']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="emailNotification-0">
+               <input type="radio" name="emailNotification" id="emailNotification-0" value="1" <?php echo $selected_emailNotification_yes; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="emailNotification-1">
+               <input type="radio" name="emailNotification" id="emailNotification-1" value="0" <?php echo $selected_emailNotification_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block"><?php echo $wo['lang']['email_notification_info']; ?></span> 
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-3" for="chatSystem"><?php echo $wo['lang']['chat_system']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="chatSystem-0">
+               <input type="radio" name="chatSystem" id="chatSystem-0" value="1" <?php echo $selected_chatSystem_yes; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="chatSystem-1">
+               <input type="radio" name="chatSystem" id="chatSystem-1" value="0" <?php echo $selected_chatSystem_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block"><?php echo $wo['lang']['chat_setting_info']; ?></span> 
+            </div>
+         </div>
+
+          <div class="form-group">
+            <label class="col-md-3" for="message_seen"><?php echo $wo['lang']['message_seen']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="message_seen-0">
+               <input type="radio" name="message_seen" id="message_seen-0" value="1" <?php echo $selected_message_seen_yes; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="message_seen-1">
+               <input type="radio" name="message_seen" id="message_seen-1" value="0" <?php echo $selected_message_seen_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block"><?php echo $wo['lang']['recommended_for_powerful']; ?></span> 
+            </div>
+         </div>
+
+         <div class="form-group">
+            <label class="col-md-3" for="message_typing"><?php echo $wo['lang']['message_typing']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="message_typing-0">
+               <input type="radio" name="message_typing" id="message_typing-0" value="1" <?php echo $selected_message_typing_yes; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="message_typing-1">
+               <input type="radio" name="message_typing" id="message_typing-1" value="0" <?php echo $selected_message_typing_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block"><?php echo $wo['lang']['recommended_for_powerful']; ?></span> 
+            </div>
+         </div>
+
+         <div class="form-group">
+            <label class="col-md-3" for="user_lastseen"><?php echo $wo['lang']['user_status']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="user_lastseen-0">
+               <input type="radio" name="user_lastseen" id="user_lastseen-0" value="1" <?php echo $selected_user_lastseen_yes; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="user_lastseen-1">
+               <input type="radio" name="user_lastseen" id="user_lastseen-1" value="0" <?php echo $selected_user_lastseen_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block"><?php echo $wo['lang']['online_lastseen']; ?></span> 
+            </div>
+         </div>
+         <hr>
+
+         <div class="form-group">
+            <label class="col-md-3" for="deleteAccount"><?php echo $wo['lang']['account_delete']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="deleteAccount-0">
+               <input type="radio" name="deleteAccount" id="deleteAccount-0" value="1" <?php echo $selected_delete_yes; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="deleteAccount-1">
+               <input type="radio" name="deleteAccount" id="deleteAccount-1" value="0" <?php echo $selected_delete_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block"><?php echo $wo['lang']['allow_users_to_delete']; ?></span> 
+            </div>
+         </div>
+
+         <div class="form-group">
+            <label class="col-md-3" for="profileVisit"><?php echo $wo['lang']['profile_visit_notification']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="profileVisit-0">
+               <input type="radio" name="profileVisit" id="profileVisit-0" value="1" <?php echo $selected_profileVisit_yes; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="profileVisit-1">
+               <input type="radio" name="profileVisit" id="profileVisit-1" value="0" <?php echo $selected_profileVisit_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block"><?php echo $wo['lang']['profile_visit_notification_help']; ?></span> 
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-3" for="css_upload">CSS upload</label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="css_upload-0">
+               <input type="radio" name="css_upload" id="css_upload-0" value="1" <?php echo $selected_css_upload; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="css_upload-1">
+               <input type="radio" name="css_upload" id="css_upload-1" value="0" <?php echo $selected_css_upload_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block">Allow users to upload their own CSS file.</span> 
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-3" for="games">Games</label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="games-0">
+               <input type="radio" name="games" id="games-0" value="1" <?php echo $selected_games; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="games-1">
+               <input type="radio" name="games" id="games-1" value="0" <?php echo $selected_games_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block">Allow users to play games.</span> 
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="pages">Pages</label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="pages-0">
+               <input type="radio" name="pages" id="pages-0" value="1" <?php echo $selected_pages; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="pages-1">
+               <input type="radio" name="pages" id="pages-1" value="0" <?php echo $selected_pages_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block">Allow users to create pages.</span> 
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="classified">Classified</label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="classified-0">
+               <input type="radio" name="classified" id="classified-0" value="1" <?php echo $selected_classified; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="classified-1">
+               <input type="radio" name="classified" id="classified-1" value="0" <?php echo $selected_classified_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block">Allow users to sell products.</span> 
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="games">Groups</label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="groups-0">
+               <input type="radio" name="groups" id="groups-0" value="1" <?php echo $selected_group; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="groups-1">
+               <input type="radio" name="groups" id="groups-1" value="0" <?php echo $selected_group_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block">Allow users to create groups.</span> 
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-3" for="developers_page">Developers</label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="developers_page-0">
+               <input type="radio" name="developers_page" id="developers_page-0" value="1" <?php echo $selected_developers_page; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="developers_page-1">
+               <input type="radio" name="developers_page" id="developers_page-1" value="0" <?php echo $selected_developers_page_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block">Show developers page to all users for API requests.</span> 
+            </div>
+         </div>
+         
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+         <hr>
+         <div class="form-group">
+            <label class="col-md-3"></label>  
+            <div class="col-md-8">
+               <button type="submit" class="btn btn-main">
+               <i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i>  <?php echo $wo['lang']['save']?>
+               </button>   
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+<script type="text/javascript">
+$(function() {
+    $('form.admin-general-setting').ajaxForm({
+      url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=update_general_setting',
+      beforeSend: function() {
+        Wo_progressIconLoader($('form.admin-general-setting').find('button'));
+      },
+      success: function(data) {
+        if (data.status == 200) {
+          $('form.admin-general-setting button').html('<i class="fa fa-check"></i> <?php echo $wo["lang"]["saved"];?>');
+          setTimeout(function () {
+            $('form.admin-general-setting button').html('<i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i>  <?php echo $wo["lang"]["save"]?>');
+          }, 2000);
+          
+          Wo_progressIconLoader($('form.admin-general-setting').find('button'));
+
+        } 
+      }
+    });
+});
+</script>

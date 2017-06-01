@@ -1,0 +1,32 @@
+<tr class="setting-userlist" id="UserID_<?php echo $wo['userlist']['id']?>" data-user-id="<?php echo $wo['userlist']['user']['user_id']?>">
+   <td><?php echo $wo['userlist']['user']['user_id']?></td>
+   <td>
+      <a href="<?php echo $wo['userlist']['user']['url']; ?>">
+      <img src="<?php echo $wo['userlist']['user']['avatar']; ?>" class="setting-avatar" alt="<?php echo $wo['userlist']['user']['avatar']?> Profile Picture">
+      <?php echo $wo['userlist']['user']['name']; ?>
+      </a>
+   </td>
+   <td><?php echo $wo['userlist']['user']['paypal_email'];?></td>
+   <td>$<?php echo $wo['userlist']['amount'];?></td>
+   <td><a href="<?php echo Wo_SeoLink('index.php?link1=admincp&page=referrals?id=' . $wo['userlist']['user_id']);?>">Show</a></td>
+   <td>
+   <?php 
+   if ($wo['userlist']['status'] == 0) {
+      echo '<span class="label label-warning">Pending</span>';
+   } else 
+   if ($wo['userlist']['status'] == 1) {
+      echo '<span class="label label-success">Approved</span>';
+   } else
+   if ($wo['userlist']['status'] == 2) {
+      echo '<span class="label label-danger">Declined</span>';
+   }
+   ?></td>
+   <td>
+      <span class="pointer" onclick="Wo_MarkPaid(<?php echo $wo['userlist']['id']?>);" data-toggle="tooltip" title="Mark request as paid">
+        <i class="fa fa-check"></i>
+      </span> | 
+      <span class="pointer" onclick="Wo_DeclinePayment(<?php echo $wo['userlist']['id']?>);" data-toggle="tooltip" title="Decline request">
+        <i class="fa fa-times"></i>
+      </span>
+   </td>
+</tr>

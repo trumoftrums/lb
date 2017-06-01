@@ -1,0 +1,9 @@
+<tr class="setting-postlist" id="<?php echo $wo['page']['id'];?>">
+   <td><?php echo $wo['page']['id'];?></td>
+   <td><a href="<?php echo Wo_SeoLink('index.php?link1=site-pages&page_name=' . $wo['page']['page_name']); ?>"><?php echo $wo['page']['page_name'];?></a></td>
+   <td><?php echo $wo['page']['page_title'];?></td>
+   <td>
+      <a class="delete-post pointer" href="<?php echo Wo_SeoLink('index.php?link1=admincp&page=edit_page&id=' . $wo['page']['page_name']);?>"><i class="fa fa-pencil-square progress-icon" data-icon="trash-o"></i></a> | 
+      <span class="delete-field pointer" onclick="Wo_DeleteCustomPage(<?php echo $wo['page']['id'];?>);"><i class="fa fa-trash-o progress-icon" data-icon="trash-o"></i></span>
+   </td>
+</tr>

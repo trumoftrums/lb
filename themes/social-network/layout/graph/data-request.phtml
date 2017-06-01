@@ -1,0 +1,120 @@
+<div class="page-margin">
+
+  <div class="row">
+
+    <div class="col-md-8">
+    
+    <div class="wowonder-well">
+    
+    <div class="form-horizontal" method="post">
+
+      <fieldset>
+
+      <legend><i class="fa fa-cog"></i> App Permissions </legend>
+
+         <div class="profile-style">
+
+
+    <div class="avatar <?php echo Wo_RightToLeft('pull-left');?>">
+
+      <img src="<?php echo $wo['app']['app_avatar'];?>" alt="<?php echo $wo['app']['app_name']; ?> Profile Picture" />
+
+    </div>
+
+    <?php echo $wo['app']['app_name']; ?>
+
+  
+
+  <div class="app-website">
+
+    <p><?php echo $wo['app']['app_description']?></p>
+
+  </div>
+
+</div>
+
+<div class="clear"></div>
+
+ <h4><?php echo $wo['app']['app_name']; ?> Would to recive the following info: <small>(email, profile info)</small></h4>
+<hr>
+         
+         <div class="form-inline pull-right">
+          
+           <div class="form-group">
+
+            <div class="col-sm-4 text-left">
+
+               <a href="<?php echo $wo['app']['app_website_url'];?>" class="form-control btn btn-default">
+
+                <i class="fa fa-arrow-left progress-icon" data-icon="arrow-left"></i> Back
+
+               </a>
+
+            </div>
+
+         </div>
+         <div class="form-group">
+
+            <div class="col-sm-4 text-left">
+
+               <button onclick="Wo_AcceptPermissions(<?php echo $wo['app']['id'];?>);" class=" btn btn-danger">
+
+                <i class="fa fa-check progress-icon" data-icon="check"></i> Accept
+
+               </button>
+
+               <?php 
+
+               $url = $wo['app']['app_website_url'];
+
+               if (isset($_GET['redirect_uri']) && !empty($_GET['redirect_uri'])) {
+
+               	  $url = $_GET['redirect_uri'];
+
+               } else if (!empty($wo['app']['app_callback_url'])) {
+
+               	  $url = $wo['app']['app_callback_url'];
+
+               }
+
+               ?>
+
+               <input type="hidden" id="url" name="url" value="<?php echo $url;?>">
+               
+            </div>
+
+         </div>
+
+         
+         </div>
+
+        
+      </fieldset>
+
+   </div>
+
+   
+    </div>
+      
+    </div> <!-- .col-md-8 -->
+
+    <?php echo Wo_LoadPage('sidebar/content');?>
+
+  </div> <!-- .row -->
+
+</div> <!-- .page-margin -->
+
+<script>
+function Wo_AcceptPermissions(id) {
+
+	var url = $('#url').val();
+
+	$.get(Wo_Ajax_Requests_File(), {f: 'apps', s:'acceptPermissions', id:id, url:url}, function (data) {
+		
+		if (data.status == 200) {
+			window.location.href = data.location;
+		}
+
+	});
+}
+</script>

@@ -1,0 +1,46 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-plus"></i>Add new language key</div>
+   <div class="setting-well page-margin">
+      <form action="" method="post" class="admin-site-setting form-horizontal">
+         <div class="form-group">
+            <label class="col-md-3" for="lang_key">Key name:</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="lang_key"> 
+               <span class="help-block">Use only english letters, no spaces allowed, example: this_is_a_key</span>
+            </div>
+         </div>
+         <hr>
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+         <div class="form-group">
+            <label class="col-md-3"></label>  
+            <div class="col-md-6">
+               <button type="submit" class="btn btn-main">
+               <i class="fa fa-plus progress-icon" data-icon="plus"></i>  <?php echo $wo['lang']['add']?>
+               </button> 
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+<script type="text/javascript">
+$(function() {
+    $('form.admin-site-setting').ajaxForm({
+      url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=add_new_lang_key',
+      beforeSend: function() {
+        Wo_progressIconLoader($('form.admin-site-setting').find('button'));
+      },
+      success: function(data) {
+        if (data.status == 200) {
+          $('form.admin-site-setting button').html('<i class="fa fa-check"></i> Added');
+          setTimeout(function () {
+            window.location.href = data.url;
+          }, 1000);
+        } else if (data.status == 400) {
+          alert(data.message);
+        }
+        Wo_progressIconLoader($('form.admin-site-setting').find('button'));
+      }
+    });
+});
+
+</script>

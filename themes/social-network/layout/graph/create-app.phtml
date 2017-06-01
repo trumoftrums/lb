@@ -1,0 +1,163 @@
+<div class="page-margin">
+
+  <div class="row">
+
+    <div class="col-md-8">
+    
+    <div class="wowonder-well">
+    
+    <form class="app-general-form form-horizontal" method="post">
+
+      <fieldset>
+
+      <legend><i class="fa fa-cog"></i> Create App 
+            <span class="pull-right">
+
+               <a href="<?php echo Wo_SeoLink('index.php?link1=apps');?>" class="btn btn-default "><i class="fa fa-arrow-circle-left"></i> My Apps</a>
+
+            </span></legend>
+
+         <div class="app-general-alert setting-update-alert"></div>
+
+         <!-- Text input-->
+         <div class="form-group">
+
+            <label class="col-md-3" for="app_name">App name *</label>  
+
+            <div class="col-md-6">
+
+               <input id="app_name" name="app_name" type="text" class="form-control input-md">
+
+               <span class="help-block">Your application name. This is used to attribute the source user-facing authorization screens. 32 characters max.</span>
+
+            </div>
+
+         </div>
+
+         <div class="form-group">
+
+            <label class="col-md-3" for="app_website_url">App website *</label>  
+
+            <div class="col-md-6">
+
+               <input name="app_website_url" id="app_website_url" type="text" class="form-control input-md">
+
+               <span class="help-block">Your application's publicly accessible home page.</span>
+
+            </div>
+
+         </div>
+
+         <div class="form-group">
+
+            <label class="col-md-3" for="app_description">App description *</label>  
+
+            <div class="col-md-6">
+
+               <textarea name="app_description" id="" rows="3" class="form-control input-md"></textarea>
+
+               <span class="help-block">Your application description, which will be shown in user-facing authorization screens. Between 10 and 200 characters max.</span>
+
+            </div>
+
+         </div>
+
+         <div class="form-group">
+
+            <label class="col-md-3" for="app_callback_url">App callback url</label>  
+
+            <div class="col-md-6">
+
+               <input name="app_callback_url" id="app_callback_url" type="text" class="form-control input-md">
+
+               <span class="help-block">Where should we return after successfully authenticating?</span>
+
+            </div>
+
+         </div>
+
+          <div class="form-group">
+
+            <label class="col-md-3" for="app_avatar">App avatar</label>  
+
+            <div class="col-md-6">
+
+               <input name="app_avatar" id="app_avatar" type="file" class="form-control input-md">              
+
+            </div>
+
+         </div>
+
+         <hr>
+
+         <div class="form-group">
+
+            <label class="col-md-3"></label>
+
+            <div class="col-sm-3 text-left">
+
+               <button type="submit" name="save_setting" id="save-setting" tabindex="4" value="Save" class="form-control btn btn-danger">
+
+                <i class="fa fa-plus-square progress-icon" data-icon="plus-square"></i> Create
+
+               </button>
+
+            </div>
+
+         </div>
+
+        
+      </fieldset>
+
+   </form>
+
+   
+    </div>
+      
+    </div> <!-- .col-md-8 -->
+
+    <?php echo Wo_LoadPage('sidebar/content');?>
+
+  </div> <!-- .row -->
+
+</div> <!-- .page-margin -->
+
+<script>
+$(function() {
+
+  $('form.app-general-form').ajaxForm({
+
+    url: Wo_Ajax_Requests_File() + '?f=apps&s=create_app',
+   
+    beforeSend: function() {
+
+      Wo_progressIconLoader($('form.app-general-form').find('button'));
+
+    },
+   
+    success: function(data) {
+
+      scrollToTop();
+
+      if (data.status == 200) {
+
+        window.location.href = data.location;
+
+      } else {
+
+          var errors = data.errors.join("<br>");
+
+          $('.app-general-alert').html('<div class="alert alert-danger">' + errors + '</div>');
+
+          $('.alert-danger').fadeIn(300);
+
+      }
+
+      Wo_progressIconLoader($('form.app-general-form').find('button'));
+
+    }
+
+  });
+
+});
+</script>

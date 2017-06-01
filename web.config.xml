@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <system.webServer>
+        <rewrite>
+            <rules>
+                <rule name="rule 1h">
+                    <match url="^password-reset/([^\/]+)(\/|)$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=welcome&amp;link2=password_reset&amp;user_id={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 2h">
+                    <match url="^admincp$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=admincp" appendQueryString="true" />
+                </rule>
+                <rule name="rule 3h">
+                    <match url="^get_news_feed$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=get_news_feed" appendQueryString="true" />
+                </rule>
+                <rule name="rule 4h">
+                    <match url="^start-up$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=start-up" appendQueryString="true" />
+                </rule>
+                <rule name="rule 5h">
+                    <match url="^admincp/(.*)$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=admincp&amp;page={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 6h">
+                    <match url="^saved-posts/(.*)$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=saved-posts" appendQueryString="true" />
+                </rule>
+                <rule name="rule 7h">
+                    <match url="^activated/(.*)$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=activate&amp;link2={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 8h">
+                    <match url="^search$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=search" appendQueryString="true" />
+                </rule>
+                <rule name="rule 9h">
+                    <match url="^ads-create$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=ads-create" appendQueryString="true" />
+                </rule>
+                <rule name="rule 10h">
+                    <match url="^search/([^\/]+)(\/|)$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=search&amp;query={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 11h">
+                    <match url="^app/([^\/]+)(\/|)$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=app&amp;app_id={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 12h">
+                    <match url="^messages/([^\/]+)(\/|)$" />
+                    <action type="Rewrite" url="index.php?link1=messages&amp;user={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 13h">
+                    <match url="^terms/([^\/]+)(\/|)$" />
+                    <action type="Rewrite" url="index.php?link1=terms&amp;type={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 14h">
+                    <match url="^video-call/([^\/]+)(\/|)$" />
+                    <action type="Rewrite" url="index.php?link1=video-call&amp;call_id={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 15h">
+                    <match url="^post/([^\/]+)(\/|)$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=post&amp;id={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 16h">
+                    <match url="^game/([^\/]+)(\/|)$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=game&amp;id={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 17h">
+                    <match url="^upgraded$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=upgraded" appendQueryString="true" />
+                </rule>
+                <rule name="rule 18h">
+                    <match url="^games$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=games" appendQueryString="true" />
+                </rule>
+                <rule name="rule 19h">
+                    <match url="^new-game$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=new-game" appendQueryString="true" />
+                </rule>
+                <rule name="rule 20h">
+                    <match url="^go-pro$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=go-pro" appendQueryString="true" />
+                </rule>
+                <rule name="rule 21h">
+                    <match url="^oops$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=oops" appendQueryString="true" />
+                </rule>
+                <rule name="rule 22h">
+                    <match url="^user-activation$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=user-activation" appendQueryString="true" />
+                </rule>
+                <rule name="rule 23h">
+                    <match url="^hashtag/([^\/]+)(\/|)$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=hashtag&amp;hash={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 24h">
+                    <match url="^follow-requests/(.*)$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=follow-requests" appendQueryString="true" />
+                </rule>
+                <rule name="rule 25h">
+                    <match url="^p/([^\/]+)(\/|)$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=page&amp;p={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 26h">
+                    <match url="^g/([^\/]+)(\/|)$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=group&amp;g={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 27h">
+                    <match url="^home$" />
+                    <action type="Rewrite" url="index.php?link1=home" appendQueryString="true" />
+                </rule>
+                <rule name="rule 28h">
+                    <match url="^404$" />
+                    <action type="Rewrite" url="index.php?link1=404" appendQueryString="true" />
+                </rule>
+                <rule name="rule 29h" stopProcessing="true">
+                    <match url="^welcome(.*)$" />
+                    <action type="Rewrite" url="index.php?link1=welcome" appendQueryString="true" />
+                </rule>
+                <rule name="rule 30h" stopProcessing="true">
+                    <match url="^register$" />
+                    <action type="Rewrite" url="index.php?link1=register" appendQueryString="true" />
+                </rule>
+                <rule name="rule 31h" stopProcessing="true">
+                    <match url="^confirm-sms$" />
+                    <action type="Rewrite" url="index.php?link1=confirm-sms" appendQueryString="true" />
+                </rule>
+                <rule name="rule 32h" stopProcessing="true">
+                    <match url="^forgot-password$" />
+                    <action type="Rewrite" url="index.php?link1=forgot-password" appendQueryString="true" />
+                </rule>
+                <rule name="rule 33h">
+                    <match url="^activate$" />
+                    <action type="Rewrite" url="index.php?link1=activate" appendQueryString="true" />
+                </rule>
+                <rule name="rule 34h">
+                    <match url="^pages$" />
+                    <action type="Rewrite" url="index.php?link1=pages" appendQueryString="true" />
+                </rule>
+                <rule name="rule 35h">
+                    <match url="^groups$" />
+                    <action type="Rewrite" url="index.php?link1=groups" appendQueryString="true" />
+                </rule>
+                <rule name="rule 36h">
+                    <match url="^create-group$" />
+                    <action type="Rewrite" url="index.php?link1=create-group" appendQueryString="true" />
+                </rule>
+                <rule name="rule 37h">
+                    <match url="^create-page$" />
+                    <action type="Rewrite" url="index.php?link1=create-page" appendQueryString="true" />
+                </rule>
+                <rule name="rule 38h">
+                    <match url="^logout$" />
+                    <action type="Rewrite" url="index.php?link1=logout" appendQueryString="true" />
+                </rule>
+                <rule name="rule 39h">
+                    <match url="^contact-us$" />
+                    <action type="Rewrite" url="index.php?link1=contact-us" appendQueryString="true" />
+                </rule>
+                <rule name="rule 40h">
+                    <match url="^setting$" />
+                    <action type="Rewrite" url="index.php?link1=setting" appendQueryString="true" />
+                </rule>
+                <rule name="rule 41h">
+                    <match url="^messages$" />
+                    <action type="Rewrite" url="index.php?link1=messages" appendQueryString="true" />
+                </rule>
+                <rule name="rule 42h">
+                    <match url="^saved-posts$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=saved-posts" appendQueryString="true" />
+                </rule>
+                <rule name="rule 43h">
+                    <match url="^albums$" />
+                    <action type="Rewrite" url="index.php?link1=albums" appendQueryString="true" />
+                </rule>
+                <rule name="rule 44h">
+                    <match url="^albums/([A-Za-z0-9_-]+)$" />
+                    <action type="Rewrite" url="index.php?link1=albums&amp;user={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 45h">
+                    <match url="^album/([A-Za-z0-9_-]+)$" />
+                    <action type="Rewrite" url="index.php?link1=album&amp;id={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 46h">
+                    <match url="^create-album$" />
+                    <action type="Rewrite" url="index.php?link1=create-album" appendQueryString="true" />
+                </rule>
+                <rule name="rule 47h">
+                    <match url="^create-album/([A-Za-z0-9_-]+)$" />
+                    <action type="Rewrite" url="index.php?link1=create-album&amp;album={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 48h">
+                    <match url="^$" />
+                    <action type="Rewrite" url="index.php?link1=home" appendQueryString="true" />
+                </rule>
+                <rule name="rule 49h">
+                    <match url="^setting/([A-Za-z0-9_]+)/([A-Za-z0-9_-]+)$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=setting&amp;user={R:1}&amp;page={R:2}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 50h">
+                    <match url="^page-setting/([^\/]+)(\/|)$" />
+                    <action type="Rewrite" url="index.php?link1=page-setting&amp;page={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 51h">
+                    <match url="^page-setting/([A-Za-z0-9_]+)/([A-Za-z0-9_-]+)$" />
+                    <action type="Rewrite" url="index.php?link1=page-setting&amp;page={R:1}&amp;link3={R:2}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 52h">
+                    <match url="^group-setting/([^\/]+)(\/|)$" />
+                    <action type="Rewrite" url="index.php?link1=group-setting&amp;group={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 53h">
+                    <match url="^group-setting/([A-Za-z0-9_]+)/([A-Za-z0-9_-]+)$" />
+                    <action type="Rewrite" url="index.php?link1=group-setting&amp;group={R:1}&amp;link3={R:2}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 54h">
+                    <match url="^new-product$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=new-product" appendQueryString="true" />
+                </rule>
+                <rule name="rule 55h">
+                    <match url="^edit-product/([A-Za-z0-9_]+)$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=edit-product&amp;id={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 56h">
+                    <match url="^products$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=products" appendQueryString="true" />
+                </rule>
+                <rule name="rule 57h">
+                    <match url="^products/([A-Za-z0-9_-]+)$" />
+                    <action type="Rewrite" url="index.php?link1=products&amp;c_id={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 58h">
+                    <match url="^my-products$" />
+                    <action type="Rewrite" url="index.php?link1=my-products" appendQueryString="true" />
+                </rule>
+                <rule name="rule 59h">
+                    <match url="^oauth/(.*)$" />
+                    <action type="Rewrite" url="index.php?link1=oauth&amp;app_id={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 60h">
+                    <match url="^authorize/(.*)/(.*)/(.*)$" />
+                    <action type="Rewrite" url="index.php?link1=authorize&amp;app_id={R:1}&amp;app_secret={R:2}&amp;code={R:3}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 61h">
+                    <match url="^api/(.*)/(.*)$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=api&amp;type={R:1}&amp;access_token={R:2}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 62h">
+                    <match url="^graph-success/(.*)$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=graph-success&amp;access_token={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 63h">
+                    <match url="^site-pages/(.*)$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=site-pages&amp;page_name={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 64h">
+                    <match url="^_$" />
+                    <action type="Rewrite" url="/requests.php" appendQueryString="true" />
+                </rule>
+                <rule name="rule 65h">
+                    <match url="^developers$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=developers" appendQueryString="true" />
+                </rule>
+                <rule name="rule 66h">
+                    <match url="^apps$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=apps" appendQueryString="true" />
+                </rule>
+                <rule name="rule 67h">
+                    <match url="^create-app$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=create-app" appendQueryString="true" />
+                </rule>
+                <rule name="rule 68h">
+                    <match url="^boosted-pages$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=boosted-pages" appendQueryString="true" />
+                </rule>
+                <rule name="rule 69h">
+                    <match url="^boosted-posts$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=boosted-posts" appendQueryString="true" />
+                </rule>
+                <rule name="rule 70h">
+                    <match url="^setting/([A-Za-z0-9_-]+)$" ignoreCase="true" />
+                    <action type="Rewrite" url="index.php?link1=setting&amp;page={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 71h">
+                    <match url="^@([^\/]+)(\/|)$" />
+                    <action type="Rewrite" url="index.php?link1=timeline&amp;u={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="Imported Rule 2" stopProcessing="true">
+                    <match url="^([A-Za-z0-9_]+)/([^\/]+)(\/|)$" ignoreCase="false" />
+                    <conditions>
+                        <add input="{REQUEST_FILENAME}" matchType="IsDirectory" ignoreCase="false" negate="true" />
+                        <add input="{REQUEST_FILENAME}" matchType="IsFile" ignoreCase="false" negate="true" />
+                    </conditions>
+                    <action type="Rewrite" url="index.php?link1=timeline&amp;u={R:1}&amp;type={R:2}" appendQueryString="true" />
+                </rule>
+                <rule name="Imported Rule 1" stopProcessing="true">
+                    <match url="^([^\/]+)(\/|)$" ignoreCase="false" />
+                    <conditions>
+                        <add input="{REQUEST_FILENAME}" matchType="IsDirectory" ignoreCase="false" negate="true" />
+                        <add input="{REQUEST_FILENAME}" matchType="IsFile" ignoreCase="false" negate="true" />
+                    </conditions>
+                    <action type="Rewrite" url="index.php?link1=timeline&amp;u={R:1}" appendQueryString="true" />
+                </rule>
+                <rule name="rule 1O">
+                    <match url="^blogs$"  ignoreCase="true" />
+                    <action type="Rewrite" url="/index.php?link1=blogs"  appendQueryString="true" />
+                </rule>
+                <rule name="rule 2O">
+                    <match url="^blog-category/(\d+)(/?|)$"  ignoreCase="true" />
+                    <action type="Rewrite" url="/index.php?link1=blog-category&amp;id={R:1}"  appendQueryString="true" />
+                </rule>
+                <rule name="rule 3O">
+                    <match url="^create-blog(/?|)$"  ignoreCase="true" />
+                    <action type="Rewrite" url="/index.php?link1=create-blog"  appendQueryString="true" />
+                </rule>
+                <rule name="rule 4O">
+                    <match url="^edit-blog/(\d+)(/?|)$"  ignoreCase="true" />
+                    <action type="Rewrite" url="/index.php?link1=edit-blog&amp;id={R:1}"  appendQueryString="true" />
+                </rule>
+                <rule name="rule 5O">
+                    <match url="^my-blogs(/?|)$"  ignoreCase="true" />
+                    <action type="Rewrite" url="/index.php?link1=my-blogs"  appendQueryString="true" />
+                </rule>
+                <rule name="rule 6O">
+                    <match url="^read-blog/(.*)$"  ignoreCase="true" />
+                    <action type="Rewrite" url="/index.php?link1=read-blog&amp;id={R:1}"  appendQueryString="true" />
+                </rule>
+            </rules>
+        </rewrite>
+    </system.webServer>
+</configuration>

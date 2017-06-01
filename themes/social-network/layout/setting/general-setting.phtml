@@ -1,0 +1,287 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-cog"></i> <?php echo $wo['lang']['general_setting']; ?> <?php if($wo['is_admin'] === true) { ?><a href="<?php echo $wo['setting']['url'];?>" data-ajax="?link1=timeline&u=<?php echo $wo['setting']['username'] ?>">(<?php echo $wo['setting']['name'];?>)</a><?php } ?></div>
+   <div class="setting-well">
+   <form class="setting-general-form form-horizontal" method="post">
+      <fieldset>
+         <div class="setting-general-alert setting-update-alert"></div>
+         <!-- Text input-->
+         <div class="form-group">
+            <label class="col-md-3" for="username"><?php echo $wo['lang']['username']; ?></label>  
+            <div class="col-md-6">
+               <input id="username" name="username" type="text" class="form-control input-md" value="<?php echo $wo['setting']['username']?>" onkeyup="Wo_CheckUsername(this.value);" autocomplete="off">
+               <span class="help-block checking"></span>  
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="email"><?php echo $wo['lang']['email']; ?></label>  
+            <div class="col-md-6">
+               <input name="email" id="email" type="text" class="form-control input-md" value="<?php echo $wo['setting']['email']?>" autocomplete="off">
+            </div>
+         </div>
+         
+         <!-- Select Basic -->
+         <div class="form-group">
+            <label class="col-md-3" for="country"><?php echo $wo['lang']['country']; ?></label>
+            <div class="col-md-6">
+               <select id="country" name="country" class="form-control">
+                  <?php 
+                  foreach ($wo['countries_name'] as $country_ids => $country) { 
+                    $country_id = $wo['setting']['country_id'];
+                    $selected_contry = ($country_ids == $country_id) ? ' selected' : '' ;
+                  ?>
+                  <option value="<?php echo $country_ids;?>" <?php echo $selected_contry;?> ><?php echo $country;?></option>
+                  <?php } ?>
+               </select>
+            </div>
+         </div>
+         <?php
+         $cutoff   = 1930;
+         $now      = date('Y');
+         $birthday = explode('-', $wo['setting']['birthday']);
+         ?>
+         <!-- Select Basic -->
+         <div class="form-group">
+            <label class="col-md-3" for="birthday"><?php echo $wo['lang']['birthday']; ?></label>
+            <div class="col-md-2 no-padding-right">
+               <select id="birthday" name="age_day" class="form-control">
+                  <option value="" disabled selected><?php echo $wo['lang']['day']; ?></option>
+                  <?php
+                  for ($d = 1; $d <= 31; $d++) {
+                      $birthday_d = ($birthday[2] == $d) ? ' selected' : '';
+                      echo '  <option value="' . $d . '" ' . $birthday_d . '>' . $d . '</option>' . PHP_EOL;
+                  }
+                  ?>
+               </select>
+            </div>
+            <!-- Select Basic -->
+            <div class="col-lg-2 no-padding-right">
+               <select id="birthday" name="age_month" class="form-control">
+                  <option value="" disabled selected><?php echo $wo['lang']['month']; ?></option>
+                  <?php
+                  for ($m = 1; $m <= 12; $m++) {
+                      $birthday_m = ($birthday[1] == $m) ? ' selected' : '';
+                     echo '  <option value="' . $m . '" ' . $birthday_m . '>' . $wo['months'][$m] . '</option>' . PHP_EOL;
+                  }
+                  ?>
+               </select>
+            </div>
+            <!-- Select Basic -->
+            <div class="col-lg-2 no-padding-right">
+               <select id="birthday" name="age_year" class="form-control">
+                  <option value="" disabled selected><?php echo $wo['lang']['year']; ?></option>
+                  <?php
+                  for ($y = $now; $y >= $cutoff; $y--) {
+                      $birthday_y = ($birthday[0] == $y) ? ' selected' : '';
+                      echo '  <option value="' . $y . '" ' . $birthday_y . '>' . $y . '</option>' . PHP_EOL;
+                  }
+                  ?>
+               </select>
+            </div>
+         </div>
+         <!-- Multiple Radios (inline) -->
+         <div class="form-group">
+            <?php 
+            $selected_male_gender   = ($wo['setting']['gender'] == 'male')   ? ' checked' : '';
+            $selected_female_gender = ($wo['setting']['gender'] == 'female')   ? ' checked' : '';
+            ?>
+            <label class="col-md-3" for="gender"><?php echo $wo['lang']['gender']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="gender-0">
+               <input type="radio" name="gender" id="gender-0" value="male" <?php echo $selected_male_gender; ?>>
+               <?php echo $wo['lang']['male']; ?>
+               </label> 
+               <label class="radio-inline" for="gender-1">
+               <input type="radio" name="gender" id="gender-1" value="female" <?php echo $selected_female_gender; ?>>
+               <?php echo $wo['lang']['female']; ?>
+               </label>
+            </div>
+         </div>
+         <?php if($wo['user']['user_id'] != $wo['setting']['user_id'] && ($wo['is_admin'] || $wo['is_moderoter'])) { ?>
+         
+         <!-- Multiple Radios (inline) -->
+         <?php if(!$wo['is_moderoter']) { ?>
+         <div class="form-group">
+            <?php 
+            $selected_type_user  = ($wo['setting']['admin'] == 0)   ? ' checked' : '';
+            $selected_type_admin = ($wo['setting']['admin'] == 1)   ? ' checked' : '';
+            $selected_type_mod   = ($wo['setting']['admin'] == 2)   ? ' checked' : '';
+            ?>
+            <label class="col-md-3" for="type"><?php echo $wo['lang']['type']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="type-0">
+               <input type="radio" name="type" id="type-0" value="admin" <?php echo $selected_type_admin; ?>>
+               <?php echo $wo['lang']['admin']; ?>
+               </label> 
+               <label class="radio-inline" for="type-1">
+               <input type="radio" name="type" id="type-1" value="user" <?php echo $selected_type_user; ?>>
+               <?php echo $wo['lang']['user']; ?>
+               </label>
+               <label class="radio-inline" for="type-2">
+               <input type="radio" name="type" id="type-2" value="mod" <?php echo $selected_type_mod; ?>>
+               <?php echo $wo['lang']['moderator']; ?>
+               </label>
+            </div>
+         </div>
+         <?php } ?>
+         <div class="form-group">
+            <?php 
+            $selected_active_yes = ($wo['setting']['active'] == 1)   ? ' checked' : '';
+            $selected_active_no  = ($wo['setting']['active'] == 0 || $wo['setting']['active'] == 2)   ? ' checked' : '';
+            ?>
+            <label class="col-md-3" for="active"><?php echo $wo['lang']['status']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="active-0">
+               <input type="radio" name="active" id="active-0" value="active" <?php echo $selected_active_yes; ?>>
+               <?php echo $wo['lang']['active']; ?>
+               </label> 
+               <label class="radio-inline" for="active-1">
+               <input type="radio" name="active" id="active-1" value="inactive" <?php echo $selected_active_no; ?>>
+               <?php echo $wo['lang']['inactive']; ?>
+               </label>
+            </div>
+         </div>
+         <?php } ?>
+         <?php if($wo['is_admin'] === true || $wo['is_moderoter'] === true) { ?>
+         <div class="form-group">
+            <?php
+            $selected_verified_yes = ($wo['setting']['verified'] == 1)   ? ' checked' : '';
+            $selected_verified_no  = ($wo['setting']['verified'] == 0)   ? ' checked' : '';
+            ?>
+            <label class="col-md-3" for="verified"><?php echo $wo['lang']['verification']; ?></label>
+            <div class="col-md-6"> 
+               <label class="radio-inline" for="verified-0">
+               <input type="radio" name="verified" id="verified-0" value="verified" <?php echo $selected_verified_yes; ?> >
+               <?php echo $wo['lang']['verified']; ?>
+               </label> 
+               <label class="radio-inline" for="verified-1">
+               <input type="radio" name="verified" id="verified-1" value="notVerified" <?php echo $selected_verified_no; ?>>
+               <?php echo $wo['lang']['not_verified']; ?>
+               </label>
+            </div>
+         </div>
+         <?php if ($wo['config']['pro'] == 1) { ?>
+         <div class="form-group">
+            <label class="col-md-3" for="verified"><?php echo $wo['lang']['member_type'];?></label>
+            <div class="col-md-6"> 
+              <select id="pro_type" name="pro_type" class="form-control">
+                  <?php $pros = Wo_GetProPackages();?>
+                  <?php foreach ($pros as $key => $pro) {?>
+                  <option value="<?php echo $key;?>" <?php echo ($pro['id'] == $wo['setting']['pro_type']) ? 'selected' : ''; ?>><?php echo $pro['name'];?></option>
+                 <?php } ?>
+              </select>
+            </div>
+         </div>
+         <?php } ?>
+         <?php } else { ?>
+         <div class="form-group">
+            <label class="col-md-3"><?php echo $wo['lang']['verification'];?></label>  
+            <div class="col-md-3" id="verification-request">
+            <?php 
+            echo Wo_GetVerificationButton($wo['setting']['user_id'],'User');
+            ?>               
+            </div>
+         </div>
+         <?php } ?>
+         <hr>
+         <!-- Select Basic -->
+         <?php if ($wo['config']['pro'] == 1 && $wo['setting']['pro_type'] != 0 && $wo['setting']['is_pro'] == 1 && empty($_GET['user'])) { ?>
+         <div class="form-group">
+            <label class="col-md-3" for="membership"><?php echo $wo['lang']['membership'];?></label>
+            <div class="col-md-6">
+               <?php $pro_type = Wo_GetUserProType($wo['setting']['pro_type']);?>
+               <label style="color:<?php echo $pro_type['color_name'];?>">
+                 <i class="fa fa-fw fa-<?php echo $pro_type['icon'];?>"></i> <?php echo $pro_type['type_name'];?>
+                 <?php if ($wo['setting']['pro_type'] != 4) {?>
+                 <a href="#" onclick="Wo_ShowUpgrades();" style="font-size:12px;"><?php echo $wo['lang']['upgrade'];?></a>
+                 <?php }?>
+               </label>
+            </div>
+         </div>
+         <?php if ($wo['setting']['pro_type'] != 4) {?>
+         <div class="form-group show-upgrades hidden">
+            <label class="col-md-3" for="country"></label>
+            <div class="col-md-6">
+               <select id="upgrade" name="upgrade" class="form-control">
+                  <?php foreach (Wo_GetAvUpgrades($wo['setting']['user_id']) as $key => $value) {?>
+                  <option value="<?php echo $key;?>"><?php echo $value;?></option>
+                 <?php } ?>
+               </select>
+            </div>
+            <a href="#" class="btn btn-sm btn-main" id="upgrade-button" onclick="Wo_GetPayPal();"><i class="fa fa-arrow-circle-up"></i> Upgrade</a>
+         </div>
+         <?php }?>
+         <div class="form-group hidden please-wait">
+            <label class="col-md-3" for="country"></label>
+            <div class="col-md-6">
+               <label id="please-wait"><?php echo $wo['lang']['please_wait']?></label>
+            </div>
+         </div>
+         <?php } ?>
+         <?php
+         $fields = Wo_GetProfileFields('general');
+         if (count($fields) > 0) {
+           foreach ($fields as $key => $wo['field']) {
+              echo Wo_LoadPage('setting/profile-fields');
+           }
+           echo '<input name="custom_fields" type="hidden" value="1">';
+         }
+         ?>
+         <div class="form-group last-btn">
+            <label class="col-md-3"></label>
+            <div class="col-sm-3">
+               <button type="submit" class="btn btn-main">
+               <i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i> <?php echo $wo['lang']['save']; ?>
+               </button>
+            </div>
+         </div>
+         <input type="hidden" name="user_id" value="<?php echo $wo['setting']['user_id'];?>">
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+      </fieldset>
+   </form>
+   </div>
+</div>
+<script type="text/javascript">
+function Wo_ShowUpgrades() {
+  $('.show-upgrades').removeClass('hidden');
+}
+$(function() {
+  $('form.setting-general-form').ajaxForm({
+    url: Wo_Ajax_Requests_File() + '?f=update_general_settings',
+    beforeSend: function() {
+      Wo_progressIconLoader($('form.setting-general-form').find('button'));
+    },
+    success: function(data) {
+      scrollToTop();
+      if (data.status == 200) {
+        <?php if($wo['user']['user_id'] == $wo['setting']['user_id']) { ?>
+        $('[id^=update-username]').attr('href', data.username);
+        <?php } ?>
+        $('.setting-general-alert').html('<div class="alert alert-success">' + data.message + '</div>');
+        $('.alert-success').fadeIn('fast', function() {
+           $(this).delay(2500).slideUp(500, function() {
+              $(this).remove();
+            });
+        });
+      } else if (data.errors) {
+          var errors = data.errors.join("<br>");
+          $('.setting-general-alert').html('<div class="alert alert-danger">' + errors + '</div>');
+          $('.alert-danger').fadeIn(300);
+      }
+      Wo_progressIconLoader($('form.setting-general-form').find('button'));
+    }
+  });
+});
+
+function Wo_GetPayPal() {
+   type = $('#upgrade').val();
+   $('#upgrade-button').html("<i class='fa fa-clock-o'></i> <?php echo $wo['lang']['please_wait']?>");
+   $.post(Wo_Ajax_Requests_File() + '?f=get_paypal_url', {type:type, type2:'upgrade'}, function (data) {
+    if (data.status == 200) {
+       window.location.href = data.url;
+    } else {
+      $('#upgrade-button').html('<i class="fa fa-arrow-circle-up"></i> <?php echo $wo["lang"]["upgrade"]?>');
+      $('.please-wait').removeClass('hidden').find('#please-wait').text('<?php echo $wo["lang"]["error_please_try_again"]?>');
+    }
+   });
+}
+</script>

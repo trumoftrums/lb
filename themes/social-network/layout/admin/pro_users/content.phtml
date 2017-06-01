@@ -1,0 +1,34 @@
+<div class="list-group">
+     <div class="list-group-item"><i class="fa fa-fw fa-bolt"></i> Pro Members</div>
+	<div class="setting-well">
+      <div class="page-margin">
+         <h4>You can edit / cancel user's subscription from user settings.</h4>
+         1. Star member subscription = 1 week<br>
+         2. Hot member subscription = 1 month<br>
+         3. Utlima member subscription = 1 year<br>
+         4. Vip member subscription = life time<br><br>
+         <div class="table-responsive">
+         <table class="table table-hover table-bordered table-condensed setting-table">
+            <thead>
+               <tr>
+                  <th>ID</th>
+                  <th>Username</th>
+                  <th>Pro Type</th>
+                  <th>Subscribed</th>
+                  <th>Status</th>
+                  <th>Action</th>
+               </tr>
+            </thead>
+            <tbody class="result manage-users-list">
+               <?php 
+                  foreach (Wo_GetAllProUsers() as $wo['userlist']) {
+                     echo Wo_LoadPage('admin/pro_users/users-list');
+                   }
+                  ?>
+            </tbody>
+         </table>
+         </div>
+         <input type="hidden" id="hash_id" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+      </div>
+   </div>
+</div>

@@ -1,0 +1,27 @@
+<tr class="setting-pagelist" id="PageID_<?php echo $wo['pagelist']['page_id']?>" data-page-id="<?php echo $wo['pagelist']['page_id']?>">
+   <td><?php echo $wo['pagelist']['page_id']?></td>
+   <td>
+      <a href="<?php echo $wo['pagelist']['url']; ?>">
+      <img src="<?php echo $wo['pagelist']['avatar']; ?>" class="setting-avatar" alt="<?php echo $wo['pagelist']['avatar']?> Page Picture">
+      <?php echo $wo['pagelist']['name']; ?>
+      </a>
+   </td>
+   <td>
+    <a href="<?php echo $wo['pagelist']['owner']['url']; ?>">
+      <img src="<?php echo $wo['pagelist']['owner']['avatar']; ?>" class="setting-avatar" alt="<?php echo $wo['pagelist']['owner']['avatar']?> Profile Picture">
+      <?php echo $wo['pagelist']['owner']['name'];?>
+      </a>
+    
+   </td>
+   <td><?php echo $wo['pagelist']['category'];?></td>
+   <td>
+      <span class="pointer">
+      <a target = "_blank" href="<?php echo Wo_SeoLink('index.php?link1=page-setting&page=' . $wo['pagelist']['page_name']) ?>">
+      <i class="fa fa-pencil-square"></i>
+      </a>
+      </span> |
+      <span class="pointer" onclick="Wo_DeletePage(<?php echo $wo['pagelist']['page_id']?>);">
+      <i class="fa fa-trash-o"></i>
+      </span>
+   </td>
+</tr>

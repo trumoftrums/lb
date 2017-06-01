@@ -1,0 +1,26 @@
+<div class="messages-wrapper <?php echo ($wo['chatMessage']['onwer'] == 1) ? 'pull-right' : 'pull-left';?> messages-text" id="messageId_<?php echo $wo['chatMessage']['id'] ?>" data-message-id="<?php echo $wo['chatMessage']['id'] ?>">
+   <?php if ($wo['chatMessage']['onwer'] == 0) { ?>
+   <a href="<?php echo Wo_SeoLink('index.php?link1=timeline&u='.$wo['chatMessage']['messageUser']['username']);?>" data-ajax="?link1=timeline&u=<?php echo $wo['chatMessage']['messageUser']['username']?>">
+   <img class="user-avatar<?php echo ($wo['chatMessage']['onwer'] == 1) ? '-right' : '-left';?>" src="<?php echo $wo['chatMessage']['messageUser']['avatar'] ?>" alt="<?php echo $wo['chatMessage']['messageUser']['name'] ?> Profile Picture">
+   </a>
+   <?php } ?>
+   <div class="message <?php echo ($wo['chatMessage']['onwer'] == 1) ? 'outgoing pull-right' : 'incoming pull-left';?>">
+      <p class="message-text" dir="auto"><?php echo $wo['chatMessage']['text']; ?></p>
+      <div class="clear"></div>
+      <div class="message-media">
+         <?php  
+         if(isset($wo['chatMessage']['media']) && !empty($wo['chatMessage']['media'])) {
+            $media = array('type' => 'chatMessage', 'storyId' => $wo['chatMessage']['id'], 'filename' => $wo['chatMessage']['media'], 'name' => $wo['chatMessage']['mediaFileName']); 
+            echo Wo_DisplaySharedFile($media, 'chat');   
+         } 
+         ?>
+      </div>
+   </div>
+   <div class="clear"></div>
+   <?php if($wo['chatMessage']['messageUser']['user_id'] == $wo['user']['user_id']) { ?>
+      <div class="message-seen text-right message-details"></div>
+      <div class="clear"></div>
+   <?php } ?>
+   <div class="message-typing message-details"></div>
+</div>
+<div class="clear"></div>

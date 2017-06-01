@@ -1,0 +1,30 @@
+<div class="list-group">
+     <div class="list-group-item"><i class="fa fa-fw fa-users"></i> Online Users</div>
+	<div class="setting-well">
+      <div class="page-margin">
+        <div class="table-responsive">
+         <table class="table table-hover table-bordered table-condensed setting-table">
+            <thead>
+               <tr>
+                  <th><?php echo $wo['lang']['id'];?></th>
+                  <th><?php echo $wo['lang']['username'];?></th>
+                  <th><?php echo $wo['lang']['source'];?></th>
+                  <th><?php echo $wo['lang']['email'];?></th>
+                  <th><?php echo $wo['lang']['ip_address'];?></th>
+                  <th><?php echo $wo['lang']['status'];?></th>
+                  <th><?php echo $wo['lang']['action'];?></th>
+               </tr>
+            </thead>
+            <tbody class="result manage-users-list">
+               <?php 
+                  foreach (Wo_GetAllOnlineData() as $wo['userlist']) {
+                     echo Wo_LoadPage('admin/manage_users/users-list');
+                   }
+                  ?>
+            </tbody>
+         </table>
+         </div>
+         <input type="hidden" id="hash_id" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+      </div>
+   </div>
+</div>

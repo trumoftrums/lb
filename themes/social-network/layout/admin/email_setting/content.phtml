@@ -1,0 +1,109 @@
+<?php 
+$selected_email_yes = ($wo['config']['smtp_or_mail'] == 'mail') ? ' checked' : '';
+$selected_email_no  = ($wo['config']['smtp_or_mail'] == 'smtp') ? ' checked' : '';
+?>
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-envelope-o"></i> E-mail Setting</div>
+   <div class="setting-well page-margin">
+      <form action="" method="post" class="admin-site-setting form-horizontal">
+         <div class="form-group">
+            <label class="col-md-3" for="smtp_or_mail">E-mail system type</label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="smtp_or_mail-0">
+               <input type="radio" name="smtp_or_mail" id="smtp_or_mail-0" value="mail" <?php echo $selected_email_yes; ?>>
+               Default Mail
+               </label> 
+               <label class="radio-inline" for="smtp_or_mail-1">
+               <input type="radio" name="smtp_or_mail" id="smtp_or_mail-1" value="smtp" <?php echo $selected_email_no; ?>>
+               SMTP
+               </label>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="smtp_host">SMTP Host </label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="smtp_host" value="<?php echo $wo['config']['smtp_host'];?>">
+               <span class="help-block">SMTP server hosts (e.g smtp1.site.com,smtp2.site.com)</span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="smtp_port">SMTP Port</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="smtp_port" value="<?php echo $wo['config']['smtp_port'];?>"> 
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="smtp_encryption">SMTP Encryption</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="smtp_encryption" value="<?php echo $wo['config']['smtp_encryption'];?>">
+               <span class="help-block">(e.g tls, ssl)</span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="smtp_username">SMTP Username</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="smtp_username" value="<?php echo $wo['config']['smtp_username'];?>">
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="smtp_password">SMTP Password</label>  
+            <div class="col-md-6">
+               <input type="password" class="form-control" name="smtp_password" value="<?php echo $wo['config']['smtp_password'];?>">
+            </div>
+         </div>
+         
+          <div class="form-group">
+            <label class="col-md-3" for="smtp_password"></label>  
+            <div class="col-md-6">
+               <span class="help-block">After clicking "Test message", a test message will be sent to your account email address.</span>
+               <span class="help-block" style="color:red;">Please save the form before testing the server.</span>
+             </div>
+         </div>	
+         <hr>
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+         <div class="form-group">
+            <label class="col-md-3"></label>  
+            <div class="col-md-6">
+               <button type="submit" class="btn btn-main">
+               <i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i>  <?php echo $wo['lang']['save']?>
+               </button> 
+               <span href="#" onclick="Wo_TestMessage();" class="btn btn-main">
+               <i class="fa fa-paper-plane-o progress-icon" data-icon="paper-plane-o"></i>  Test Server
+               </span>
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+<script type="text/javascript">
+$(function() {
+    $('form.admin-site-setting').ajaxForm({
+      url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=update_email_setting',
+      beforeSend: function() {
+        Wo_progressIconLoader($('form.admin-site-setting').find('button'));
+      },
+      success: function(data) {
+        if (data.status == 200) {
+          $('form.admin-site-setting button').html('<i class="fa fa-check"></i> <?php echo $wo["lang"]["saved"];?>');
+          setTimeout(function () {
+            $('form.admin-site-setting button').html('<i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i>  <?php echo $wo["lang"]["save"]?>');
+          }, 2000);
+          
+          Wo_progressIconLoader($('form.admin-site-setting').find('button'));
+
+        } 
+      }
+    });
+});
+function Wo_TestMessage() {
+	Wo_progressIconLoader($('form.admin-site-setting').find('span'));
+	$.get(Wo_Ajax_Requests_File(), {f:'admin_setting', s: 'test_message'}, function (data) {
+		if (data.status == 200) {
+			alert('Message sent !');
+		} else {
+			alert('Message failed to sent, error: ' + data.error);
+		}
+		Wo_progressIconLoader($('form.admin-site-setting').find('span'));
+	});
+}
+</script>

@@ -1,0 +1,12 @@
+<div class="profile-style">
+   <a href="<?php echo $wo['group']['url'];?>" data-ajax="?link1=timeline&u=<?php echo $wo['group']['group_name'];?>">
+      <div class="avatar <?php echo Wo_RightToLeft('pull-left');?>">
+         <img src="<?php echo $wo['group']['avatar'];?>" alt="<?php echo $wo['group']['group_name']; ?> Profile Picture" />
+      </div>
+      <?php echo $wo['group']['group_title']; ?>
+   </a>
+   <div class="page-website">
+      <?php echo $wo['lang']['members'];?>: <?php echo Wo_CountGroupMembers($wo['group']['id']);?>
+   </div>
+   <a href="<?php echo Wo_SeoLink('index.php?link1=group-setting&group=' .  $wo['group']['group_name']); ?>" data-ajax="?link1=group-setting&group=<?php echo $wo['group']['group_name'];?>" class="btn btn-default btn-sm"><i class="fa fa-pencil-square-o"></i> <?php echo $wo['lang']['edit']; ?></a>
+</div>

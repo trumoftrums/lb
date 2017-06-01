@@ -1,0 +1,81 @@
+<?php 
+Wo_UpdateSeenReports();
+?>
+<div class="list-group setting-reports-container">
+   <div class="list-group-item"><i class="fa fa-fw fa-pencil"></i> <?php echo $wo['lang']['manage_posts']; ?></div>
+   <div class="setting-well">
+     <div class="table-responsive">
+      <table class="table table-hover table-bordered table-condensed setting-table">
+         <thead>
+            <tr>
+               <th><?php echo $wo['lang']['id'];?></th>
+               <th><?php echo $wo['lang']['publisher'];?> </th>
+               <th><?php echo $wo['lang']['reporter'];?> </th>
+               <th><?php echo $wo['lang']['post_link'];?> </th>
+               <th><?php echo $wo['lang']['time_reported'];?> </th>
+               <th><?php echo $wo['lang']['action'];?></th>
+            </tr>
+         </thead>
+         <tbody class="result">
+            <?php 
+               $reports = Wo_GetReports();
+               if (count($reports) > 0) {
+                 foreach ($reports as $wo['report']) {
+                    echo Wo_LoadPage('admin/manage_reports/reports-list');
+                 }
+               } 
+               ?>
+         </tbody>
+      </table>
+      </div>
+      <div class="no-result">
+         <?php 
+            if (count($reports) == 0) {
+              echo '<span class="center-text">' . $wo['lang']['there_are_no_new_reports'] . '</span>';
+            }
+            ?>
+      </div>
+   </div>
+</div>
+<script>
+function Wo_DeleteReportedPost(post_id,report_id) {
+  if (confirm("<?php echo $wo['lang']['post_delete_confirmation'];?>") == false) {
+    return false;
+  }
+  var no_reports_container = $('.setting-reports-container').find('.no-result');
+  var delete_icon = $('.setting-reports-container').find('#ReportID_' + report_id).find('.delete-report');
+  Wo_progressIconLoader(delete_icon);
+  $.get(Wo_Ajax_Requests_File(), {f:'admin_setting', s:'delete_reported_post', post_id:post_id, report_id:report_id}, function(data) {
+    if (data.status == 200) {
+      $('#ReportID_' + report_id).fadeOut(300, function() {
+        $(this).remove();
+      });
+      if (data.html == 0) {
+        no_reports_container.hide().html('<span class="center-text"><?php echo $wo["lang"]["there_are_no_new_reports"]?></span>').fadeIn(300);
+        $('#manage-reports-tab').find('.new-update-alert').fadeOut(200);
+      } else {
+        $('#manage-reports-tab').find('.new-update-alert').text(data.html);
+      }  
+    }
+  });
+}
+
+function Wo_MarkSafeReportedPost(report_id) {
+    var no_reports_container = $('.setting-reports-container').find('.no-result');
+    var safe_icon = $('.setting-reports-container').find('#ReportID_' + report_id).find('.mark-safe');
+    Wo_progressIconLoader(safe_icon);
+    $.get(Wo_Ajax_Requests_File(), {f:'admin_setting', s:'mark_as_safe', report_id:report_id}, function(data) {
+      if (data.status == 200) {
+        $('#ReportID_' + report_id).fadeOut(300, function() {
+          $(this).remove();
+        });
+        if (data.html == 0) {
+         	no_reports_container.hide().html('<span class="center-text"><?php echo $wo["lang"]["there_are_no_new_reports"]?></span>').fadeIn(300);
+          $('#manage-reports-tab').find('.new-update-alert').fadeOut(200);
+        } else {
+            $('#manage-reports-tab').find('.new-update-alert').text(data.html);
+        }
+      }
+    });
+}
+</script>

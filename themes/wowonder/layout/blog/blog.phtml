@@ -1,0 +1,66 @@
+<div class="page-margin products">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-lg-12 col-sm-12 col-sx-12 text-center">
+				<h2 class="main"><?php echo $wo['lang']['most_recent_art'] ?></h2><br>
+			</div>
+		</div>
+		<div class="row" id="recent-blogs">
+				<?php
+						$pages = Wo_GetBlogs(array("limit" => 9));
+			               
+		                if (count($pages) > 0) {
+
+		                   foreach ($pages as $wo['article']) {
+		                       echo Wo_LoadPage('blog/blog-h-list');
+		                   }
+		                } 
+
+		                else {
+		                   echo '<h5 class="search-filter-center-text"> ' . $wo['lang']['no_blogs_found'] . '</h5>';
+		                }
+		               
+		         ?>
+
+		</div>
+		<div class="row">
+			<div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
+			 	<div class="posts_load">
+				    <?php if (count($pages) >= 9): ?>
+					<div class="load-more">
+	                    <button class="btn btn-default text-center pointer load-more-blogs" id="hren" >
+	                    <i class="fa fa-arrow-down progress-icon" data-icon="arrow-down"></i> <?php echo $wo['lang']['load_more_blogs'] ?></button>
+	                </div>
+	                <?php endif ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+jQuery(document).ready(function($) {
+  $(".load-more-blogs").click(function () {
+
+	 $.ajax({
+	  
+	     url: Wo_Ajax_Requests_File(),
+	     type: 'GET',
+	     dataType: 'json',
+	     data: {f:"load-recent-blogs",offset:($("div[data-blog-id]").length > 0) ? $("div[data-blog-id]:last").attr('data-blog-id') : 0,total:9},
+	     success:function(data){
+	        if (data['status'] == 200) {
+
+	            $("#recent-blogs").append(data['html'])
+	         }
+
+	         else{
+	           $(".posts_load").remove()
+	           
+	         }
+	     }
+	});
+	});
+});
+</script>
+

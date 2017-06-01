@@ -1,0 +1,20 @@
+<span onclick="Wo_RegisterLike(<?php echo $wo['story']['id']; ?>);" id="like-button" class="btn btn-default stat-item" title="<?php echo $wo['lang']['like'];?>">
+<?php
+$second_btn_wonder = ($wo['config']['second_post_button'] == 'dislike') ? $wo['lang']['dislike'] : $wo['lang']['wonder'];
+$second_btn_wondered = ($wo['config']['second_post_button'] == 'dislike') ? $wo['lang']['disliked'] : $wo['lang']['wondered'];
+if ($wo['story']['is_liked'] === true) {    
+  echo '<span class="active-like"><i class="fa fa-thumbs-up progress-icon" data-icon="thumbs-up"></i> ' . $wo['lang']['liked'] . '</span>';   
+} else {   
+  echo '<i class="fa fa-thumbs-up progress-icon" data-icon="thumbs-up"></i> ' . $wo['lang']['like'];   
+}    
+?>
+</span>
+<span onclick="Wo_RegisterWonder(<?php echo $wo['story']['id']; ?>);" id="wonder-button" class="btn btn-default stat-item" title="<?php echo $wo['second_post_button_text'];?>">
+<?php 
+if ($wo['story']['is_wondered'] === true) {  
+  echo '<span class="active-wonder"><i class="fa fa-' . $wo['second_post_button_icon'] . ' progress-icon" data-icon="' . $wo['second_post_button_icon'] . '"></i> <span class="like-btn-mobile">' . $second_btn_wondered . '</span></span>'; 
+} else {    
+  echo '<i class="fa fa-' . $wo['second_post_button_icon'] . ' progress-icon" data-icon="' . $wo['second_post_button_icon'] . '"></i> <span class="like-btn-mobile">' . $second_btn_wonder . '</span>';
+}
+?>          
+</span>

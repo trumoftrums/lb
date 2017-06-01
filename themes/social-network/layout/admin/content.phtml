@@ -1,0 +1,359 @@
+<?php 
+if ($wo['loggedin'] == false) {
+   header("Location: " . $wo['config']['site_url']);
+   exit();
+}
+$is_admin = Wo_IsAdmin();
+$is_moderoter = Wo_IsModerator();
+if ($is_admin === false && $is_moderoter === false) {
+    header("Location: " . $wo['config']['site_url']);
+    exit();
+}
+$page = 'dashboard';
+$pages_array = array(
+   'dashboard',
+   'general_setting',
+   'site_setting',
+   'social_login',
+   'manage_users',
+   'online_users',
+   'pro_users',
+   'manage_pages',
+   'manage_posts',
+   'manage_groups',
+   'manage_reports',
+   'verifications_requests',
+   'themes',
+   'announcement',
+   'banned_ip',
+   'ads',
+   'mailing_list',
+   'cache',
+   'games',
+   'design',
+   'terms',
+   'email_setting',
+   'sms_setting',
+   'pro_setting',
+   'video_settings',
+   'payments',
+   'backup',
+   'windows_app',
+   'custom_fields',
+   'add_new_field',
+   'custom_pages',
+   'edit_field',
+   'ios_app',
+   'add_new_page',
+   'edit_page',
+   'affiliates',
+   'referrals',
+   'affiliates_settings',
+   's3'
+);
+$moderator_pages_array = array(
+   'dashboard',
+   'manage_users',
+   'online_users',
+   'manage_pages',
+   'manage_posts',
+   'manage_groups',
+   'manage_reports',
+   'ads',
+   'cache',
+   'games',
+   'terms',
+);
+$hr_keys = array(
+   'video_settings',
+   'social_login',
+   'affiliates',
+   'games',
+   'verifications_requests',
+   'terms',
+   'mailing_list',
+   'windows_app',
+   'design',
+   'payments',
+   'custom_pages'
+);
+$pages_urls_ = array(
+    'dashboard' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=dashboard'),
+        'name' => $wo['lang']['dashboard'],
+        'icon' => 'bar-chart',
+        'ajax_url' => '?link1=admincp&page=dashboard'
+    ),
+    'general_setting' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=general_setting'),
+        'name' => $wo['lang']['general_setting'],
+        'icon' => 'cog',
+        'ajax_url' => '?link1=admincp&page=general_setting'
+    ),
+    'site_setting' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=site_setting'),
+        'name' => $wo['lang']['site_setting'],
+        'icon' => 'wrench',
+        'ajax_url' => '?link1=admincp&page=site_setting'
+    ),
+    'video_settings' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=video_settings'),
+        'name' => 'Video chat settings',
+        'icon' => 'video-camera',
+        'ajax_url' => '?link1=admincp&page=video_settings'
+    ),
+    'social_login' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=social_login'),
+        'name' => $wo['lang']['social_login'],
+        'icon' => 'share-square',
+        'ajax_url' => '?link1=admincp&page=social_login'
+    ),
+    'pro_setting' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=pro_setting'),
+        'name' => 'Pro Setting',
+        'icon' => 'fire',
+        'ajax_url' => '?link1=admincp&page=pro_setting'
+    ),
+    'pro_users' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=pro_users'),
+        'name' => 'Pro Members',
+        'icon' => 'bolt',
+        'ajax_url' => '?link1=admincp&page=pro_users'
+    ),
+    'payments' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=payments'),
+        'name' => 'Payments',
+        'icon' => 'money',
+        'ajax_url' => '?link1=admincp&page=payments'
+    ),
+    'affiliates_settings' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=affiliates_settings'),
+        'name' => 'Affiliates settings',
+        'icon' => 'users',
+        'ajax_url' => '?link1=admincp&page=affiliates_settings'
+    ),
+    'affiliates' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=affiliates'),
+        'name' => 'Payment requests',
+        'icon' => 'usd',
+        'ajax_url' => '?link1=admincp&page=affiliates'
+    ),
+    'custom_fields' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=custom_fields'),
+        'name' => 'Profile Fields',
+        'icon' => 'bars',
+        'ajax_url' => '?link1=admincp&page=custom_fields'
+    ),
+    'custom_pages' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=custom_pages'),
+        'name' => 'Custom pages',
+        'icon' => 'bars',
+        'ajax_url' => '?link1=admincp&page=custom_pages'
+    ),
+    'design' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=design'),
+        'name' => $wo['lang']['design'],
+        'icon' => 'paint-brush',
+        'ajax_url' => '?link1=admincp&page=design'
+    ),
+    'manage_users' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=manage_users'),
+        'name' => $wo['lang']['users'],
+        'icon' => 'user',
+        'color' => 'users',
+        'ajax_url' => '?link1=admincp&page=manage_users'
+    ),
+    'manage_pages' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=manage_pages'),
+        'name' => $wo['lang']['pages'],
+        'icon' => 'flag',
+        'color' => 'pages',
+        'ajax_url' => '?link1=admincp&page=manage_pages'
+    ),
+    'manage_posts' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=manage_posts'),
+        'name' => $wo['lang']['posts'],
+        'icon' => 'pencil',
+        'color' => 'posts',
+        'ajax_url' => '?link1=admincp&page=manage_posts'
+    ),
+    'manage_groups' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=manage_groups'),
+        'name' => $wo['lang']['groups'],
+        'icon' => 'users',
+        'color' => 'groups',
+        'ajax_url' => '?link1=admincp&page=manage_groups'
+    ),
+    'games' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=games'),
+        'name' => $wo['lang']['games'],
+        'icon' => 'gamepad',
+        'ajax_url' => '?link1=admincp&page=games'
+    ),
+    'themes' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=themes'),
+        'name' => $wo['lang']['themes'],
+        'icon' => 'desktop',
+        'ajax_url' => '?link1=admincp&page=themes'
+    ),
+    'announcement' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=announcement'),
+        'name' => $wo['lang']['announcement'],
+        'icon' => 'bullhorn',
+        'ajax_url' => '?link1=admincp&page=announcement'
+    ),
+    'banned_ip' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=banned_ip'),
+        'name' => $wo['lang']['ban_user'],
+        'icon' => 'user-times',
+        'ajax_url' => '?link1=admincp&page=banned_ip'
+    ),
+    'ads' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=ads'),
+        'name' => $wo['lang']['advertisement'],
+        'icon' => 'usd',
+        'ajax_url' => '?link1=admincp&page=ads'
+    ),
+    'terms' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=terms'),
+        'name' => $wo['lang']['terms'],
+        'icon' => 'bars',
+        'ajax_url' => ''
+    ),
+    'manage_reports' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=manage_reports'),
+        'name' => $wo['lang']['reports'],
+        'icon' => 'exclamation-triangle',
+        'ajax_url' => '?link1=admincp&page=manage_reports'
+    ),
+    'verifications_requests' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=verifications_requests'),
+        'name' => $wo['lang']['verifications_requests'],
+        'icon' => 'check-circle',
+        'ajax_url' => '?link1=admincp&page=verifications_requests'
+    ),
+    'email_setting' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=email_setting'),
+        'name' => $wo['lang']['email_setting'],
+        'icon' => 'envelope-o',
+        'ajax_url' => '?link1=admincp&page=email_setting'
+    ),
+    'sms_setting' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=sms_setting'),
+        'name' => $wo['lang']['sms_setting'],
+        'icon' => 'envelope-o',
+        'ajax_url' => '?link1=admincp&page=sms_setting'
+    ),
+    'mailing_list' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=mailing_list'),
+        'name' => $wo['lang']['mailing_users'],
+        'icon' => 'envelope-o',
+        'ajax_url' => '?link1=admincp&page=mailing_list'
+    ),
+    'windows_app' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=windows_app'),
+        'name' => 'Windows Messenger',
+        'icon' => 'windows',
+        'ajax_url' => '?link1=admincp&page=windows_app'
+    ),
+    'phone_messanger' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=android_app'),
+        'name' => 'Phone Messenger',
+        'icon' => 'android',
+        'ajax_url' => '?link1=admincp&page=android_app'
+    ),
+    'backup' => array(
+        'url' => Wo_SeoLink('index.php?link1=admincp&page=backup'),
+        'name' => 'Backups',
+        'icon' => 'download',
+        'ajax_url' => '?link1=admincp&page=backup'
+    ),
+    
+);
+if ($is_moderoter === true) {
+  $list_array = $moderator_pages_array;
+} else if ($is_admin === true) {
+  $list_array = $pages_array;
+}
+if (!empty($_GET['page'])) {
+   if (in_array($_GET['page'], $list_array)) {
+      $page = $_GET['page'];
+   }
+}
+if ($page == 'dashboard') {
+   Wo_GetOfflineTyping();
+   //Wo_UpdateProMembers();
+}
+?>
+<div class="page-margin">
+  <?php if (is_dir('install')) { ?>
+  <div class="alert alert-danger">
+    <i class="fa fa-fw fa-exclamation-triangle"></i> <strong>Risk:</strong>Please delete the ./install folder for security reasons.
+  </div>
+  <?php } ?>
+  <?php 
+  $warnings = Wo_GetScriptWarnings();
+  if (!empty($warnings)) {
+     foreach ($warnings as $key => $value1) { ?>
+       <div class="alert alert-warning">
+          <i class="fa fa-fw fa-exclamation-circle"></i>
+          <?php 
+          if ($key == "STRICT_TRANS_TABLES") {
+            echo "<strong>Warning:</strong>The sql-mode <b>STRICT_TRANS_TABLES</b>is enabled in your mysql server, please contact your host provider to disable it.";
+          }
+          if ($key == "STRICT_ALL_TABLES") {
+            echo "<strong>Warning:</strong>The sql-mode <b>STRICT_ALL_TABLES</b>is enabled in your mysql server, please contact your host provider to disable it.";
+          }
+          if ($key == "safe_mode") {
+            echo "<strong>Warning:</strong>The php-mode <b>safe_mode</b>is enabled in your server, please contact your host provider to disable it.";
+          }
+          if ($key == "allow_url_fopen") {
+            echo "<strong>Warning:</strong>The php-extension <b>allow_url_fopen</b>is disabled in your server, please contact your host provider to enable it.";
+          }
+          if ($key == 'update_file') {
+            echo "<strong>Important:</strong>The file <b>update.php</b>is uploaded and not run yet, <a href='" . $wo['config']['site_url']. "/update.php'>Click Here</a> to update the script to v" . $wo['script_version'];
+          }
+          ?>
+       </div>
+     <?php }
+  }
+  ?>
+   <div class="row admin-panel">
+      <div class="col-md-3">
+         <ul class="list-group">
+         <?php
+         foreach ($pages_urls_ as $key => $page_) { 
+          if (in_array($key, $list_array)) {
+          ?>
+         <li class="list-group-item black-list <?php echo (isset($page_['color']) && !empty($page_['color'])) ? $page_['color']: '';?> <?php echo ($page == $key) ? 'active-list': '';?>">
+               <a href="<?php echo $page_['url']?>" <?php echo ($key != 'terms' && $key != 'social_login' && $key != 'mailing_list') ? 'data-ajax="' . $page_['ajax_url'] . '"':''?>>
+                  <i class="fa fa-fw fa-<?php echo $page_['icon'];?>"></i> <?php echo $page_['name'];?>
+                  <?php
+                  if ($key == 'manage_reports') {
+                    $reports = Wo_CountUnseenReports();
+                     if ($reports > 0) { ?>
+                        <div class="report-not-seen <?php echo Wo_RightToLeft('pull-right');?>"><?php echo $reports;?></div>
+                  <?php } 
+                  } else if ($key == 'verifications_requests') {
+                    $reports = Wo_CountUnseenVerifications();
+                     if ($reports > 0) { ?>
+                  <div class="report-not-seen <?php echo Wo_RightToLeft('pull-right');?>"><?php echo $reports;?></div>
+                  <?php } 
+                  }
+                  ?>
+               </a>
+         </li>
+         <?php
+          if (in_array($key, $hr_keys)) {
+            echo '<hr>';
+          } 
+         ?>
+         <?php } }?>
+            <li class="list-group-item black-list"><i class="fa fa-fw fa-copyright"></i> Build v<?php echo $wo['script_version'];?></li>
+         </ul>
+      </div>
+      <div class="col-md-9">
+         <?php echo Wo_LoadPage("admin/{$page}/content"); ?>
+      </div>
+   </div>
+</div>

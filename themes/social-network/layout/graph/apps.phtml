@@ -1,0 +1,29 @@
+<div class="page-margin">
+
+  <div class="row">
+
+    <div class="col-md-8">
+    
+    <div class="wowonder-well">
+
+    <span style="font-size:21px;">My applications</span> <span style="float:right;"><a href="<?php echo Wo_SeoLink('index.php?link1=create-app');?>" class="btn btn-danger btn-md">Create</a></span>
+    <hr>
+      
+      <?php 
+
+      $apps = Wo_GetAppsData();
+
+      foreach ($apps as $wo['app']) {
+      	 echo Wo_LoadPage('graph/app-list');
+      }
+      ?>
+      <div class="clear"></div>
+    </div>
+      
+    </div> <!-- .col-md-8 -->
+
+    <?php echo Wo_LoadPage('sidebar/content');?>
+
+  </div> <!-- .row -->
+
+</div> <!-- .page-margin -->

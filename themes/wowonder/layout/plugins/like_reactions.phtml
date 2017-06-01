@@ -1,0 +1,11 @@
+<span id="like-button" class="btn btn-default stat-item" title="<?php echo $wo['lang']['like'];?>">
+  <div class="story-react-container">
+     <?php if($wo['story']['is_liked'] === true){ 
+	    echo getReactButtonTemplate('', $wo['user']['user_id'], $wo['story']['id']);
+     } else { ?>
+	 <span class="text-link story-like-btn opt" onclick="set_reaction($(this), 'like', <?php echo $wo['story']['id']; ?>);" title="<?php echo $wo['lang']['like']; ?>">
+	 <i class="fa fa-thumbs-o-up progress-icon" data-icon="thumbs-up"></i><?php echo $wo['lang']['like']; ?></span>
+     <?php } ?>
+     <span class="emotionreaction"></span>
+  </div>
+</span>

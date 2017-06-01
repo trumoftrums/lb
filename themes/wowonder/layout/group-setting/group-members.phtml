@@ -1,0 +1,16 @@
+<div class="list-group profile-lists">
+   <div class="list-group-item"><i class="fa fa-fw fa-users"></i> <?php echo $wo['lang']['members'];?></div>
+   <div class="setting-well">
+      <?php
+         $requests = Wo_GetGroupSettingMembers($wo['setting']['id']);
+         if (count($requests) > 0) {
+            foreach ($requests as $wo['member']) {
+                echo Wo_LoadPage('group-setting/members-list');
+            }
+         } else {
+            echo '<h5 class="search-filter-center-text"> ' . $wo['lang']['no_members_found'] . '</h5>';
+         }
+         ?>
+      <div class="clear"></div>
+   </div>
+</div>

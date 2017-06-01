@@ -1,0 +1,91 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-envelope-o"></i> SMS Setting</div>
+   <div class="setting-well page-margin">
+      <form action="" method="post" class="admin-site-setting form-horizontal">
+        <div class="form-group">
+            <label class="col-md-3" for="smtp_password"></label>  
+            <div class="col-md-6">
+               <span class="help-block">To start sending SMS, you'll need to create an account <a href="http://www.bulksms.com">here</a> and buy credits.</span>
+             </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="eapi">BulkSMS Eapi_URL</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="eapi" value="<?php echo $wo['config']['eapi'];?>">
+               <span class="help-block">For more infomation, login to your bulksms account, go to your profile, you'll find the link there, or visit this <a href="https://www2.bulksms.com/home/profile/">link</a>.</span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="sms_username">BulkSMS Username </label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="sms_username" value="<?php echo $wo['config']['sms_username'];?>">
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="sms_password">BulkSMS Password</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="sms_password" value="<?php echo $wo['config']['sms_password'];?>"> 
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="sms_phone_number">Phone number</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="sms_phone_number" value="<?php echo $wo['config']['sms_phone_number'];?>">
+               <span class="help-block">Your phone number eg (+905399...)</span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="smtp_password"></label>  
+            <div class="col-md-6">
+               <span class="help-block">After clicking "Test Server", a test message will be sent to your phone.</span>
+               <span class="help-block" style="color:red;">Please save the form before testing the server.</span>
+             </div>
+         </div>	
+         <hr>
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+         <div class="form-group">
+            <label class="col-md-3"></label>  
+            <div class="col-md-6">
+               <button type="submit" class="btn btn-main">
+               <i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i>  <?php echo $wo['lang']['save']?>
+               </button> 
+               <span href="#" onclick="Wo_TestMessage();" class="btn btn-main">
+               <i class="fa fa-paper-plane-o progress-icon" data-icon="paper-plane-o"></i>  Test Server
+               </span>
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+<script type="text/javascript">
+$(function() {
+    $('form.admin-site-setting').ajaxForm({
+      url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=update_sms_setting',
+      beforeSend: function() {
+        Wo_progressIconLoader($('form.admin-site-setting').find('button'));
+      },
+      success: function(data) {
+        if (data.status == 200) {
+          $('form.admin-site-setting button').html('<i class="fa fa-check"></i> <?php echo $wo["lang"]["saved"];?>');
+          setTimeout(function () {
+            $('form.admin-site-setting button').html('<i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i>  <?php echo $wo["lang"]["save"]?>');
+          }, 2000);
+          
+          Wo_progressIconLoader($('form.admin-site-setting').find('button'));
+
+        } 
+      }
+    });
+});
+function Wo_TestMessage() {
+	Wo_progressIconLoader($('form.admin-site-setting').find('span'));
+	$.get(Wo_Ajax_Requests_File(), {f:'admin_setting', s: 'test_sms_message'}, function (data) {
+		if (data.status == 200) {
+			alert('Message sent !');
+		} else {
+			alert('Message failed to sent, error: ' + data.error);
+		}
+		Wo_progressIconLoader($('form.admin-site-setting').find('span'));
+	});
+}
+</script>

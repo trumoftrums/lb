@@ -1,0 +1,10 @@
+<a class="file-sharing-download-btn" href="<?php echo $wo['media']['filename'];?>"> 
+    <i class="media-download-btn fa fa-download"></i>
+</a>
+<div class="video-js-responsive-container vjs-hd">
+<video class="video-js vjs-big-play-centered" controls preload="auto" poster="" data-setup="{}">
+    <source src="<?php echo $wo['media']['filename'];?>" type='video/mp4'>
+    <source src="<?php echo $wo['media']['filename'];?>" type='video/webm'>
+    
+</video></div>	
+<script src="<?php echo $wo['config']['theme_url'];?>/player/Video/video.js"></script> 

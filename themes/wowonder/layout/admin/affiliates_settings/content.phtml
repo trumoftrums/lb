@@ -1,0 +1,78 @@
+<?php 
+$selected_affiliate_system_yes = ($wo['config']['affiliate_system'] == 1) ? 'selected' : '';
+$selected_affiliate_system_no = ($wo['config']['affiliate_system'] == 0) ? 'selected' : '';
+
+$selected_affiliate_type_yes = ($wo['config']['affiliate_type'] == 0) ? 'selected' : '';
+$selected_affiliate_type_no = ($wo['config']['affiliate_type'] == 1) ? 'selected' : '';
+?>
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-users"></i> Affiliates Settings</div>
+   <div class="setting-well page-margin">
+      <form action="" method="post" class="admin-site-setting form-horizontal">
+          <div class="form-group">
+            <label class="col-md-3" for="affiliate_system">Affiliates system</label>  
+            <div class="col-md-6">
+                <select name="affiliate_system" class="form-control">
+                  <option value="1" <?php echo $selected_affiliate_system_yes;?> >Enabled</option>
+                  <option value="0" <?php echo $selected_affiliate_system_no;?> >Disabled</option>
+               </select>
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-3" for="affiliate_type">User will earn money when</label>  
+            <div class="col-md-6">
+                <select name="affiliate_type" class="form-control">
+                  <option value="0" <?php echo $selected_affiliate_type_yes;?> >New user is registred</option>
+                  <option value="1" <?php echo $selected_affiliate_type_no;?> >New user is registred & bought a pro package</option>
+               </select>
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-3" for="m_withdrawal">Minimum withdrawal request (USD)</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="m_withdrawal" value="<?php echo $wo['config']['m_withdrawal'] ?>">
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="amount_ref">Amount (USD)</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="amount_ref" value="<?php echo $wo['config']['amount_ref'] ?>">
+               <span class="help-block">The price you'll pay for each new referred user. Default $0.10</span>
+            </div>
+         </div>
+         <hr>
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+         <div class="form-group">
+            <label class="col-md-3"></label>  
+            <div class="col-md-6">
+               <button type="submit" class="btn btn-main">
+               <i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i>  <?php echo $wo['lang']['save']?>
+               </button> 
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+<script type="text/javascript">
+$(function() {
+    $('form.admin-site-setting').ajaxForm({
+      url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=update_ref_system',
+      beforeSend: function() {
+        Wo_progressIconLoader($('form.admin-site-setting').find('button'));
+      },
+      success: function(data) {
+        if (data.status == 200) {
+          $('form.admin-site-setting button').html('<i class="fa fa-check"></i> <?php echo $wo["lang"]["saved"];?>');
+          setTimeout(function () {
+            $('form.admin-site-setting button').html('<i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i>  <?php echo $wo["lang"]["save"]?>');
+          }, 2000);
+          
+          Wo_progressIconLoader($('form.admin-site-setting').find('button'));
+
+        } 
+      }
+    });
+});
+</script>

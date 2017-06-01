@@ -1,0 +1,42 @@
+
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-book"></i> Blogs</div>
+   <div class="setting-well">
+      <div class="clear"></div>
+      <table class="table  table-hover table-bordered table-condensed setting-table">
+         <thead>
+            <tr>
+               <th><?php echo $wo['lang']['id'];?></th>
+               <th>Link</th>
+               <th>Author</th>
+               <th><?php echo $wo['lang']['time'];?></th>
+               <th><?php echo $wo['lang']['action'];?></th>
+            </tr>
+         </thead>
+         <tbody class="page-result manage-pages-list">
+               <?php 
+               foreach (Wo_GetBlogs(array('limit' => 4000)) as $wo['blog']) {
+                  echo Wo_LoadPage('admin/blogs/blog-list');
+                }
+               ?>
+         </tbody>
+      </table>
+      <span class="center-text"></span>
+   </div>
+</div>
+<script>
+
+function Wo_DeleteBlog(id) {
+  if (confirm("Are you sure you want to delete this blog?'") == false) {
+    return false;
+  }
+  $.get(Wo_Ajax_Requests_File(),{f:'delete-my-blog',id: id}, function(data) {
+    if (data.status == 200) {
+      $('#BlogID_' + id).fadeOut(300, function() {
+        $(this).remove();
+      });
+    }
+  });
+}
+
+</script>

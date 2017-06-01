@@ -1,0 +1,25 @@
+<div class="user-fetch">
+   <div class="user-cover" style="background: url(<?php echo $wo['popover']['cover']?>); background-size:cover; background-position:50%; min-height:130px;">
+   </div>
+   <div class="user-avatar">
+      <img src="<?php echo $wo['popover']['avatar']; ?>" alt="">
+   </div>
+   <div class="text-shadow"></div>
+   <div class="user-name">
+      <a href="<?php echo $wo['popover']['url']; ?>" data-ajax="?link1=timeline&u=<?php echo $wo['popover']['username']?>"><?php echo $wo['popover']['name']; ?></a>
+      <?php if($wo['popover']['verified'] == 1) {   ?>
+      <i class="fa fa-check-circle verified-color" data-toggle="tooltip" title="<?php echo $wo['lang']['verified_page'];?>"></i>
+      <?php } ?>
+   </div>
+   <ul class="user-information <?php echo Wo_RightToLeft('pull-left');?>">
+      <li><i class="fa fa-bars fa-fw"></i> <?php echo $wo['popover']['category'];?></li>
+      <li><i class="fa fa-thumbs-up fa-fw"></i> <?php echo Wo_CountPageLikes($wo['popover']['page_id']);?></li>
+   </ul>
+   <div class="clear"></div>
+   <div class="user-footer">
+      <div class="user-buttons pull-right">
+         <div class="user-button user-follow-button <?php echo Wo_RightToLeft('pull-right');?>"><?php echo Wo_GetLikeButton($wo['popover']['page_id']); ?></div>
+      </div>
+   </div>
+   <div class="clear"></div>
+</div>

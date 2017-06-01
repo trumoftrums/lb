@@ -1,0 +1,21 @@
+<tr class="setting-postlist" id="<?php echo $wo['field']['id'];?>">
+   <td><?php echo $wo['field']['id'];?></td>
+   <td><?php echo $wo['field']['name'];?></td>
+   <td>
+      <?php
+         if ($wo['field']['select_type'] == 'yes') {
+          echo 'Select box';
+         } else if ($wo['field']['type'] == 'textarea') {
+          echo 'Text area';
+         } else if ($wo['field']['type'] == 'textbox') {
+          echo 'Text box';
+         }
+         ?>
+   </td>
+   <td><?php echo $wo['field']['length'];?></td>
+   <td><?php echo ucfirst($wo['field']['placement']);?></td>
+   <td>
+      <a class="delete-post pointer" href="<?php echo Wo_SeoLink('index.php?link1=admincp&page=edit_field&id=' . $wo['field']['id']);?>"><i class="fa fa-pencil-square progress-icon" data-icon="trash-o"></i></a> | 
+      <span class="delete-field pointer" onclick="Wo_DeleteField(<?php echo $wo['field']['id'];?>);"><i class="fa fa-trash-o progress-icon" data-icon="trash-o"></i></span>
+   </td>
+</tr>

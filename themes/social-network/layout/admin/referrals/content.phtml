@@ -1,0 +1,110 @@
+<?php 
+if (empty($_GET['id'])) {
+	header("Location: " . Wo_SeoLink('index.php?link1=welcome'));
+    exit();
+}
+if (!is_numeric($_GET['id'])) {
+	header("Location: " . Wo_SeoLink('index.php?link1=welcome'));
+    exit();
+}
+$user_data = Wo_UserData($_GET['id']);
+if (empty($user_data)) {
+	header("Location: " . Wo_SeoLink('index.php?link1=welcome'));
+    exit();
+}
+?>
+<div class="list-group">
+   <div class="setting-well">
+      <h4>Users referred by <?php echo $user_data['name']?></h4>
+      <div class="page-margin">
+        <div class="table-responsive">
+         <table class="table table-hover table-bordered table-condensed setting-table">
+            <thead>
+               <tr>
+                  <th><?php echo $wo['lang']['id'];?></th>
+                  <th><?php echo $wo['lang']['username'];?></th>
+                  <th><?php echo $wo['lang']['source'];?></th>
+                  <th><?php echo $wo['lang']['joined'];?></th>
+                  <th><?php echo $wo['lang']['ip_address'];?></th>
+                  <th><?php echo $wo['lang']['status'];?></th>
+                  <th><?php echo $wo['lang']['action'];?></th>
+               </tr>
+            </thead>
+            <tbody class="result manage-users-list">
+               <?php 
+                  foreach (Wo_GetReferrers($_GET['id']) as $wo['userlist']) {
+                     echo Wo_LoadPage('admin/manage_users/ref-users-list');
+                   }
+                  ?>
+            </tbody>
+         </table>
+         <a href="<?php echo Wo_SeoLink('index.php?link1=admincp&page=affiliates');?>" class="btn btn-main"><i class="fa fa-arrow-left"></i> Go back</a>
+         </div>
+         <input type="hidden" id="hash_id" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+         <span class="center-text"></span>
+      </div>
+   </div>
+</div>
+<script>
+$(function() {
+  view_more_wrapper = $('.view-more-users-wrapper');
+  var filterForm = $('form.setting-user-filter');
+  $('.setting-user-filter #query').keyup(function() {
+    filterForm.submit();
+  });
+  $('#source').change(function() {
+    filterForm.submit();
+  });
+  $('#status').change(function() {
+    filterForm.submit();
+  });
+  filterForm.ajaxForm({
+    url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=filter_all_users',
+    beforeSend: function() {
+      Wo_progressIconLoader(filterForm.find('.search-filter-progress-icon'));
+    },
+    success: function(data) {
+      if (data.status == 200) {
+        if (data.html.length != 0) {
+          $('.center-text').text('');
+          $('tbody.result').hide().html(data.html).fadeIn(200);
+          view_more_wrapper.html('<span class="text-center btn btn-default" onclick="Wo_GetMoreUsers();"><i class="fa fa-arrow-down progress-icon" data-icon="search"></i> <?php echo $wo["lang"]["show_more_users"];?></span>');
+          view_more_wrapper.slideDown(200);
+        } else {
+          $('tbody.result').hide();
+          view_more_wrapper.html('<span class="text-center btn btn-default" onclick="Wo_GetMoreUsers();"><?php echo $wo["lang"]["no_result"];?></span>');
+        }
+      }
+      Wo_progressIconLoader(filterForm.find('.search-filter-progress-icon'));
+    }
+  });
+});
+
+function Wo_GetMoreUsers() {
+  after_user_id = $('.manage-users-list').find('.setting-userlist:last').attr('data-user-id');
+  Wo_progressIconLoader(view_more_wrapper.find('.text-center'));
+  $.post(Wo_Ajax_Requests_File() + '?f=admin_setting&s=filter_all_users&after_user_id=' + after_user_id, $('form.setting-user-filter').serialize(), function(data) {
+    if (data.html.length != 0) {
+      $('tbody.result').append(data.html);
+    } else {
+      view_more_wrapper.html('<span class="text-center btn btn-default" onclick="Wo_GetMoreUsers();"><?php echo $wo["lang"]["no_more_users_to_show"];?></span>');
+    }
+    Wo_progressIconLoader(view_more_wrapper.find('.text-center'));
+  });
+}
+
+  
+function Wo_DeleteUser(user_id) {
+  if (confirm("<?php echo $wo['lang']['user_delete_confirmation'];?>") == false) {
+    return false;
+  }
+  hash_id = $('#hash_id').val();
+  $.get(Wo_Ajax_Requests_File(),{f:'admin_setting', s:'delete_user', user_id: user_id, hash_id: hash_id}, function(data) {
+    if (data.status == 200) {
+      $('#UserID_' + user_id).fadeOut(300, function() {
+        $(this).remove();
+      });
+    }
+  });
+}
+</script>

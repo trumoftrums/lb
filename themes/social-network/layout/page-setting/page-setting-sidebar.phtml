@@ -1,0 +1,32 @@
+<div class="sidebar-conatnier">
+   <div class="home profile-style main">
+      <div class="card hovercard">
+         <div class="cardheader">
+            <img src="<?php echo $wo['setting']['cover']?>" id="cover-image" alt="<?php echo $wo['setting']['name']?> Cover Image">
+         </div>
+         <div class="text-shadow"></div>
+         <div class="avatar <?php echo Wo_RightToLeft('pull-left');?>">
+            <img id="updatepageImage-<?php echo $wo['setting']['page_id']?>" alt="<?php echo $wo['setting']['name']?> Profile Picture" src="<?php echo $wo['setting']['avatar']?>">
+         </div>
+         <div class="info">
+            <div class="title">
+               <a id="user-full-name" href="<?php echo $wo['setting']['url'];?>" data-ajax="?link1=timeline&u=<?php echo $wo['setting']['page_name'];?>"><?php echo $wo['setting']['name']?></a>
+               <?php if($wo['setting']['verified'] == 1):?>
+               <i class="fa fa-check-circle verified-color" data-toggle="tooltip" title="<?php echo $wo['lang']['verified_page'];?>"></i>
+               <?php endif;?>
+            </div>
+         </div>
+      </div>
+   </div>
+   <ul class="list-group">
+      <li class="list-group-item black-list <?php echo ($wo['setting_page'] == 'general-setting') ? 'active-list': '';?>"><a href="<?php echo Wo_SeoLink('index.php?link1=page-setting&page=' . $wo['setting']['page_name'] . '&link3=general-setting');?>" data-ajax="?link1=page-setting&page=<?php echo $wo['setting']['page_name'];?>&link3=general-setting"><i class="fa fa-fw fa-cog"></i> <?php echo $wo['lang']['general'];?></a></li>
+      <li class="list-group-item black-list <?php echo ($wo['setting_page'] == 'profile-setting') ? 'active-list': '';?>"><a href="<?php echo Wo_SeoLink('index.php?link1=page-setting&page=' . $wo['setting']['page_name'] . '&link3=profile-setting');?>" data-ajax="?link1=page-setting&page=<?php echo $wo['setting']['page_name'];?>&link3=profile-setting"><i class="fa fa-fw fa-exclamation-circle"></i> <?php echo $wo['lang']['page_information'];?></a></li>
+      <li class="list-group-item black-list <?php echo ($wo['setting_page'] == 'social-links') ? 'active-list': '';?>"><a href="<?php echo Wo_SeoLink('index.php?link1=page-setting&page=' . $wo['setting']['page_name'] . '&link3=social-links');?>" data-ajax="?link1=page-setting&page=<?php echo $wo['setting']['page_name'];?>&link3=social-links"><i class="fa fa-fw fa-share"></i> <?php echo $wo['lang']['social_links'];?></a></li>
+      <li class="list-group-item black-list <?php echo ($wo['setting_page'] == 'avatar-setting') ? 'active-list': '';?>"><a href="<?php echo Wo_SeoLink('index.php?link1=page-setting&page=' . $wo['setting']['page_name'] . '&link3=avatar-setting');?>" data-ajax="?link1=page-setting&page=<?php echo $wo['setting']['page_name'];?>&link3=avatar-setting"><i class="fa fa-fw fa-picture-o"></i> <?php echo $wo['lang']['avatar_and_cover'];?></a></li>
+      <li class="list-group-item black-list <?php echo ($wo['setting_page'] == 'design-setting') ? 'active-list': '';?>"><a href="<?php echo Wo_SeoLink('index.php?link1=page-setting&page=' . $wo['setting']['page_name'] . '&link3=design-setting');?>" data-ajax="?link1=page-setting&page=<?php echo $wo['setting']['page_name'];?>&link3=design-setting"><i class="fa fa-fw fa-paint-brush"></i> <?php echo $wo['lang']['design'];?></a></li>
+      <li class="list-group-item black-list <?php echo ($wo['setting_page'] == 'delete-page') ? 'active-list': '';?>"><a href="<?php echo Wo_SeoLink('index.php?link1=page-setting&page=' . $wo['setting']['page_name'] . '&link3=delete-page');?>" data-ajax="?link1=page-setting&page=<?php echo $wo['setting']['page_name'];?>&link3=delete-page"><i class="fa fa-fw fa-trash-o"></i> <?php echo $wo['lang']['delete_page'];?></a></li>
+      
+   </ul>
+   <?php echo Wo_LoadPage('footer/sidebar-footer')?>
+</div>
+</div>

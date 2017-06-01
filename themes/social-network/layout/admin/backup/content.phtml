@@ -1,0 +1,33 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-download"></i> Backups</div>
+   <div class="setting-well">
+      <h5>Last Backup: <span class="last_backup"><?php echo $wo['config']['last_backup'];?></span></h5>
+      <h5>Backups directory: ./script_backups/</h5>
+      <h5>Backup type: all files including ./upload folder and full backup of your database.</h5>
+      <h5>It's recommended to download the backups via FTP.</h5><hr>
+      <h5 class="red">Please note that it may take several minutes.</h5>
+      <form action="#" method="get" class="admin-site-setting">
+        <button class="btn btn-main create-backup"><i class="fa fa-fw fa-download progress-icon" data-icon="download"></i> Create new full backup</button>
+      </form>
+   </div>
+</div>
+<script type="text/javascript">
+$(function() {
+    $('form.admin-site-setting').ajaxForm({
+      url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=new_backup',
+      beforeSend: function() {
+      	$('.create-backup').html('<i class="fa fa-fw fa-download progress-icon" data-icon="download"></i> Please wait..');
+        Wo_progressIconLoader($('form.admin-site-setting').find('button'));
+      },
+      success: function(data) {
+        if (data.status == 200) {
+         $('.last_backup').text(data.date);
+         $('.create-backup').html('<i class="fa fa-fw fa-check progress-icon" data-icon="check"></i> Backup completed !');
+         setTimeout(function () {
+         	$('.create-backup').html('<i class="fa fa-fw fa-download progress-icon" data-icon="download"></i> Create new full backup')
+         }, 2000);
+        } 
+      }
+    });
+});
+</script>

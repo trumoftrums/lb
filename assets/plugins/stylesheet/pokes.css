@@ -1,0 +1,24 @@
+/**
+ * css pokes
+ * @author Pepe Galvan - LdrMx
+ */
+.content_pokes ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.content_pokes .dropdown-menu{
+	left: inherit;
+	width:100%;
+}
+.btn_poke{ margin-right: 10px; }
+.poke .photo{ max-height:50px; max-height:50px; }
+.text_search_toque{height:22px; min-width:200px; width:100%;  border:1px solid #BDC7D8; resize:none; padding:3px; font-size:11px; }
+.text_search_toque placeholder{ color:#777; }
+
+@media (min-width: 768px){
+	.data-container.small .data-avatar {
+		width: 30px;
+		height: 30px;
+	}
+}

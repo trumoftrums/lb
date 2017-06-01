@@ -1,0 +1,11 @@
+<div class="cool-style products-hover" id="product_<?php echo $wo['product']['id'];?>">
+<a href="<?php echo $wo['product']['url'];?>" data-ajax="?link1=post&id=<?php echo $wo['product']['post_id'];?>">
+      <div class="avatar <?php echo Wo_RightToLeft('pull-left');?>">
+         <img src="<?php echo $wo['product']['images'][0]['image_org'];?>" alt="<?php echo $wo['product']['name']; ?> Profile Picture" />
+      </div>
+      <div id="overlay-black"></div>
+      <div class="game-name">
+      	 <?php echo $wo['product']['name']; ?>
+      </div>
+</a>
+</div>

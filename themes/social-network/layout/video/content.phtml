@@ -1,0 +1,101 @@
+<div class="page-margin">
+  <div class="video-con">
+   <div id="remote-media">
+     <h3><i class="fa fa-spin fa-spinner"></i> <?php echo $wo['lang']['please_wait']?></h3>
+   </div>
+  <div id="controls">
+    <div id="preview">
+      <div id="local-media"></div>
+    </div>
+  <div id="invite-controls">
+  </div>
+  <div id="log">
+    <p></p>
+  </div>
+</div>
+</div>
+</div>
+<script>
+var conversationsClient;
+var activeConversation;
+var previewMedia;
+
+// check for WebRTC
+if (!navigator.webkitGetUserMedia && !navigator.mozGetUserMedia) {
+  $('#remote-media h3').text('Sorry, WebRTC is not available in your browser.');
+}
+var accessToken = "";
+$(function () {
+  accessToken = '<?php echo $wo['video_call']['access_token'];?>';
+  var accessManager = new Twilio.AccessManager(accessToken);
+  conversationsClient = new Twilio.Conversations.Client(accessManager);
+  conversationsClient.listen().then(
+  clientConnected,
+     function (error) {
+       alert(error.message);
+     }
+  );
+});
+
+// successfully connected!
+function clientConnected(call_id) {
+  conversationsClient.on('invite', function (invite) {
+    invite.accept().then(conversationStarted);
+  });
+    var inviteTo = '<?php echo $wo['video_call']['call_id'];?>';
+    if (activeConversation) {
+      // add a participant
+      activeConversation.invite(inviteTo);
+    } else {
+      // create a conversation
+      var options = {};
+      if (previewMedia) {
+        options.localMedia = previewMedia;
+      }
+      var is_invited = <?php echo ($wo['video_call']['user'] == 1) ? 1: 0;?>;
+      if (is_invited == 0) {
+        conversationsClient.inviteToConversation(inviteTo, options).then(
+        conversationStarted,
+        function (error) {
+          console.error('Unable to create conversation', error);
+        }
+      );
+      }
+    }
+};
+
+// conversation is live
+function conversationStarted(conversation) {
+  activeConversation = conversation;
+  // draw local video, if not already previewing
+  if (!previewMedia) {
+    conversation.localMedia.attach('#local-media');
+  }
+  // when a participant joins, draw their video on screen
+  conversation.on('participantConnected', function (participant) {
+    $('#remote-media').empty();
+    participant.media.attach('#remote-media');
+  });
+  // when a participant disconnects, note in log
+  conversation.on('participantDisconnected', function (participant) {
+    alert("Connection has been lost.");
+    window.location.href = '<?php echo $wo['config']['site_url'];?>';
+  });
+
+  // when the conversation ends, stop capturing local video
+  conversation.on('ended', function (conversation) {
+    conversation.localMedia.stop();
+    conversation.disconnect();
+    activeConversation = null;
+  });
+  $(document).on('click', 'a[data-ajax]', function(e) {
+    CloseConnections(conversation);
+  });
+};
+
+function CloseConnections(conversation) {
+    conversation.localMedia.stop();
+    conversation.disconnect();
+    activeConversation = null;
+}
+</script>

@@ -1,0 +1,190 @@
+<?php
+$notification_alert     = Wo_CountNotifications(array(
+    'unread' => true,
+    'data' => 'all'
+));
+$messages_alert         = Wo_CountMessages(array(
+    'new' => true
+));
+$followers_alert        = Wo_CountFollowRequests();
+$hidden_class           = '';
+$messages_hidden_class  = '';
+$followers_hidden_class = '';
+$unread_update_notification = 'unread-update';
+$unread_update_messages = 'unread-update';
+$unread_update_followers = 'unread-update';
+if ($notification_alert == 0) {
+    $hidden_class = ' hidden';
+    $unread_update_notification = '';
+}
+if ($messages_alert == 0) {
+    $messages_hidden_class = ' hidden';
+    $unread_update_messages = '';
+}
+if ($followers_alert == 0) {
+    $followers_hidden_class = ' hidden';
+    $unread_update_followers = '';
+}
+?>
+
+</ul>
+<ul class="nav navbar-nav navbar-right <?php echo Wo_RightToLeft('pull-right');?>">
+   <li class="dropdown requests-container" onclick="Wo_OpenRequestsMenu();">
+      <span class="new-update-alert<?php echo $followers_hidden_class;?>">
+      <?php echo $followers_alert?>
+      </span>
+      <a href="#" class="dropdown-toggle <?php echo $unread_update_followers;?> sixteen-font-size" data-toggle="dropdown" role="button" aria-expanded="false">
+      <i class="fa fa-users"></i>
+      </a>
+      <ul class="dropdown-menu request-list clearfix notifications-dropdown" role="menu" id="requests-list">
+        <li>
+           <h5 class="text-center"><i class="fa fa-spinner fa-spin"></i></h5>
+        </li>
+      </ul>
+   </li>
+   <li class="dropdown messages-notification-container" onclick="Wo_OpenMessagesMenu();">
+      <span class="new-update-alert<?php echo $messages_hidden_class;?>">
+      <?php echo $messages_alert?>
+      </span>
+      <a href="#" class="dropdown-toggle <?php echo $unread_update_messages;?> sixteen-font-size" data-toggle="dropdown" role="button" aria-expanded="false">
+      <i class="fa fa-comments-o"></i>
+      </a>
+      <ul class="dropdown-menu clearfix notifications-dropdown messages-dropdown" role="menu" id="messages-list">
+        <li>
+           <h5 class="text-center"><i class="fa fa-spinner fa-spin"></i></h5>
+        </li>
+      </ul>
+   </li>
+   <li class="dropdown notification-container" onclick="Wo_OpenNotificationsMenu();">
+      <span class="new-update-alert<?php echo $hidden_class;?>">
+      <?php echo $notification_alert?>
+      </span>
+      <a href="#" class="dropdown-toggle <?php echo $unread_update_notification;?> sixteen-font-size" data-toggle="dropdown" role="button" aria-expanded="false">
+      <i class="fa fa-globe"></i>
+      </a>
+      <ul class="dropdown-menu clearfix notifications-dropdown" role="menu">
+         <li onclick="Wo_TurnOffSound();" class="turn-off-sound <?php echo Wo_RightToLeft('text-left');?>">
+            <span>
+               <?php if ($wo['user']['notifications_sound'] == 0): ?>
+                  <i class="fa fa-volume-up progress-icon" data-icon="volume-up"></i> <?php echo $wo['lang']['turn_off_notification'] ?>
+               <?php else: ?>
+                  <i class="fa fa-volume-off progress-icon" data-icon="volume-off"></i> <?php echo $wo['lang']['turn_on_notification'] ?>
+               <?php endif; ?>
+            </span> 
+         </li>
+         <li  id="notification-list">
+           <h5 class="text-center"><i class="fa fa-spinner fa-spin"></i></h5>
+         </li>
+      </ul>
+   </li>
+   <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+         <!-- <span id="user-full-name" class="User-Name">
+         <?php echo $wo['user']['name'];?>
+         </span> -->
+         <div class="user-avatar <?php echo Wo_RightToLeft('pull-left'); ?>">
+            <img id="updateImage-<?php echo $wo['user']['user_id']?>" src="<?php echo $wo['user']['avatar'];?>" alt="<?php echo $wo['user']['name'];?> Profile Picture">
+         </div><span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu" role="menu">
+         <?php 
+         if ($wo['config']['pro'] == 1) {
+         if (Wo_IsUserPro() === false) { ?>
+         <li>
+            <a href="<?php echo Wo_SeoLink('index.php?link1=go-pro'); ?>" data-ajax="?link1=go-pro">
+            <?php echo $wo['lang']['upgrade_to_pro']; ?>
+            </a>
+         </li>
+         <?php } } ?>
+         <li class="dropdown-search-link">
+            <a href="<?php echo Wo_SeoLink('index.php?link1=search');?>" data-ajax="?link1=search">
+            <?php echo $wo['lang']['search']; ?>
+            </a>
+         </li>
+         <li>
+            <a id="update-username" href="<?php echo $wo['user']['url']; ?>" data-ajax="?link1=timeline&u=<?php echo $wo['user']['username'];?>">
+            <?php echo $wo['lang']['my_profile']; ?>
+            </a>
+         </li>
+         <li><hr></li>
+         <?php if ($wo['config']['pro'] == 1) { ?>
+         <?php if ($wo['user']['is_pro'] == 1 && $wo['user']['pro_type'] > 1) { ?>
+         <li>
+            <a href="<?php echo Wo_SeoLink('index.php?link1=boosted-posts');?>" data-ajax="?link1=boosted-posts">
+            <?php echo $wo['lang']['boosted_posts']; ?>
+            </a>
+         </li>
+         <li>
+            <a href="<?php echo Wo_SeoLink('index.php?link1=boosted-pages');?>" data-ajax="?link1=boosted-pages">
+            <?php echo $wo['lang']['boosted_pages']; ?>
+            </a>
+         </li>
+         <li><hr></li>
+         <?php } ?>
+         <?php } ?>
+         <?php if ($wo['config']['pages'] == 1) { ?>
+         <li class="dropdown-hidden-link">
+            <a href="<?php echo Wo_SeoLink('index.php?link1=create-page'); ?>" data-ajax="?link1=create-page">
+            <?php echo $wo['lang']['create_new_page']; ?>
+            </a>
+         </li>
+         <?php } ?>
+         <?php if ($wo['config']['groups'] == 1) { ?>
+         <li class="dropdown-hidden-link">
+            <a href="<?php echo Wo_SeoLink('index.php?link1=create-group'); ?>" data-ajax="?link1=create-group">
+            <?php echo $wo['lang']['create_new_group']; ?>
+            </a>
+         </li>
+         <?php } ?>
+         <?php if ($wo['config']['pages'] == 1) { ?>
+         <li class="dropdown-search-link">
+            <a href="<?php echo Wo_SeoLink('index.php?link1=pages'); ?>" data-ajax="?link1=pages">
+            <?php echo $wo['lang']['pages']; ?>
+            </a>
+         </li>
+         <?php } ?>
+         <?php if ($wo['config']['groups'] == 1) { ?>
+         <li class="dropdown-search-link">
+            <a href="<?php echo Wo_SeoLink('index.php?link1=groups'); ?>" data-ajax="?link1=groups">
+            <?php echo $wo['lang']['groups']; ?>
+            </a>
+         </li>
+         <?php } ?>
+         <li class="dropdown-search-link">
+            <a href="<?php echo Wo_SeoLink('index.php?link1=albums'); ?>" data-ajax="?link1=albums">
+            <?php echo $wo['lang']['albums']; ?>
+            </a>
+         </li>
+         <?php if ($wo['config']['groups'] == 1 || $wo['config']['pages'] == 1) { ?><li><hr></li><?php } ?>
+         <li class="dropdown-hidden-link">
+            <a href="<?php echo Wo_SeoLink('index.php?link1=setting&page=profile-setting'); ?>" data-ajax="?link1=setting&page=profile-setting">
+            <?php echo $wo['lang']['edit']; ?>
+            </a>
+         </li>
+         <li class="dropdown-hidden-link">
+            <a href="<?php echo Wo_SeoLink('index.php?link1=setting&page=general-setting'); ?>" data-ajax="?link1=setting&page=general-setting">
+            <?php echo $wo['lang']['general_setting']; ?>
+            </a>
+         </li>
+         <li class="dropdown-search-link">
+            <a href="<?php echo Wo_SeoLink('index.php?link1=setting'); ?>" data-ajax="?link1=setting">
+            <?php echo $wo['lang']['setting']; ?>
+            </a>
+         </li>
+         <?php if(Wo_IsAdmin() || Wo_IsModerator()) { ?>
+         <li><hr></li>
+         <li>
+            <a href="<?php echo Wo_SeoLink('index.php?link1=admincp'); ?>">
+            <?php echo $wo['lang']['admin_area']; ?>
+            </a>
+         </li>
+         <?php } ?>
+         <li><hr></li>
+         <li>
+            <a href="<?php echo Wo_SeoLink('index.php?link1=logout'); ?>">
+            <?php echo $wo['lang']['log_out']; ?>
+            </a>
+         </li>
+      </ul>
+   </li>
+</ul>

@@ -1,0 +1,11 @@
+<div class="blog">
+	<a href="<?php echo $wo['blog-style']['url'] ?>"><img src="<?php echo $wo['blog-style']['thumbnail'];?>" alt="Article Picture"></a>
+	<div class="blog-title">
+		<a href="<?php echo $wo['blog-style']['url'] ?>" class="main"><?php echo $wo['blog-style']['title'] ?></a>
+	</div>
+	<div class="blog-info">
+	    <span><i class="fa fa-user fa-fw"></i> <a href="<?php echo $wo['blog-style']['author']['url']; ?>"><?php echo $wo['blog-style']['author']['name']; ?></a></span> 
+		<span><i class="fa fa-clock-o fa-fw"></i> <?php echo Wo_Time_Elapsed_String($wo['blog-style']['posted']); ?></span> 
+		<span><i class="fa fa-eye fa-fw"></i> <?php echo $wo['blog-style']['view'];?> <?php echo $wo['lang']['views'] ?></span>
+	</div>
+</div>

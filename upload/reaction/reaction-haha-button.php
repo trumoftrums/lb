@@ -1,0 +1,3 @@
+<span class="text-link story-like-btn green-opt opt" onclick="set_reaction($(this), 'haha', <?php echo $post_id; ?>);" title="<?php echo $wo['lang']['reaction_3']; ?>">
+<img src="<?php echo $wo['config']['site_url']; ?>/upload/reaction/reaction_haha.png" class="progress-img" width="13px" style="display:inline-block;vertical-align:top;margin-top:1px;"><?php echo $wo['lang']['reaction_3']; ?>
+</span>

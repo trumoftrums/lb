@@ -1,0 +1,65 @@
+<?php
+$user_id            = $wo['user']['user_id'];
+$wo['is_admin']     = Wo_IsAdmin();
+$wo['is_moderoter'] = Wo_IsModerator();
+$wo['setting']['admin'] = false;
+if (isset($_GET['user']) && !empty($_GET['user']) && ($wo['is_admin'] === true || $wo['is_moderoter'] === true)) {
+    if (Wo_UserExists($_GET['user']) === false) {
+        header("Location: " . $wo['config']['site_url']);
+        exit();
+    }
+    $user_id                = Wo_UserIdFromUsername($_GET['user']);
+    $wo['setting']['admin'] = true;
+}
+$wo['setting'] = Wo_UserData($user_id);
+$wo['setting']['fileds'] = Wo_UserFieldsData($user_id);
+$wo['setting_page'] = 'general-setting';
+$pages_array = array(
+   'general-setting',
+   'profile-setting',
+   'privacy-setting',
+   'change-password-setting',
+   'social-links',
+   'design-setting',
+   'avatar-setting',
+   'email-setting',
+   'blocked-users',
+);
+if ($wo['setting']['user_id'] == $wo['user']['user_id']) {
+  $pages_array = array(
+   'general-setting',
+   'profile-setting',
+   'privacy-setting',
+   'change-password-setting',
+   'social-links',
+   'delete-account',
+   'design-setting',
+   'avatar-setting',
+   'email-setting',
+   'blocked-users',
+   );
+}
+if ($wo['config']['affiliate_system'] == 1) {
+  $pages_array[] = 'affiliates';
+  $pages_array[] = 'payments';
+}
+if (!empty($_GET['page'])) {
+   if (in_array($_GET['page'], $pages_array)) {
+      $wo['setting_page'] = $_GET['page'];
+   }
+}
+$wo['user_setting'] = '';
+if (!empty($_GET['user'])) {
+    $wo['user_setting'] = 'user=' . $_GET['user']. '&';
+}
+?>
+<div class="page-margin">
+   <div class="row setting-panel">
+      <div class="col-md-8">
+         <?php echo Wo_LoadPage("setting/" . $wo['setting_page']); ?>
+      </div>
+      <div class="col-md-4">
+          <?php echo Wo_LoadPage('setting/user-setting-sidebar');?>
+      </div>
+   </div>
+</div>

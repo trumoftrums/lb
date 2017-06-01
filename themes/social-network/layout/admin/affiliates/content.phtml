@@ -1,0 +1,131 @@
+<div class="list-group">
+   <div class="admin-panel-well manage-users">
+     <div class="user-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-bars"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountPaymentHistory(0); ?> Total requests 
+         </div>
+      </div>
+      <div class="user-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-check"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountPaymentHistory(1); ?> Paid requests
+         </div>
+      </div>
+      <div class="user-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-times"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountPaymentHistory(2); ?> Declined requests
+         </div>
+      </div>
+      <div class="user-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-clock-o"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountPaymentHistory(0); ?> Pending requests
+         </div>
+      </div>
+      <div class="clear"></div>
+   </div>
+   
+   <div class="setting-well">
+      
+      <div class="clear"></div>
+      <br>
+      <h5>Payments are made from your paypal account, after the payment is made, mark the request as paid.</h5>
+      <div class="page-margin">
+        <div class="table-responsive">
+         <table class="table table-hover table-bordered table-condensed setting-table">
+            <thead>
+               <tr>
+                  <th><?php echo $wo['lang']['id'];?></th>
+                  <th><?php echo $wo['lang']['username'];?></th>
+                  <th>PayPal E-mail</th>
+                  <th>Amount</th>
+                  <th>Referrals</th>
+                  <th>Status</th>
+                  <th>Action</th>
+               </tr>
+            </thead>
+            <tbody class="result manage-users-list">
+               <?php 
+                foreach (Wo_GetAllPaymentsHistory('all') as $wo['userlist']) {
+                    echo Wo_LoadPage('admin/affiliates/user-list');
+                }
+                ?>
+            </tbody>
+         </table>
+         </div>
+         <input type="hidden" id="hash_id" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+         <span class="center-text"></span>
+      </div>
+   </div>
+</div>
+<script>
+$(function() {
+  view_more_wrapper = $('.view-more-users-wrapper');
+  var filterForm = $('form.setting-user-filter');
+  $('.setting-user-filter #query').keyup(function() {
+    filterForm.submit();
+  });
+  $('#source').change(function() {
+    filterForm.submit();
+  });
+  $('#status').change(function() {
+    filterForm.submit();
+  });
+  filterForm.ajaxForm({
+    url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=filter_all_users',
+    beforeSend: function() {
+      Wo_progressIconLoader(filterForm.find('.search-filter-progress-icon'));
+    },
+    success: function(data) {
+      if (data.status == 200) {
+        if (data.html.length != 0) {
+          $('.center-text').text('');
+          $('tbody.result').hide().html(data.html).fadeIn(200);
+          view_more_wrapper.html('<span class="text-center btn btn-default" onclick="Wo_GetMoreUsers();"><i class="fa fa-arrow-down progress-icon" data-icon="search"></i> <?php echo $wo["lang"]["show_more_users"];?></span>');
+          view_more_wrapper.slideDown(200);
+        } else {
+          $('tbody.result').hide();
+          view_more_wrapper.html('<span class="text-center btn btn-default" onclick="Wo_GetMoreUsers();"><?php echo $wo["lang"]["no_result"];?></span>');
+        }
+      }
+      Wo_progressIconLoader(filterForm.find('.search-filter-progress-icon'));
+    }
+  });
+});
+function Wo_DeclinePayment(id) {
+  if (confirm("Are you sure you want to decline this ?") == false) {
+    return false;
+  }
+  hash_id = $('#hash_id').val();
+  $.get(Wo_Ajax_Requests_File(),{f:'admin_setting', s:'decline_payment', id: id, hash_id: hash_id}, function(data) {
+    if (data.status == 200) {
+      $('#UserID_' + id).fadeOut(300, function() {
+        $(this).remove();
+      });
+    }
+  });
+}
+function Wo_MarkPaid(id) {
+  if (confirm("Are you sure you want to mark the request as paid ?") == false) {
+    return false;
+  }
+  hash_id = $('#hash_id').val();
+  $.get(Wo_Ajax_Requests_File(),{f:'admin_setting', s:'mark_as_paid', id: id, hash_id: hash_id}, function(data) {
+    if (data.status == 200) {
+      $('#UserID_' + id).fadeOut(300, function() {
+        $(this).remove();
+      });
+    }
+  });
+}
+</script>

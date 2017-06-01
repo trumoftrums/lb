@@ -1,0 +1,117 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-plus"></i>Add new field</div>
+   <div class="setting-well page-margin">
+      <form action="" method="post" class="admin-site-setting form-horizontal">
+         <div class="form-group">
+            <label class="col-md-3" for="type">Field Type</label>  
+            <div class="col-md-6">
+               <select name="type" id="type" class="chosen-select form-control">
+               	 <option value="textbox">Textbox</option>
+               	 <option value="textarea">Textarea</option>
+               	 <option value="selectbox">Select box</option>
+               </select>	
+               <span class="help-block">Choose the field type</span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="name">Field Name</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="name" value=""> 
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="description">Field Description</label>  
+            <div class="col-md-6">
+               <textarea class="form-control" name="description"></textarea>
+               <span class="help-block">The description will show under the field</span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="length">Field Length</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="length" value="32"> 
+               <span class="help-block">Default value is 32, and max value is 1000</span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="placement">Field placement</label>  
+            <div class="col-md-6">
+               <select name="placement" class="form-control">
+                 <option value="general">General settings</option>
+                 <option value="profile">Profile settings</option>
+                 <option value="social">Social links</option>
+                 <option value="none">Don't show the field in settings page</option>
+               </select>
+               <span class="help-block">Field placement in settings page.</span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="registration_page">Registration page</label>  
+            <div class="col-md-6">
+               <select name="registration_page" class="form-control">
+                 <option value="0" selected>No</option>
+                 <option value="1">Yes</option>
+               </select>
+               <span class="help-block">This option will show the field in the registration page.</span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="profile_page">Profile page</label>  
+            <div class="col-md-6">
+               <select name="profile_page" class="form-control">
+                 <option value="0">No</option>
+                 <option value="1" selected>Yes</option>
+               </select>
+               <span class="help-block">This option will show the field data in user's profile page.</span>
+            </div>
+         </div>
+         <div class="form-group options" style="display:none">
+            <label class="col-md-3" for="options">Select Field Options</label>  
+            <div class="col-md-6">
+               <textarea class="form-control" name="options" rows="5"></textarea>
+               <span class="help-block">One option per line.</span>
+            </div>
+         </div>
+         <hr>
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+         <div class="form-group">
+            <label class="col-md-3"></label>  
+            <div class="col-md-6">
+               <button type="submit" class="btn btn-main">
+               <i class="fa fa-plus progress-icon" data-icon="plus"></i>  <?php echo $wo['lang']['add']?>
+               </button> 
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+<script type="text/javascript">
+$(function() {
+	$('.chosen-select').on('change', function(evt, params) {
+       var selectedValue = $(this).val();
+       if (selectedValue == 'selectbox') {
+       	  $('.options').fadeIn(200);
+       } else {
+       	  $('.options').fadeOut(200);
+       }
+   });
+    $('form.admin-site-setting').ajaxForm({
+      url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=add_new_field',
+      beforeSend: function() {
+        Wo_progressIconLoader($('form.admin-site-setting').find('button'));
+      },
+      success: function(data) {
+        if (data.status == 200) {
+          $('form.admin-site-setting button').html('<i class="fa fa-check"></i> Added');
+          setTimeout(function () {
+            window.location.href = '<?php echo Wo_SeoLink("index.php?link1=admincp&page=custom_fields");?>';
+          }, 1000);
+        } else if (data.status == 400) {
+          alert(data.message);
+        }
+        Wo_progressIconLoader($('form.admin-site-setting').find('button'));
+      }
+    });
+});
+
+</script>

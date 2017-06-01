@@ -1,0 +1,159 @@
+<div class="list-group">
+   <div class="admin-panel-well manage-users">
+     <div class="user-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-male"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountUserData('male'); ?> <?php echo $wo['lang']['males'];?>
+         </div>
+      </div>
+      <div class="user-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-female"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountUserData('female'); ?> <?php echo $wo['lang']['females'];?>
+         </div>
+      </div>
+      <div class="user-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-user"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountUserData('active'); ?> <?php echo $wo['lang']['active'];?>
+         </div>
+      </div>
+      <div class="user-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-envelope"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountUserData('not_active'); ?> <?php echo $wo['lang']['not_active'];?>
+         </div>
+      </div>
+      <div class="clear"></div>
+   </div>
+   
+   <div class="setting-well">
+      <form method="post" class="setting-user-filter form-inline <?php echo Wo_RightToLeft('pull-left');?>">
+         <div class="form-group inner-addon  <?php echo Wo_RightToLeft('left-addon');?>  search-filter-progress-icon">
+            <i class="glyphicon fa fa-search progress-icon" data-icon="search"></i>
+            <input type="text" name="query" id="query" placeholder="Search" class="form-control">
+         </div>
+         <div class="form-group setting-user-filter-Input">
+            <select name="source" id="source" class="form-control">
+               <option value="all" selected ><?php echo $wo['lang']['source'];?></option>
+               <option value="Facebook"><?php echo $wo['lang']['facebook'];?></option>
+               <option value="Twitter"><?php echo $wo['lang']['twitter'];?></option>
+               <option value="Google"><?php echo $wo['lang']['google'];?></option>
+               <option value="Vkontakte"><?php echo $wo['lang']['vkontakte'];?></option>
+               <option value="LinkedIn"><?php echo $wo['lang']['linkedin'];?></option>
+               <option value="Instagram"><?php echo $wo['lang']['instagram'];?></option>
+            </select>
+         </div>
+         <div class="form-group setting-user-filter">
+            <select name="status" id="status" class="form-control">
+               <option value="all" selected><?php echo $wo['lang']['status'];?></option>
+               <option value="0"><?php echo $wo['lang']['pending'];?></option>
+               <option value="1"><?php echo $wo['lang']['active'];?></option>
+            </select>
+         </div>
+      </form>
+      <div class="clear"></div>
+      <div class="page-margin">
+        <div class="table-responsive">
+         <table class="table table-hover table-bordered table-condensed setting-table">
+            <thead>
+               <tr>
+                  <th><?php echo $wo['lang']['id'];?></th>
+                  <th><?php echo $wo['lang']['username'];?></th>
+                  <th><?php echo $wo['lang']['source'];?></th>
+                  <th><?php echo $wo['lang']['email'];?></th>
+                  <th><?php echo $wo['lang']['ip_address'];?></th>
+                  <th><?php echo $wo['lang']['status'];?></th>
+                  <th><?php echo $wo['lang']['action'];?></th>
+               </tr>
+            </thead>
+            <tbody class="result manage-users-list">
+               <?php 
+                  foreach (Wo_GetAllUsers(10,'ManageUsers') as $wo['userlist']) {
+                     echo Wo_LoadPage('admin/manage_users/users-list');
+                   }
+                  ?>
+            </tbody>
+         </table>
+         </div>
+         <input type="hidden" id="hash_id" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+         <div class="view-more-wrapper view-more-users-wrapper">
+            <span class="text-center btn btn-default" onclick="Wo_GetMoreUsers();">
+            <i class="fa fa-arrow-down progress-icon" data-icon="search"></i> <?php echo $wo['lang']['show_more_users'];?>
+            </span>
+         </div>
+         <span class="center-text"></span>
+      </div>
+   </div>
+</div>
+<script>
+$(function() {
+  view_more_wrapper = $('.view-more-users-wrapper');
+  var filterForm = $('form.setting-user-filter');
+  $('.setting-user-filter #query').keyup(function() {
+    filterForm.submit();
+  });
+  $('#source').change(function() {
+    filterForm.submit();
+  });
+  $('#status').change(function() {
+    filterForm.submit();
+  });
+  filterForm.ajaxForm({
+    url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=filter_all_users',
+    beforeSend: function() {
+      Wo_progressIconLoader(filterForm.find('.search-filter-progress-icon'));
+    },
+    success: function(data) {
+      if (data.status == 200) {
+        if (data.html.length != 0) {
+          $('.center-text').text('');
+          $('tbody.result').hide().html(data.html).fadeIn(200);
+          view_more_wrapper.html('<span class="text-center btn btn-default" onclick="Wo_GetMoreUsers();"><i class="fa fa-arrow-down progress-icon" data-icon="search"></i> <?php echo $wo["lang"]["show_more_users"];?></span>');
+          view_more_wrapper.slideDown(200);
+        } else {
+          $('tbody.result').hide();
+          view_more_wrapper.html('<span class="text-center btn btn-default" onclick="Wo_GetMoreUsers();"><?php echo $wo["lang"]["no_result"];?></span>');
+        }
+      }
+      Wo_progressIconLoader(filterForm.find('.search-filter-progress-icon'));
+    }
+  });
+});
+
+function Wo_GetMoreUsers() {
+  after_user_id = $('.manage-users-list').find('.setting-userlist:last').attr('data-user-id');
+  Wo_progressIconLoader(view_more_wrapper.find('.text-center'));
+  $.post(Wo_Ajax_Requests_File() + '?f=admin_setting&s=filter_all_users&after_user_id=' + after_user_id, $('form.setting-user-filter').serialize(), function(data) {
+    if (data.html.length != 0) {
+      $('tbody.result').append(data.html);
+    } else {
+      view_more_wrapper.html('<span class="text-center btn btn-default" onclick="Wo_GetMoreUsers();"><?php echo $wo["lang"]["no_more_users_to_show"];?></span>');
+    }
+    Wo_progressIconLoader(view_more_wrapper.find('.text-center'));
+  });
+}
+
+  
+function Wo_DeleteUser(user_id) {
+  if (confirm("<?php echo $wo['lang']['user_delete_confirmation'];?>") == false) {
+    return false;
+  }
+  hash_id = $('#hash_id').val();
+  $.get(Wo_Ajax_Requests_File(),{f:'admin_setting', s:'delete_user', user_id: user_id, hash_id: hash_id}, function(data) {
+    if (data.status == 200) {
+      $('#UserID_' + user_id).fadeOut(300, function() {
+        $(this).remove();
+      });
+    }
+  });
+}
+</script>

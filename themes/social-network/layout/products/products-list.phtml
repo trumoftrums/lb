@@ -1,0 +1,45 @@
+<div class="product" id="product-<?php echo $wo['product']['id']?>" data-id="<?php echo $wo['product']['id']?>">
+	<div class="row">
+		<div class="col-md-3">
+			<div class="product-image">
+				<a href="<?php echo $wo['product']['url']?>"><img src="<?php echo $wo['product']['images'][0]['image_org'];?>"></a>
+			</div>
+		</div>
+		<div class="col-md-9">
+			<div class="col-md-9">
+				<div class="product-title">
+					<a href="<?php echo $wo['product']['url']?>"><?php echo $wo['product']['name']?></a>
+				</div>
+				<div class="product-by">
+				    <?php
+				    $product_by_ = $wo['lang']['by_product'];
+				    $product_by_ = str_replace('{product_url}', $wo['product']['seller']['url'], $product_by_); 
+				    $product_by_ = str_replace('{product_name}', $wo['product']['seller']['name'], $product_by_);
+				    $product_by_ = str_replace('{product_time}', $wo['product']['time_text'], $product_by_);
+				    $product_by_ = str_replace('{product_category}', Wo_SeoLink('index.php?link1=products&c_id=' . $wo['product']['category']), $product_by_);
+				    $product_by_ = str_replace('{product_category_name}', $wo['products_categories'][$wo['product']['category']], $product_by_);
+				    echo $product_by_;
+				    ?>
+				</div>
+				<div class="product-links">
+						<a class="more-info" href="<?php echo $wo['product']['url']?>"><i class="fa fa-info-circle"></i> <?php echo $wo['lang']['more_info'] ?></a>
+						<?php 
+					    if ($wo['product']['seller']['id'] != $wo['user']['user_id']) {
+					    ?>
+					    <span class="contact" onclick="Wo_OpenChatTab(<?php echo $wo['product']['seller']['id']?>)"><i class="fa fa-comments-o"></i> <?php echo $wo['lang']['contact_seller'] ?></span> 
+					    <?php } ?>
+					</div>
+				<div class="product-desc">
+					<?php echo $wo['product']['description']?>
+				</div>
+			</div>
+			<div class="col-md-3 no-padding-right">
+				<div class="product-price <?php echo Wo_RightToLeft('text-right'); ?>">
+					<?php echo Wo_GetCurrency($wo['config']['currency']);?><?php echo $wo['product']['price']?>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>

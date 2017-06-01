@@ -1,0 +1,32 @@
+<li class="feeds-item poke poke_<?php echo $poke['user_id']; ?>" data-id="<?php echo $poke['user_id']; ?>">
+   <div class="data-container">
+        
+		<a href="<?php echo $wo['config']['site_url'];?>/<?php echo $poke['username']; ?>">
+			<img class="data-avatar" src="<?php echo $poke['user_picture']; ?>" alt="<?php echo $poke['username']; ?>" width="50">
+		</a>
+        <div class="data-content">
+		
+			<div class="pull-right flip delete_poke"><button type="button" class="close"><span>×</span></button></div>           
+			<div class="poke_sending pull-right flip x-hidden">
+				<?php echo $wo['lang']['plugin_poke_gave_a_poke']; ?>
+				<a href="<?php echo $wo['config']['site_url'];?>/<?php echo $poke['username']; ?>"><?php echo $poke['username']; ?></a>!
+			</div>
+			
+            <div class="pull-right flip">
+				<button type="button" class="btn btn-primary btn_poke" data-id="<?php echo $poke['user_id']; ?>">
+					<img src="<?php echo $wo['config']['site_url'];?>/assets/plugins/img/toqueb.png">
+					<span class="ml5"><?php echo $wo['lang']['plugin_poke_return_poke']; ?></span>
+				</button>
+			</div>
+			
+            <div>
+                <span class="name js_user-popover"  data-uid="<?php echo $poke['user_id']; ?>" data-type="user">
+                    <a href="<?php echo $wo['config']['site_url'];?>/<?php echo $poke['username']; ?>"><?php echo $poke['user_fullname']; ?></a>
+                </span>
+				<div class="post-time"><a class="js_moment" data-time="<?php echo $poke['time']; ?>"><?php echo $poke['time']; ?></a></div>
+            </div>
+			
+        </div>
+		
+    </div>
+</li>

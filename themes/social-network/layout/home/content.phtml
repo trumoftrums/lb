@@ -1,0 +1,151 @@
+<div class="page-margin">
+   <div class="row">
+      <div class="col-md-8">
+      <?php if ($wo['config']['pro'] == 1) { ?>
+      <div class="featured-users">
+        <ul class="list-inline">
+         <li>
+           <div class="user" style="background-color:<?php echo $wo['config']['btn_background_color'];?>">
+               <a href="<?php echo Wo_SeoLink('index.php?link1=go-pro');?>" data-ajax="?link1=go-pro">
+                  <img style="background-color:<?php echo $wo['config']['btn_background_color'];?>" src="<?php echo $wo['config']['theme_url'] . '/img/plus.png';?>" data-placement="bottom" data-toggle="tooltip" title="<?php echo $wo['lang']['put_me_here'];?>"/>
+               </a>
+            </div>
+          </li> 
+          <?php 
+          $users = Wo_FeaturedUsers(8);
+          ?>
+          <?php 
+          foreach ($users as $wo['user-list']) {
+              echo Wo_LoadPage('home/user-list');
+          }
+          ?>
+        </ul>
+      </div><br>
+      <?php } ?>
+         <?php 
+         if (Wo_IsThereAnnouncement() === true) { 
+           $announcement = Wo_GetHomeAnnouncements();
+         ?>
+         <div class="home-announcement">
+            <div class="alert alert-white">
+               <span class="close announcements-option" data-toggle="tooltip" onclick="Wo_ViewAnnouncement(<?php echo $announcement['id']; ?>);" title="<?php echo $wo['lang']['hide'];?>">
+               <i class="fa fa-remove"></i>
+               </span>
+               <?php echo $announcement['text']; ?>
+            </div>
+            <!-- .alert .alert-success -->
+         </div>
+         <!-- .home-announcement -->
+         <?php
+         } 
+         if($wo['loggedin'] == true) {
+            echo Wo_LoadPage('story/publisher-box');
+         } 
+         echo Wo_LoadPage('story/filter-by');
+        ?>
+        <div class="order-by"> 
+          <div class="dropdown">
+             <?php echo $wo['lang']['store_posts_by'] ?>: <a class="dropdown-toggle" type="button" data-toggle="dropdown">
+             <span class="order-text"><?php echo ($wo['user']['order_posts_by'] == 0) ? $wo['lang']['all'] : $wo['lang']['people_i_follow']; ?></span>
+             <span class="caret"></span></a>
+             <ul class="dropdown-menu">
+               <li><a href="#" onclick="Wo_StorePosts(0);"><?php echo $wo['lang']['all'] ?></a></li>
+               <li><a href="#" onclick="Wo_StorePosts(1);"><?php echo $wo['lang']['people_i_follow'] ?></a></li>
+             </ul>
+           </div>
+        </div>
+        <div class="posts-count" onclick="Wo_GetNewPosts();"></div>
+        <div class="posts_load">
+            <div class="white-loading list-group">
+              <div class="cs-loader">
+                <div class="cs-loader-inner">
+                  <label> ●</label>
+                  <label> ●</label>
+                  <label> ●</label>
+                  <label> ●</label>
+                  <label> ●</label>
+                  <label> ●</label>
+                </div>
+              </div>
+            </div>
+        </div>
+         <!-- #posts -->
+      </div>
+      <!-- .col-md-8 -->
+      <?php echo Wo_LoadPage('sidebar/content');?>
+   </div>
+   <!-- .row -->
+</div>
+<!-- .page-margin -->
+
+<?php 
+if ($wo['user']['password'] == md5($wo['user']['email'])) { 
+  echo Wo_LoadPage('modals/create-password');
+} 
+?>
+<script type="text/javascript">
+$(function() {
+     loadposts();
+});
+function loadposts() {
+  $.get(Wo_Ajax_Requests_File() + '?f=load_posts', function(data) {
+    $('.posts_load').html(data);
+  });
+}
+  <?php if ($wo['user']['password'] == md5($wo['user']['email'])) { ?>
+  $(window).load(function(){
+    $('#create-password').modal('show');
+  });
+  $(function() {
+    var create_password_container = $('#create-password');
+    $('form.create-password').ajaxForm({
+      url: Wo_Ajax_Requests_File() + '?f=update_new_logged_user_details',
+      beforeSend: function() {
+        Wo_progressIconLoader($('form.create-password').find('button'));
+      },
+      success: function(data) {
+        if (data.status == 200) {
+          create_password_container.find('.error-container').html("<div class='alert alert-success'>" + data.message + "</div>");
+           $('#update-username').attr('href', data.url);
+           setTimeout(function() {
+            $('#create-password').modal('hide');
+           }, 1500);
+        } else {
+          var errors = data.errors.join("<br>");
+          create_password_container.find('.error-container').html("<div class='alert alert-danger'>" + errors + "</div>");
+        }
+        Wo_progressIconLoader($('form.create-password').find('button'));
+      }
+    });
+  });
+
+<?php } ?>
+
+function Wo_StorePosts(type) {
+  if (type > 1) {
+     return false;
+  }
+  if (type == 0) {
+    $('.order-text').text('<?php echo $wo['lang']['all'] ?>');
+  } else {
+    $('.order-text').text('<?php echo $wo['lang']['people_i_follow'] ?>');
+  }
+  $('.posts_load').html(' <div class="white-loading list-group"><div class="cs-loader"><div class="cs-loader-inner"><label> ●</label><label> ●</label><label> ●</label><label> ●</label><label> ●</label><label> ●</label></div></div></div>');
+  $.get(Wo_Ajax_Requests_File() + '?f=update_order_by', {type:type}, function (data) {
+    if (data.status == 200) {
+      loadposts();
+    }
+  });
+}
+
+function Wo_ViewAnnouncement(id) {
+    var announcement_container = $('.home-announcement');
+    $.get(Wo_Ajax_Requests_File() + '?f=update_announcement_views', {id:id}, function (data) {
+      if (data.status == 200) {
+          announcement_container.slideUp(200, function () {
+            $(this).remove();
+          });
+      }
+    });
+}
+</script>

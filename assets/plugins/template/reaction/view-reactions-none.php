@@ -1,0 +1,1 @@
+<div class="window-list-wrapper"><?php echo $wo['lang']['plugin_combo_no_reactions']; ?></div>

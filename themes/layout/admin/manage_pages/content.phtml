@@ -1,0 +1,103 @@
+<div class="list-group">
+    <div class="admin-panel-well manage-users">
+     <div class="page-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-flag"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountAllData('page'); ?> <?php echo $wo['lang']['pages'];?>
+         </div>
+      </div>
+     <div class="page-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-thumbs-up"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountPageData('likes'); ?> <?php echo $wo['lang']['likes'];?>
+         </div>
+      </div>
+      <div class="page-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-pencil"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountPageData('pages_posts'); ?> <?php echo $wo['lang']['posts'];?>
+         </div>
+      </div>
+      <div class="page-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-check-circle"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountPageData('verified_pages'); ?> <?php echo $wo['lang']['verified_pages'];?>
+         </div>
+      </div>
+      <div class="clear"></div>
+   </div>
+   <div class="setting-well">
+   <?php 
+   if ($wo['config']['pages'] == 0) { 
+    echo '<div class="alert alert-danger"><i class="fa fa-fw fa-exclamation-triangle"></i> Pages are disabled, please enable it to view the pages.</div>';
+   } else { ?>
+   <div class="table-responsive">
+      <table class="table table-hover table-bordered table-condensed setting-table">
+         <thead>
+            <tr>
+               <th><?php echo $wo['lang']['id'];?></th>
+               <th><?php echo $wo['lang']['page_name'];?></th>
+               <th><?php echo $wo['lang']['owner'];?></th>
+               <th><?php echo $wo['lang']['category'];?></th>
+               <th><?php echo $wo['lang']['action'];?></th>
+            </tr>
+         </thead>
+         <tbody class="page-result manage-pages-list">
+            <?php 
+               foreach (Wo_GetAllPages(10) as $wo['pagelist']) {
+                  echo Wo_LoadPage('admin/manage_pages/pages-list');
+                }
+               ?>
+         </tbody>
+      </table>
+      </div>
+      <input type="hidden" id="hash_id" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+      <div class="view-more-wrapper view-more-pages-wrapper">
+         <span class="text-center btn btn-default" onclick="Wo_GetMorePages();">
+         <i class="fa fa-arrow-down progress-icon" data-icon="search"></i> <?php echo $wo['lang']['show_more_pages'];?>
+         </span>
+      </div>
+      <span class="center-text"></span>
+      <?php } ?>
+   </div>
+</div>
+<script>
+$(function() {
+  view_more_pages_wrapper = $('.view-more-pages-wrapper');
+});
+function Wo_GetMorePages() {
+  after_page_id = $('.manage-pages-list').find('.setting-pagelist:last').attr('data-page-id');
+  Wo_progressIconLoader(view_more_pages_wrapper.find('.text-center'));
+  $.get(Wo_Ajax_Requests_File() + '?f=admin_setting&s=get_more_pages', {after_page_id: after_page_id}, function(data) {
+    if (data.html.length != 0) {
+      $('tbody.page-result').append(data.html);
+    } else {
+      view_more_pages_wrapper.find('.text-center').text("<?php echo $wo['lang']['no_more_pages'];?>");
+    }
+    Wo_progressIconLoader(view_more_pages_wrapper.find('.text-center'));
+  });
+}
+
+function Wo_DeletePage(page_id) {
+  if (confirm("<?php echo $wo['lang']['page_delete_confirmation'];?>") == false) {
+    return false;
+  }
+  hash_id = $('#hash_id').val();
+  $.get(Wo_Ajax_Requests_File(),{f:'admin_setting',s:'delete_user_page',page_id: page_id, hash_id:hash_id}, function(data) {
+    if (data.status == 200) {
+      $('#PageID_' + page_id).fadeOut(300, function() {
+        $(this).remove();
+      });
+    }
+  });
+}
+
+</script>

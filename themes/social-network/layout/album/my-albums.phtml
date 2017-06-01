@@ -1,0 +1,34 @@
+<div class="page-margin">
+   <div class="row">
+      <div class="col-md-8">
+        <div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-camera"></i> <?php echo $wo['lang']['albums']?><span class="<?php echo Wo_RightToLeft('pull-right'); ?>" ><a href="<?php echo Wo_SeoLink('index.php?link1=create-album');?>" data-ajax="?link1=create-album"><?php echo $wo['lang']['create']; ?></a></span></div>
+            <?php
+               $albums = Wo_GetUserAlbums($wo['user_id']);
+               if (count($albums) > 0) {
+                  foreach ($albums as $wo['album']) {
+                      echo Wo_LoadPage('album/album-list');
+                  }
+               } else {
+                  echo '<h5 class="search-filter-center-text no-well"> ' . $wo['lang']['no_albums_found'] . '</h5>';
+               }
+               
+               ?>
+            <div class="clear"></div>
+      </div>
+      </div>
+      <!-- .col-md-8 -->
+      <?php echo Wo_LoadPage('sidebar/content');?>
+   </div>
+   <!-- .row -->
+</div>
+<script>
+   function Wo_HoverOnAlbum(id) {
+      $('#album_' + id).find('#overlay-black').addClass('overlay-black').fadeIn(200);
+      $('#album_' + id).find('.album-name').fadeIn(200);
+   }
+   function Wo_LeaveOnAlbum(id) {
+      $('#album_' + id).find('#overlay-black').removeClass('overlay-black').fadeOut(400);
+      $('#album_' + id).find('.album-name').fadeOut(200);
+   }
+</script>

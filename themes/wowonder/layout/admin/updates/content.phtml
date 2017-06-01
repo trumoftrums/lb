@@ -1,0 +1,102 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-wrench"></i> Updates & Bug Fixes</div>
+   <div class="setting-well page-margin">
+     <h4 class="red"></h4>
+      <form action="" method="post" class="admin-site-setting form-horizontal">
+         <div class="form-group">
+            <label class="col-md-3" for="purchase_code">Purchase code</label>  
+            <div class="col-md-6">
+               <input type="text" class="purchase_code form-control" name="purchase_code" value="">
+               <span class="help-block">Your WoWonder purchase code, your purchase code won't be saved for security reasons.</span>
+            </div>
+         </div>
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+         <div class="form-group">
+            <label class="col-md-3"></label>  
+            <div class="col-md-6">
+               <span class="btn btn-main check-update" onclick="Wo_CheckForUpdates()">
+                  <i class="fa fa-plug progress-icon" data-icon="plug"></i> Check for updates
+               </span>   
+            </div>
+         </div>
+         <input type="hidden" value="<?php echo $wo['script_version']?>" id="script-version">
+         <div class="form-group hidden updates-layout">
+            <label class="col-md-3"></label>  
+            <div class="col-md-6">
+               <h5>New update is available!</h5>
+               <span class="help-block">The following version(s) will be installed:</span><br>
+               <div class="updates"></div>
+               <span class="btn btn-main run-update" onclick="Wo_RunUpdates()">
+                  <i class="fa fa-download progress-icon" data-icon="download"></i> Install updates
+               </span> OR 
+               <span class="btn btn-main download-update" onclick="Wo_DownloadUpdates()">
+                  <i class="fa fa-download progress-icon" data-icon="download"></i> Download updates
+               </span><br><br>
+               <span class="help-block">1. "Install updates" button will download and automatically update your site to latest version(s). <span class="help-block red">Note: "Install updates" will repalce and overwrite all your code modifications, If you want to keep your modifications, please use the manual process (download button).<br>Make sure to create a backup before starting the update process.</span></span>
+               <span class="help-block">2. "Download updates" button will download the latest version(s) and save them to your server disk, you can find them in "/updates" folder. You can update your site manually using the guide included in the update.</span><br>
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+<script type="text/javascript">
+
+function Wo_CheckForUpdates() {
+	Wo_progressIconLoader($('form.admin-site-setting').find('.check-update'));
+	var purchase_code = $('.purchase_code').val();
+	var script_version = $('#script-version').val();
+	$.get(Wo_Ajax_Requests_File(), {f: 'check_for_updates', purchase_code: purchase_code}, function (data) {
+		if (data.status == 200) {
+			$('.updates-layout').removeClass('hidden');
+			$('.updates').html('<ul class="list-group"></ul>').find('ul').append('<li class="list-group-item hidden">Versions</li>');;
+			data.versions.forEach(function(entry) {
+			    $('.updates').find('ul').append('<li class="list-group-item"> ' + entry + '</li>');
+			});
+			$('#script-version').val(data.script_version);
+		} else if (data.status == 300) {
+			alert('Your site is up to date.');
+		} else if (data.status == 400) {
+			alert(data.ERROR_NAME);
+		}  else  {
+			alert('Error while connecting to server, please check your details');
+		}
+		Wo_progressIconLoader($('form.admin-site-setting').find('.check-update'));
+	});
+}
+function Wo_DownloadUpdates() {
+	Wo_progressIconLoader($('form.admin-site-setting').find('.download-update'));
+	var purchase_code = $('.purchase_code').val();
+	$.get(Wo_Ajax_Requests_File(), {f: 'download_updates', purchase_code: purchase_code}, function (data) {
+		if (data.status == 200) {
+			alert('The update(s) was downloaded.');
+			$('.updates-layout').addClass('hidden');
+		} else if (data.status == 300) {
+			alert('Your site is up to date.');
+		} else if (data.status == 400) {
+			alert(data.ERROR_NAME);
+		}  else  {
+			alert('Error while connecting to server, please check your details');
+		}
+		Wo_progressIconLoader($('form.admin-site-setting').find('.download-update'));
+	});
+}
+
+function Wo_RunUpdates() {
+	Wo_progressIconLoader($('form.admin-site-setting').find('.run-update'));
+	var purchase_code = $('.purchase_code').val();
+	var script_version = $('#script-version').val();
+	$.get('<?php echo $wo['config']['site_url']?>/updater.php', {f: 'run_updater', purchase_code: purchase_code, script_version:script_version}, function (data) {
+		if (data.status == 200) {
+			alert('Your site was updated, please refresh your page and clean your browser cache.');
+			$('.updates-layout').addClass('hidden');
+		} else if (data.status == 300) {
+			alert('Your site is up to date.');
+		} else if (data.status == 400) {
+			alert(data.ERROR_NAME);
+		}  else  {
+			alert('Error while connecting to server, please check your details');
+		}
+		Wo_progressIconLoader($('form.admin-site-setting').find('.run-update'));
+	});
+}
+</script>

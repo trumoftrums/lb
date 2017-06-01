@@ -1,0 +1,197 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-usd"></i> <?php echo $wo['lang']['advertisement_setting']; ?></div>
+   <div class="setting-well">
+   <div class="ads-placement-container">
+            <div class="placement-header">
+               <div class="pull-left">
+                  <h5>Header <small>(Appears on all pages right under the nav bar)</small></h5>
+               </div>
+               <div class="pull-right">
+                  <h5>
+                     <span class="pointer ads-activation" title="<?php echo (Wo_IsAdActive('header') == 1) ? 'Deactivate' : 'Activate';?>" onclick = "Wo_UpdateAdsStatus('header');">
+                     <i class="fa <?php echo (Wo_IsAdActive('header') == 1) ? 'fa-times-circle active' : 'fa-check-circle';?> progress-icon"></i>
+                     </span> | 
+                     <span class="pointer" onclick="Wo_ShowAdsForm('header');">
+                     <i class="fa fa-pencil"></i>
+                     </span>
+                  </h5>
+               </div>
+               <form action="#" method="post" class="ads-form-header hidden">
+                  <div class="form-group">
+                     <textarea name="code" cols="10" rows="5" class="form-control"><?php echo Wo_GetAd('header', true);?></textarea>
+                  </div>
+                  <div class="form-group pull-right">
+                     <button onclick="Wo_SaveAdCode('header');" type="submit" class="btn btn-main "><i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i> <?php echo $wo['lang']['save'];?></button>
+
+                  </div>
+                  <input type="hidden" name="type" value="header">
+               </form>
+            </div>
+            <div class="clear"></div>
+            <hr>
+            <div class="placement-sidebar">
+               <div class="pull-left">
+                  <h5>Sidebar <small>(Appears on the bottom of home sidebar)</small></h5>
+               </div>
+               <div class="pull-right">
+                  <h5>
+                     <span class="pointer ads-activation" title="<?php echo (Wo_IsAdActive('sidebar') == 1) ? 'Deactivate' : 'Activate';?>" onclick = "Wo_UpdateAdsStatus('sidebar');">
+                     <i class="fa <?php echo (Wo_IsAdActive('sidebar') == 1) ? 'fa-times-circle active' : 'fa-check-circle';?> progress-icon" ></i>
+                     </span> | 
+                     <span class="pointer" onclick="Wo_ShowAdsForm('sidebar');">
+                     <i class="fa fa-pencil"></i>
+                     </span>
+                  </h5>
+               </div>
+               <form action="#" method="post" class="ads-form-sidebar hidden">
+                  <div class="form-group">
+                     <textarea name="code" cols="10" rows="5" class="form-control"><?php echo Wo_GetAd('sidebar', true);?></textarea>
+                  </div>
+                  <div class="form-group pull-right">
+                     <button onclick="Wo_SaveAdCode('sidebar');" type="submit" class="btn btn-main  "><i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i> <?php echo $wo['lang']['save'];?></button>  
+                  </div>
+                  <input type="hidden" name="type" value="sidebar">
+               </form>
+            </div>
+            <div class="clear"></div>
+            <hr>
+            <div class="placement-footer">
+               <div class="pull-left">
+                  <h5>Footer <small>(Appears on all pages right before the footer)</small></h5>
+               </div>
+               <div class="pull-right">
+                  <h5>
+                     <span class="pointer ads-activation" title="<?php echo (Wo_IsAdActive('footer') == 1) ? 'Deactivate' : 'Activate';?>" onclick = "Wo_UpdateAdsStatus('footer');">
+                     <i class="fa <?php echo (Wo_IsAdActive('footer') == 1) ? 'fa-times-circle active' : 'fa-check-circle';?> progress-icon"></i>
+                     </span> | 
+                     <span class="pointer">
+                     <i class="fa fa-pencil" onclick="Wo_ShowAdsForm('footer');"></i>
+                     </span>
+                  </h5>
+               </div>
+               <form action="#" method="post" class="ads-form-footer hidden">
+                  <div class="form-group">
+                     <textarea name="code" cols="10" rows="5" class="form-control"><?php echo Wo_GetAd('footer', true);?></textarea>
+                  </div>
+                  <div class="form-group pull-right">
+                     <button onclick="Wo_SaveAdCode('footer');" type="submit" class="btn btn-main "><i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i> <?php echo $wo['lang']['save'];?></button> 
+                  </div>
+                  <input type="hidden" name="type" value="footer">
+               </form>
+            </div>
+            <div class="clear"></div>
+            <hr>
+            <div class="placement-post_first">
+               <div class="pull-left">
+                  <h5>Posts 1 <small>(Appears after 10 posts are loaded, between the posts)</small></h5>
+               </div>
+               <div class="pull-right">
+                  <h5>
+                     <span class="pointer ads-activation" title="<?php echo (Wo_IsAdActive('post_first') == 1) ? 'Deactivate' : 'Activate';?>" onclick = "Wo_UpdateAdsStatus('post_first');">
+                     <i class="fa <?php echo (Wo_IsAdActive('post_first') == 1) ? 'fa-times-circle active' : 'fa-check-circle';?> progress-icon"></i>
+                     </span> | 
+                     <span class="pointer">
+                     <i class="fa fa-pencil" onclick="Wo_ShowAdsForm('post_first');"></i>
+                     </span>
+                  </h5>
+               </div>
+               <form action="#" method="post" class="ads-form-post_first hidden">
+                  <div class="form-group">
+                     <textarea name="code" cols="10" rows="5" class="form-control"><?php echo Wo_GetAd('post_first', true);?></textarea>
+                  </div>
+                  <div class="form-group pull-right">
+                     <button onclick="Wo_SaveAdCode('post_first');" type="submit" class="btn btn-main "><i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i> <?php echo $wo['lang']['save'];?></button> 
+                  </div>
+                  <input type="hidden" name="type" value="post_first">
+               </form>
+            </div>
+            <div class="clear"></div>
+            <hr>
+            <div class="placement-post_second">
+               <div class="pull-left">
+                  <h5>Posts 2 <small>(Appears after 20 posts are loaded, between the posts)</small></h5>
+               </div>
+               <div class="pull-right">
+                  <h5>
+                     <span class="pointer ads-activation" title="<?php echo (Wo_IsAdActive('post_second') == 1) ? 'Deactivate' : 'Activate';?>" onclick = "Wo_UpdateAdsStatus('post_second');">
+                     <i class="fa <?php echo (Wo_IsAdActive('post_second') == 1) ? 'fa-times-circle active' : 'fa-check-circle';?> progress-icon"></i>
+                     </span> | 
+                     <span class="pointer">
+                     <i class="fa fa-pencil" onclick="Wo_ShowAdsForm('post_second');"></i>
+                     </span>
+                  </h5>
+               </div>
+               <form action="#" method="post" class="ads-form-post_second hidden">
+                  <div class="form-group">
+                     <textarea name="code" cols="10" rows="5" class="form-control"><?php echo Wo_GetAd('post_second', true);?></textarea>
+                  </div>
+                  <div class="form-group pull-right">
+                     <button onclick="Wo_SaveAdCode('post_second');" type="submit" class="btn btn-main "><i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i> <?php echo $wo['lang']['save'];?></button> 
+                  </div>
+                  <input type="hidden" name="type" value="post_second">
+               </form>
+            </div>
+            <div class="clear"></div>
+            <hr>
+            <div class="placement-post_third">
+               <div class="pull-left">
+                  <h5>Posts 3 <small>(Appears after 30 posts are loaded, between the posts)</small></h5>
+               </div>
+               <div class="pull-right">
+                  <h5>
+                     <span class="pointer ads-activation" title="<?php echo (Wo_IsAdActive('post_third') == 1) ? 'Deactivate' : 'Activate';?>" onclick = "Wo_UpdateAdsStatus('post_third');">
+                     <i class="fa <?php echo (Wo_IsAdActive('post_third') == 1) ? 'fa-times-circle active' : 'fa-check-circle';?> progress-icon"></i>
+                     </span> | 
+                     <span class="pointer">
+                     <i class="fa fa-pencil" onclick="Wo_ShowAdsForm('post_third');"></i>
+                     </span>
+                  </h5>
+               </div>
+               <form action="#" method="post" class="ads-form-post_third hidden">
+                  <div class="form-group">
+                     <textarea name="code" cols="10" rows="5" class="form-control"><?php echo Wo_GetAd('post_third', true);?></textarea>
+                  </div>
+                  <div class="form-group pull-right">
+                     <button onclick="Wo_SaveAdCode('post_third');" type="submit" class="btn btn-main "><i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i> <?php echo $wo['lang']['save'];?></button> 
+                  </div>
+                  <input type="hidden" name="type" value="post_third">
+               </form>
+            </div>
+            <div class="clear"></div>
+         </div>
+   </div>
+
+</div>
+<script>
+	function Wo_ShowAdsForm(type) {
+  $('.ads-form-' + type).toggleClass('hidden');
+}
+      
+function Wo_SaveAdCode(type) {
+  var ad_type  = $('.ads-form-' + type);
+  ad_type.ajaxForm({
+    url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=update_ads',
+    beforeSend: function() {
+      Wo_progressIconLoader(ad_type.find('button'));
+    },
+    success: function(data) {
+      if (data.status == 200) {
+        Wo_ShowAdsForm(type);
+      } 
+        Wo_progressIconLoader(ad_type.find('button'));
+      } 
+  });  
+}
+   
+function Wo_UpdateAdsStatus(type) {  
+  var ad_placement = $('.placement-' + type);  
+  Wo_progressIconLoader(ad_placement.find('.ads-activation'));
+  $.get(Wo_Ajax_Requests_File(), {f:'admin_setting', s:'update_ads_status', type:type},function(data) {
+    if (data.status == 200) {
+      ad_placement.find('.ads-activation').html('<i class="fa fa-times-circle active progress-icon"></i>');
+    } else { 
+      ad_placement.find('.ads-activation').html('<i class="fa fa-check-circle progress-icon"></i>');  
+    }  
+  });
+}
+</script>

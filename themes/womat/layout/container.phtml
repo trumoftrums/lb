@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title><?php echo $wo['title'];?></title>
+      <meta charset="UTF-8">
+      <meta name="title" content="<?php echo $wo['title'];?>">
+      <meta name="description" content="<?php echo $wo['description'];?>">
+      <meta name="keywords" content="<?php echo $wo['keywords'];?>">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	  <link name="common" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+      
+      <?php if ($wo['page'] == 'admin' || $wo['page'] == 'maintenance') { ?>
+      <meta name="robots" content="noindex">
+      <meta name="googlebot" content="noindex">
+      <?php } ?>
+      <?php if ($wo['page'] == 'welcome') { ?>
+      <meta property="og:title" content="<?php echo $wo['title'];?>" />
+      <meta property="og:type" content="article" />
+      <meta property="og:url" content="<?php echo $wo['config']['site_url'];?>" />
+      <meta property="og:image" content="<?php echo $wo['config']['theme_url'];?>/img/og.jpg" />
+      <meta property="og:image:secure_url" content="<?php echo $wo['config']['theme_url'];?>/img/og.jpg" />
+      <meta property="og:description" content="<?php echo $wo['description'];?>" />
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:title" content="<?php echo $wo['title'];?>" />
+      <meta name="twitter:description" content="<?php echo $wo['description'];?>" />
+      <meta name="twitter:image" content="<?php echo $wo['config']['theme_url'];?>/img/og.jpg" />
+      <?php } ?>
+      <?php 
+      if (!empty($wo['story']['postFile'])) { 
+          echo Wo_LoadPage('header/og-meta');
+      } 
+      if (!empty($wo['story']['postLink'])) { 
+          echo Wo_LoadPage('header/og-meta-2');
+      } 
+      if ($wo['page'] == 'timeline') { ?>
+      <meta property="og:type" content="article" />
+      <meta property="og:image" content="<?php echo $wo['user_profile']['avatar']?>" />
+      <meta property="og:image:secure_url" content="<?php echo $wo['user_profile']['avatar'];?>" />
+      <meta property="og:description" content="<?php echo $wo['description'];?>" />
+      <meta property="og:title" content="<?php echo $wo['title'];?>" />
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:title" content="<?php echo $wo['title'];?>" />
+      <meta name="twitter:description" content="<?php echo $wo['description'];?>" />
+      <meta name="twitter:image" content="<?php echo $wo['user_profile']['avatar']; ?>" />
+      <?php
+      } 
+      ?>
+      <?php if ($wo['page'] == 'read-blog') { ?>
+<meta property="og:type" content="article" />
+      <meta property="og:image" content="<?php echo $wo['article']['thumbnail']?>" />
+      <meta property="og:image:secure_url" content="<?php echo $wo['article']['thumbnail']?>" />
+      <meta property="og:description" content="<?php echo $wo['article']['description'];?>" />
+      <meta property="og:title" content="<?php echo $wo['article']['title'];?>" />
+      <meta property="og:url" content="<?php echo $wo['article']['url'];?>" />
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:title" content="<?php echo $wo['article']['title'];?>" />
+      <meta name="twitter:description" content="<?php echo $wo['article']['description'];?>" />
+      <meta name="twitter:image" content="<?php echo $wo['article']['thumbnail']; ?>" />
+      <?php
+      } 
+      ?>
+      <link rel="shortcut icon" type="image/png" href="<?php echo $wo['config']['theme_url'];?>/img/icon.png"/>
+      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/bootstrap.min.css">
+      <?php if($wo['language_type'] == 'rtl' && $wo['page'] != 'welcome') { ?>
+      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/bootsrap-rtl.min.css">
+      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/style_rtl.css">
+      <?php } else { ?>
+      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/style_ltr.css">
+      <?php } ?>
+      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/font-awesome-4.5.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/twemoji-awesome.css">
+      <?php if ($wo['page'] == 'create_blog' || $wo['page'] == 'edit-blog') { ?>
+      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/tinymce/js/tinymce/tinymce.min.js"></script>
+      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/bootstrap-tagsinput.css">
+      <?php } ?>
+      <?php if ($wo['page'] == 'welcome') { ?>
+      <style>
+        body {min-height: 100%;height: 100%;}
+      </style>
+      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/welcome.css">
+      <?php } else { ?>
+      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/style.css">
+      <?php } ?>
+      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/bootsrap-social.css">
+      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/jquery-3.1.1.min.js"></script>
+      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/stylesheet/jquery.ui.css">
+      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/jquery.ui.js"></script>
+      <link href="<?php echo $wo['config']['theme_url'];?>/player/Video/video-js.css" rel="stylesheet">
+      <script src="<?php echo $wo['config']['theme_url'];?>/player/Audio/mediaelement-and-player.min.js"></script>
+      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/player/Audio/mediaelementplayer.min.css" />
+      <link rel="stylesheet" href="<?php echo $wo['config']['theme_url'];?>/player/Audio/media-style.css" />
+      <script type="text/javascript">
+         function Wo_Ajax_Requests_File(){
+            return "<?php echo $wo['config']['site_url'].'/requests.php';?>"
+         }
+         <?php if ($wo['config']['smooth_loading'] == 1 && $wo['loggedin'] == true) { ?>
+         function Wo_Ajax_Requests_Filee(){
+            return "<?php echo $wo['config']['site_url'].'/ajax_loading.php';?>"
+         }
+         var websiteUrl = "<?php echo $wo['config']['site_url'];?>";
+         $(function() {
+           var box = $('#contnet');
+           var ISAPI = $('#ISAPI').val();
+           $(document).on('click', 'a[data-ajax]', function(e) {
+               var url = $(this).attr('data-ajax');
+               e.preventDefault();
+               if (!ISAPI) {
+                 Wo_StartBar();
+                 $.post(Wo_Ajax_Requests_Filee() + url, {url:url}, function (data) {
+                     json_data = JSON.parse($(data).filter('#json-data').val());
+                     if (json_data.welcome_page == 1 || json_data.redirect == 1) {
+                       window.location.href = websiteUrl;
+                       return false;
+                     }
+                     box.html(data);
+                     if (json_data.is_css_file == 1) {
+                       $('.styled-profile').remove();
+                       $('footer').append(json_data.css_file);
+                       $('.extra-css').html(json_data.css_file_header);
+                     } else {
+                       $('.styled-profile').attr('href', '');
+                       $('.extra-css').empty();
+                     }
+                     
+                     if (json_data.page == 'home') {
+                       $('.filterby li.filter-by-li').on('click', function (e) {
+                         $('.filterby li.filter-by-li').each(function(){
+                           $(this).removeClass('avtive');
+                           $(this).find('i').addClass('hidden');
+                         });
+                          $(this).find('i').removeClass('hidden');
+                          $(this).addClass('avtive');
+                        });
+                       window.history.pushState({state:'new'},'', websiteUrl);
+                       //window.history.pushState({}, "<?php echo $wo['config']['site_url']?>", websiteUrl);
+                     } else {
+                       window.history.pushState({state:'new'},'', json_data.url);
+                       //window.history.pushState({}, "<?php echo $wo['config']['site_url']?>", json_data.url);
+                     }
+                      window.onpopstate = function(event) {
+                        $(window).unbind('popstate');
+                        window.location.href = document.location;
+                      };
+
+                     if (json_data.page == 'timeline' || json_data.page == 'page' || json_data.page == 'group') {
+                       $('.content-container').css('margin-top', '25px');
+                       $('.ad-placement-header-footer').find('.contnet').css('margin-top', '20px');
+                     } else {
+                       $('.content-container').css('margin-top', '45px');
+                       $('.ad-placement-header-footer').find('.contnet').css('margin-top', '0');
+                     }
+                     if (json_data.is_footer == 1 && $('.second-footer').css('display') == 'none') {
+                        $('footer .footer-wrapper').show();
+                     } else {
+                      if ($(window).width() < 720) {
+                        $('footer .footer-wrapper').show();
+                      } else {
+                        $('footer .footer-wrapper, .second-footer').hide();
+                      }
+                     }
+                     document.title = json_data.title;
+                     document_title = json_data.title;
+                     $("html, body").animate({ scrollTop: 0 }, 150);
+                     Wo_FinishBar();
+                     $('#hidden-content').empty();
+                 });
+                 $('.user-details, .pac-container, .lightbox-container').remove();
+               }
+           });
+       }); 
+      <?php } ?>
+      </script>
+      <?php if ($wo['page'] == 'admin') {?>
+      <link href="<?php echo $wo['config']['theme_url'];?>/stylesheet/bootstrap-toggle.min.css" rel="stylesheet">
+      <link href="<?php echo $wo['config']['theme_url'];?>/stylesheet/bootstrap-colorpicker.min.css" rel="stylesheet">
+      <?php } ?>
+      <?php echo (!empty($wo['config']['googleAnalytics'])) ? $wo['config']['googleAnalytics'] : ''; ?>
+      <style>
+	  .mdbtn {position: relative;overflow: hidden;box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);-webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);text-transform: uppercase;cursor: pointer;min-height: 36px;min-width: 88px;text-align: center;border-radius: 3px !important;box-sizing: border-box;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;border: 0;padding: 0px 20px;margin: 6px 0px;line-height: 36px;white-space: nowrap;font-weight: 500;font-size: 14px;font-style: inherit;font-variant: inherit;font-family: inherit;letter-spacing: 0.010em;}
+         .navbar-default {
+            background: #fff; border: none;height:50px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+         }
+         .result-bar{
+            background-color: <?php echo $wo['config']['btn_background_color'];?> !important;
+         }
+         .avtive {border-color: <?php echo $wo['config']['btn_background_color'];?> !important;}
+         #bar_loading {
+            background-color: #2196F3 !important;
+         }
+         .left-sidebar ul li a i {color: <?php echo $wo['config']['btn_background_color'];?> !important;}
+         .cs-loader-inner,  .main  {
+          color: <?php echo $wo['config']['btn_background_color'];?>;
+         }
+          .login input:focus {
+            border-color: <?php echo $wo['config']['btn_background_color'];?> !important;
+          }
+          .login:not(.loading) button:hover {
+            background: <?php echo $wo['config']['btn_hover_background_color'];?> !important;
+            color: <?php echo $wo['config']['btn_color'];?>;
+          }
+          .login button {
+            background: <?php echo $wo['config']['btn_background_color'];?> !important;
+            color: <?php echo $wo['config']['btn_color'];?> !important;
+          }
+         .mejs-controls .mejs-time-rail .mejs-time-current, 
+         .mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-current,
+         .mejs-controls .mejs-volume-button .mejs-volume-slider .mejs-volume-current {
+            background-color: <?php echo $wo['config']['btn_background_color'];?> !important;
+            background: <?php echo $wo['config']['btn_background_color'];?> !important;
+            background-image: <?php echo $wo['config']['btn_background_color'];?> !important;
+         }
+         .navbar-default .navbar-nav>.open>a,
+         .navbar-default .navbar-nav>.open>a:focus,
+         .navbar-default .navbar-nav>.open>a:hover {
+            color: #000 !important;
+            background-color: #d2d2d2 !important;
+         }
+         .navbar-default .navbar-nav>.active>a,
+         .navbar-default .navbar-nav>.active>a:focus,
+         .navbar-default .navbar-nav>.active>a:hover,
+         .nav-names li:hover {
+           color: <?php echo $wo['config']['header_color'];?> !important;
+           background-color: <?php echo $wo['config']['header_hover_border'];?> !important;
+         }
+         body {
+           background-color: #e9eaed;
+         }
+         .navbar-default .navbar-nav>li>a {
+            color: #888;
+            font-size: 13px;
+         }
+         a.unread-update {
+            color: #3a3a3a  !important;
+         }
+         .btn-main {
+            color: <?php echo $wo['config']['btn_color'];?>;
+            background-color: <?php echo $wo['config']['btn_background_color'];?>;
+            border-color: <?php echo $wo['config']['btn_background_color'];?>;
+         }
+         .btn-main:hover {
+            color: <?php echo $wo['config']['btn_hover_color'];?>;
+            background-color: <?php echo $wo['config']['btn_hover_background_color'];?>;
+            border-color: <?php echo $wo['config']['btn_hover_background_color'];?>;
+         }
+         .admin-panel .col-md-9 .list-group-item:first-child, 
+         .setting-panel .col-md-8 .list-group-item:first-child, 
+         .profile-lists .list-group-item:first-child, 
+         .col-sm-4 .list-group-item:first-child,
+         .red-list .list-group-item:first-child,
+         .active.list-group-item:first-child {
+             color: #444;
+             background-color: #fcfcfc;
+             border-bottom: 1px solid #f1f1f1;
+             padding: 18px;
+         }
+         .admin-panel .col-md-9 .list-group-item:first-child a, 
+         .setting-panel .col-md-8 .list-group-item:first-child a, 
+         .profile-lists .list-group-item:first-child a, 
+         .col-md-8 .list-group-item:first-child a,
+         .col-md-7 .list-group-item:first-child a,
+         .active.list-group-item:first-child a {
+            color: #444 !important;
+         }
+         .list-group-item.black-list.active-list, .red-list.active-list {
+            color: <?php echo $wo['config']['btn_color'];?>;
+            background-color: <?php echo $wo['config']['btn_background_color'];?>;
+         }
+         .list-group-item.black-list {
+             background: <?php echo $wo['config']['btn_background_color'];?>;
+         }
+         .profile-top-line {
+             background-color: <?php echo $wo['config']['btn_background_color'];?>;
+         }
+         #bar {
+             background-color: <?php echo $wo['config']['btn_background_color'];?>;
+         }
+         .list-group-item.black-list a{
+             color: <?php echo $wo['config']['btn_color'];?>;
+         }
+         .list-group-item.black-list.active-list a{
+             color: <?php echo $wo['config']['btn_background_color'];?>;
+         }
+         .main-color, .small-text a {
+             color: <?php echo $wo['config']['btn_background_color'];?> !important;
+         }
+         .search-advanced-container a:hover {
+            text-decoration: none;
+            color: <?php echo $wo['config']['btn_color'];?>;
+            background-color: <?php echo $wo['config']['btn_background_color'];?>;
+         }
+         .nav-tabs>li.active>a,
+         .nav-tabs>li.active>a:focus,
+         .nav-tabs>li.active>a:hover {
+            color: <?php echo $wo['config']['btn_color'];?>;
+            cursor: default;
+            color: <?php echo $wo['config']['btn_background_color'];?>;
+            border-bottom: 4px solid <?php echo $wo['config']['btn_background_color'];?>;
+            background-color: transparent
+         }
+         .btn-active {
+            color: <?php echo $wo['config']['btn_color'];?>;
+            background: <?php echo $wo['config']['btn_background_color'];?>;
+            outline: none;
+            border: 1px solid <?php echo $wo['config']['btn_background_color'];?>
+         }
+         .btn-active:hover, .btn-active:focus {
+            border: 1px solid <?php echo $wo['config']['btn_hover_background_color'];?>;
+            color: <?php echo $wo['config']['btn_hover_color'];?>;
+            background: <?php echo $wo['config']['btn_hover_background_color'];?>;
+         }
+         .btn-active-color:hover {
+            background: <?php echo $wo['config']['btn_hover_background_color'];?>;
+         }
+         .chat-container {
+            background: <?php echo $wo['config']['body_background'];?> !important;
+         }
+         .chat-tab .online-toggle {
+            background: #4CAF50;
+         }
+         .profile-style .user-follow-button button.btn-active,
+         .btn-login,
+         .btn-register {
+            background: <?php echo $wo['config']['btn_background_color'];?>;
+            color: <?php echo $wo['config']['btn_color'];?>;
+         }
+         .profile-style .user-follow-button button.btn-active:hover,
+         .btn-login:hover,
+         .btn-login:focus,
+         .btn-register:hover,
+         .btn-register:focus {
+            color: <?php echo $wo['config']['btn_hover_color'];?>;
+            background: <?php echo $wo['config']['btn_hover_background_color'];?>;
+         }
+         button:disabled  {
+            background-color: <?php echo $wo['config']['btn_disabled'];?> !important;
+         }
+         .panel-login>.panel-heading a.active {
+            color: <?php echo $wo['config']['btn_background_color'];?>;
+            font-size: 18px;
+         }
+         .hash {
+            color: <?php echo $wo['config']['btn_background_color'];?>;
+         }
+         .sixteen-font-size {
+            color: #888 !important;
+         }
+         .chat-messages-wrapper .outgoing {
+             background: <?php echo $wo['config']['chat_outgoing_background'];?> !important;
+         }
+         .normal-container {
+            width: 100%;
+            height: 100%;
+            margin-top: 15px;
+        }
+      </style>
+   </head>
+   <body> 
+      <input type="hidden" class="main_session" value="<?php echo Wo_CreateMainSession();?>">
+      <header class="header-container">
+         <?php echo ($wo['page'] != 'welcome' && $wo['page'] != 'get_news_feed' && $wo['page'] != 'maintenance') ? Wo_LoadPage( 'header/content') : ''; ?>
+      </header>
+	  
+      <?php
+      $container = 'container';
+      if ($wo['page'] == 'welcome') {
+        $container = 'welcome-container';
+      } else if ($wo['page'] == 'get_news_feed') {
+        $container = 'normal-container';
+      }
+      ?>
+      <div class="content-container <?php echo $container?>" style="<?php echo ($wo['page'] == 'timeline' || $wo['page'] == 'page' || $wo['page'] == 'group') ? 'margin-top:25px;' : '';?>">
+         <div class="ad-placement-header-footer">
+            <?php 
+               $header_ad = Wo_GetAd('header', false);
+               if($wo['page'] != 'admin' && $wo['page'] != 'welcome' && !empty($header_ad)) {
+                 $timeline_ads = ($wo['page'] == 'timeline' || $wo['page'] == 'page' || $wo['page'] == 'group')  ? 'style="margin-top: 20px;"' : '';
+                 echo '<div class="contnet" ' . $timeline_ads . '>' . $header_ad . '</div>';
+               } 
+               ?>
+         </div>
+         <div id="contnet"><?php echo $wo['content'];?></div> 
+         <?php 
+            $footer_ad = Wo_GetAd('footer', false);
+            if($wo['page'] != 'admin' && $wo['page'] != 'welcome' && !empty($footer_ad)) {
+              echo '<div class="contnet">' . $footer_ad . '</div>';
+            } 
+            ?>
+         <footer>
+            <?php 
+              if ($wo['page'] != 'welcome' && $wo['page'] != 'register' && $wo['page'] != 'get_news_feed') {
+                echo Wo_LoadPage('footer/content');
+              }
+             ?>
+         </footer>
+         <div class="second-footer">
+            <?php
+               if (in_array($wo['page'], $wo['footer_pages'])) {
+                  echo Wo_LoadPage('footer/content');
+               }
+            ?>
+         </div>
+         <div class="extra">
+            <?php 
+               if ($wo['loggedin'] == true && $wo['page'] != 'maintenance') {
+                 if ($wo['config']['chatSystem'] == 1 && $wo['page'] != 'get_news_feed') {
+                   echo Wo_LoadPage('chat/content');
+                 }
+                 echo Wo_LoadPage('modals/logged-out');
+                 ?>
+            <?php 
+               }
+               ?>
+         </div>
+      </div>
+      <!-- JS FILES -->
+      <?php if ($wo['loggedin'] == false) { ?>
+      <?php if ($wo['config']['reCaptcha'] == 1) { ?>
+      <script type="text/javascript" src='https://www.google.com/recaptcha/api.js'></script>
+      <?php } ?>
+      <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/welcome.js"></script>
+      <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/typed.js-master/js/typed.js"></script>
+      <?php } ?>
+      <?php if ($wo['loggedin'] == true) {?>
+      <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/script.js"></script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo $wo['config']['google_map_api'];?>&libraries=places"></script>
+      <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/jquery.limit-1.2.source.js"></script>
+      <?php } ?>
+      <?php if ($wo['page'] == 'timeline' && $wo['loggedin'] == true && $wo['config']['css_upload'] == 1) { ?>
+      <?php if (!empty($wo['user_profile']['css_file']) && file_exists($wo['user_profile']['css_file'])) {?>
+      <link class="styled-profile" rel="stylesheet" href="<?php echo Wo_GetMedia($wo['user_profile']['css_file']);?>">
+      <?php echo $wo['css_file_header'];?>
+      <?php } } ?>
+      <div class="extra-css"></div>
+      <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/bootstrap.min.js"></script>
+      <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/readmore.min.js"></script>
+      <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/jquery.form.min.js"></script> 
+      <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/init.js"></script>
+      <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/automention.js"></script>
+      <?php
+      if ($wo['page'] == 'go_pro') {
+      ?>
+      
+      <?php
+      }
+      ?>
+      <?php
+      if ($wo['page'] != 'welcome') {
+      ?>
+      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/twilio-common.min.js"></script>
+      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/twilio-conversations.min.js"></script>
+      <?php } ?>
+      <!-- End 'JS FILES' -->
+      <?php if ($wo['page'] == 'admin') { ?>
+      <script src="https://code.highcharts.com/highcharts.js"></script>
+      <script src="https://code.highcharts.com/modules/exporting.js"></script>
+      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/bootstrap-toggle.min.js"></script>
+      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/bootstrap-colorpicker.min.js"></script>
+      <?php } ?>
+      <script src="https://platform.vine.co/static/scripts/embed.js"></script>
+      <?php echo Wo_LoadPage('timeago/content'); ?>
+      <?php if($wo['loggedin'] == true) { echo Wo_LoadPage('extra_js/content'); }?>
+      <!-- Audio FILES -->
+      <?php if ($wo['loggedin'] == true) { ?>
+      <audio id="notification-sound" class="sound-controls" preload="auto">
+         <source src="<?php echo $wo['config']['theme_url']; ?>/mp3/New-notification.mp3" type="audio/mpeg">
+      </audio>
+      <audio id="message-sound" class="sound-controls" preload="auto">
+         <source src="<?php echo $wo['config']['theme_url']; ?>/mp3/New-message.mp3" type="audio/mpeg">
+      </audio>
+      <audio id="calling-sound" class="sound-controls" preload="auto">
+         <source src="<?php echo $wo['config']['theme_url']; ?>/mp3/calling.mp3" type="audio/mpeg">
+      </audio>
+      <audio id="video-calling-sound" class="sound-controls" preload="auto">
+         <source src="<?php echo $wo['config']['theme_url']; ?>/mp3/video_call.mp3" type="audio/mpeg">
+      </audio>
+      <?php } ?>
+      <!-- End 'Audio FILES' -->
+   </body>
+</html>

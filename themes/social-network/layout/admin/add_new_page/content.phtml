@@ -1,0 +1,69 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-plus"></i>Add new page</div>
+   <div class="setting-well page-margin">
+      <form action="" method="post" class="admin-site-setting form-horizontal">
+         <div class="form-group">
+            <label class="col-md-3" for="page_name">Page name</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="page_name"> 
+               <span class="help-block"><?php echo $wo['config']['site_url'] . '/site-pages/PAGE_NAME'?></span>
+            </div>
+         </div>
+          <div class="form-group">
+            <label class="col-md-3" for="page_title">Page title</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="page_title"> 
+               <span class="help-block">The page title that will show in the footer</span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="page_content">Page content</label>  
+            <div class="col-md-6">
+               <textarea class="form-control" name="page_content" rows="10"></textarea>
+               <span class="help-block">The page content (HTML allowed)</span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="page_type">Page type</label>  
+            <div class="col-md-6">
+               <select name="page_type" class="form-control">
+                 <option value="1">Include background and header</option>
+                 <option value="0">Empty page</option>
+               </select>
+            </div>
+         </div>
+         <hr>
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+         <div class="form-group">
+            <label class="col-md-3"></label>  
+            <div class="col-md-6">
+               <button type="submit" class="btn btn-main">
+               <i class="fa fa-plus progress-icon" data-icon="plus"></i>  <?php echo $wo['lang']['add']?>
+               </button> 
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+<script type="text/javascript">
+$(function() {
+    $('form.admin-site-setting').ajaxForm({
+      url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=add_new_page',
+      beforeSend: function() {
+        Wo_progressIconLoader($('form.admin-site-setting').find('button'));
+      },
+      success: function(data) {
+        if (data.status == 200) {
+          $('form.admin-site-setting button').html('<i class="fa fa-check"></i> Added');
+          setTimeout(function () {
+            window.location.href = '<?php echo Wo_SeoLink("index.php?link1=admincp&page=custom_pages");?>';
+          }, 1000);
+        } else if (data.status == 400) {
+          alert(data.message);
+        }
+        Wo_progressIconLoader($('form.admin-site-setting').find('button'));
+      }
+    });
+});
+
+</script>

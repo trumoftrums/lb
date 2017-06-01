@@ -1,0 +1,14 @@
+<div class="cool-style-album" id="album_<?php echo $wo['album']['id'];?>" onmouseover="Wo_HoverOnAlbum(<?php echo $wo['album']['id'];?>);" onmouseleave="Wo_LeaveOnAlbum(<?php echo $wo['album']['id'];?>);">
+    <a href="<?php echo $wo['album']['url'];?>" data-ajax="?link1=post&id=<?php echo $wo['album']['id'];?>">
+      <div class="avatar">
+         <img src="<?php echo $wo['album']['first_image'];?>" alt="<?php echo $wo['album']['first_image']; ?> Picture" />
+      </div>
+      <div id="overlay-black"></div>
+      <div class="album-name">
+      	 <?php echo $wo['album']['album_name']; ?>
+      	 <div class="album-count">
+          <?php echo Wo_CountAlbumImages($wo['album']['id']);?> <?php echo $wo['lang']['photos']; ?>
+         </div>
+      </div> 
+    </a>
+</div>

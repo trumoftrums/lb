@@ -1,0 +1,36 @@
+<div class="sidebar-conatnier">
+      <div class="home profile-style main">
+         <div class="card hovercard">
+            <div class="cardheader">
+               <img src="<?php echo $wo['setting']['cover']?>" id="cover-image" alt="<?php echo $wo['setting']['name']?> Cover Image">
+            </div>
+            <div class="text-shadow"></div>
+            <div class="avatar <?php echo Wo_RightToLeft('pull-left');?>">
+               <img id="updateGroupImage-<?php echo $wo['setting']['id']?>" alt="<?php echo $wo['setting']['name']?> Profile Picture" src="<?php echo $wo['setting']['avatar']?>">
+            </div>
+            <div class="info">
+               <div class="title">
+                  <a id="user-full-name" data-ajax="?link1=timeline&u=<?php echo $wo['setting']['group_name'];?>" href="<?php echo $wo['setting']['url'];?>"><?php echo $wo['setting']['name']?></a>
+               </div>
+            </div>
+         </div>
+      </div>
+      <ul class="list-group">
+            <li class="list-group-item black-list <?php echo ($wo['setting_page'] == 'general-setting') ? 'active-list': '';?>"><a href="<?php echo Wo_SeoLink('index.php?link1=group-setting&group=' . $wo['setting']['group_name'] . '&link3=general-setting');?>" data-ajax="?link1=group-setting&group=<?php echo $wo['setting']['group_name']?>&link3=general-setting"><i class="fa fa-fw fa-cog"></i> <?php echo $wo['lang']['general'];?></a></li>
+            <li class="list-group-item black-list <?php echo ($wo['setting_page'] == 'privacy-setting') ? 'active-list': '';?>"><a href="<?php echo Wo_SeoLink('index.php?link1=group-setting&group=' . $wo['setting']['group_name'] . '&link3=privacy-setting');?>" data-ajax="?link1=group-setting&group=<?php echo $wo['setting']['group_name']?>&link3=privacy-setting"><i class="fa fa-fw fa-shield"></i> <?php echo $wo['lang']['privacy'];?></a></li>
+            <li class="list-group-item black-list <?php echo ($wo['setting_page'] == 'avatar-setting') ? 'active-list': '';?>"><a href="<?php echo Wo_SeoLink('index.php?link1=group-setting&group=' . $wo['setting']['group_name'] . '&link3=avatar-setting');?>" data-ajax="?link1=group-setting&group=<?php echo $wo['setting']['group_name']?>&link3=avatar-setting"><i class="fa fa-fw fa-picture-o"></i> <?php echo $wo['lang']['avatar_and_cover'];?></a></li>
+             <li class="list-group-item black-list <?php echo ($wo['setting_page'] == 'group-members') ? 'active-list': '';?>"><a href="<?php echo Wo_SeoLink('index.php?link1=group-setting&group=' . $wo['setting']['group_name'] . '&link3=group-members');?>" data-ajax="?link1=group-setting&group=<?php echo $wo['setting']['group_name']?>&link3=group-members"><i class="fa fa-fw fa-users"></i> <?php echo $wo['lang']['members'];?></a></li>
+            <?php if ($wo['setting']['join_privacy'] == 2) { ?>
+            <li class="list-group-item black-list <?php echo ($wo['setting_page'] == 'requests') ? 'active-list': '';?>"><a href="<?php echo Wo_SeoLink('index.php?link1=group-setting&group=' . $wo['setting']['group_name'] . '&link3=requests');?>" data-ajax="?link1=group-setting&group=<?php echo $wo['setting']['group_name']?>&link3=requests"><i class="fa fa-fw fa-user-plus"></i> <?php echo $wo['lang']['join_requests'];?> 
+            <?php 
+            $requests = Wo_CountGroupRequests($wo['setting']['id']);
+            if ($requests > 0) { ?>
+                  <div class="report-not-seen <?php echo Wo_RightToLeft('pull-right');?>"><?php echo $requests;?></div>
+            <?php } ?>
+            </a></li>
+            <?php } ?>
+            <li class="list-group-item black-list <?php echo ($wo['setting_page'] == 'delete-group') ? 'active-list': '';?>"><a href="<?php echo Wo_SeoLink('index.php?link1=group-setting&group=' . $wo['setting']['group_name'] . '&link3=delete-group');?>" data-ajax="?link1=group-setting&group=<?php echo $wo['setting']['group_name']?>&link3=delete-group" ><i class="fa fa-fw fa-trash-o"></i> <?php echo $wo['lang']['delete_group'];?></a></li>
+       </ul>
+         <?php echo Wo_LoadPage('footer/sidebar-footer')?>
+      </div>
+</div>

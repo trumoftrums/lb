@@ -1,0 +1,234 @@
+<?php global $sqlConnect; ?>
+<div class="row col-sm-12">
+	<?php if($sub_view == ""){ ?>
+	
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<strong>Create category</strong>
+			</div>
+			<div class="panel-body">
+				<form class="js_ajax_forms form-horizontal" data-url="?f=admin_sticker" action="<?php echo $wo['config']['site_url']; ?>/plugin_requests.php" method="post" enctype="multipart/form-data">
+				
+					<input type="hidden" name="f" value="admin_sticker">
+					<input type='hidden' name='task' value='new_category'>					
+				    <div class="col-sm-9 form-group">
+						<input type="text" class="form-control" name="new_category"  placeholder="Write name of category">
+					</div>
+					<div class="col-sm-3 form-group">
+						<button type='submit' class='ml10 btn btn-success no_radius'>Create category</button>
+					</div>
+								
+					<div class="row col-xs-12">
+						<?php /* success */ ?>
+						<div class="alert alert-success mb0 mt10 x-hidden" role="alert"></div>
+						<?php /* ssuccess */ ?>
+						<?php /* serror */ ?>
+						<div class="alert alert-danger mb0 mt10 x-hidden" role="alert"></div>
+						<?php /* serror */ ?>
+					</div>
+			
+				</form>								  
+			</div>
+		</div>	
+			
+<?php
+$type_query = $sqlConnect->query("SELECT * FROM stickers_category");
+$categ_list = array();
+
+while($row = $type_query->fetch_assoc()){ 
+    $categ_list[] = $row;
+}
+
+ if(isset($categ_list)){ ?>
+ 	<div class="panel panel-default">
+	<div class='panel-body table-responsive'>
+		<table class='table table-striped table-bordered table-hover js_dataTable'>
+			<thead>
+				<tr>
+				<th>ID</th>
+				<th>NAME</th>
+                <th>ACTION</th>
+				</tr>
+            </thead>
+			
+			<tbody class="ads_list_content">
+			
+				<?php foreach($categ_list as $category){ ?>
+					<tr>			
+						<td>
+						<a href="<?php echo $wo['config']['site_url']; ?>/index.php?link1=admin-plugins&view=sticker_setting&category_id=<?php echo $category['stickers_category_id']; ?>">
+								<span id='span_$id'><?php echo $category['stickers_category_id']; ?></span>
+							</a>
+						</td>				
+						<td>
+						<a href="<?php echo $wo['config']['site_url']; ?>/index.php?link1=admin-plugins&view=sticker_setting&category_id=<?php echo $category['stickers_category_id']; ?>">
+								<?php echo $wo['lang']['sticker_'.$category['stickers_category_id']]; ?>
+							</a>			
+						</td>				
+						<td>
+							<a href="<?php echo $wo['config']['site_url']; ?>/admincp/edit_key&id=sticker_<?php echo $category['stickers_category_id']; ?>">
+							<i class="fa fa-pencil"></i>
+							</a>
+							<a href='#' data-id="<?php echo $category['stickers_category_id']; ?>" class="js_category_sticker_delete ml10">
+							<i class="fa fa-trash-o"></i>
+							</a>
+						</td>			
+					</tr>
+				<?php } ?>
+			
+			</tbody>
+		</table>
+	</div>
+	</div>
+<?php } ?>
+		
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<strong>Sube una imagen</strong>
+			</div>
+			<div class="panel-body">
+				
+				
+				
+				
+				<div class="col-sm-3 form-group">
+					<label for="StickerCardsImage" class="ml10 btn btn-primary no_radius"><i class="fa fa-upload"></i> Cargar</label>
+				</div>
+					
+				<form class="js_ajax_forms_ form-horizontal" data-url="?f=admin_sticker" action="<?php echo $wo['config']['site_url']; ?>/plugin_requests.php" method="post" enctype="multipart/form-data"> 	  
+					<input class="StickerCardsImage" style="display:none;" name="file" type="file" multiple="" accept="image/*" id="StickerCardsImage">					
+					<input type="hidden" name="f" value="admin_sticker">
+					<input type="hidden" name="task" value="new_sticker">
+					
+						<div class="form-group col-sm-7">
+							<div class="col-sm-6 mt5"><strong>Select category:</strong></div>
+							<div class="col-sm-6">
+								<select class='form-control' name='category'>
+									<?php foreach($categ_list as $cat){ ?>
+										<option value="<?php echo $cat['stickers_category_id']; ?>"><?php echo $wo['lang']['sticker_'.$cat['stickers_category_id']]; ?></option>
+									<?php }//FF ?>
+								</select>
+							</div>
+						</div>		
+					
+					<div class="col-sm-2 form-group x-hidden">
+						<button type='submit' class='ml10 btn btn-success no_radius'>Send Image</button>
+					</div>
+								
+					<div class="row col-xs-12">
+						<?php /* success */ ?>
+						<div class="alert alert-success mb0 mt10 x-hidden" role="alert"></div>
+						<?php /* ssuccess */ ?>
+						<?php /* serror */ ?>
+						<div class="alert alert-danger mb0 mt10 x-hidden" role="alert"></div>
+						<?php /* serror */ ?>
+					</div>
+					
+				</form>  
+				
+			</div>
+		</div>	
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<strong>Images for Category</strong>
+			</div>
+		</div>				
+			
+	<div id="StickerContent" class="row col-sm-12 attachments clearfix">
+	
+	<ul>
+	
+	<?php 
+	    $category_id = ( isset($_POST['category_id']) ? $_POST['category_id'] : ( isset($_GET['category_id']) ? $_GET['category_id'] : 0) );
+		if(!isset($category_id) OR $category_id == 0){ 
+			$query = "SELECT * FROM stickers ORDER BY sticker_id DESC"; 
+		}else{ 
+			$query = "SELECT * FROM stickers WHERE sticker_category='{$category_id}' ORDER BY sticker_id DESC"; 
+		}
+			$resource = $sqlConnect->query($query);
+	        $count_stickers =  $resource->num_rows;
+			$sticker_vars = array();
+			while($sticker_info = $resource->fetch_assoc()) {
+				$sticker_vars[] = $sticker_info;
+			}
+	        if($count_stickers > 0){
+				foreach($sticker_vars as $con){ ?>					
+					<li class="item deletable" data-src="<?php echo $wo['config']['site_url']; ?>/upload/stickers/<?php echo $con['sticker_id']; ?>_t.jpg">
+						<img alt="" src="<?php echo $wo['config']['site_url']; ?>/upload/stickers/<?php echo $con['sticker_id']; ?>_t.jpg" title="<?php echo $wo['lang']['sticker_'.$con['sticker_category']]; ?>">
+						<button type="button" class="close js_sticker_remover" data-id="<?php echo $con['sticker_id']; ?>" title="Remove">
+							<span>×</span>
+						</button>
+					</li>
+	<?php 
+				}
+			} 
+	//F ?>
+	</ul>
+	</div>
+			
+						  
+					   
+	<?php } ?>
+</div>
+
+
+<script>
+					function HtmlGC(photo){ return ''; }
+					
+					var StickerCount = 0;
+					
+					function StickerCardsFileUpload(files){
+						    for (var i = 0; i < files.length; i++){
+							var filename = files[i].name;
+							var ext = filename.substring(filename.lastIndexOf(".")+1).toLowerCase();
+							if(ext == "jpg" || ext == "png" || ext == "gif" || ext == "jpeg"){
+								
+								var formData = new FormData();
+								formData.append('file', files[i]);	
+								var count_id= StickerCount++;		
+								
+								$("#StickerContent ul").prepend('<li class="loading" style="display: list-item;" id="load_sticker_'+count_id+'"><div class="loader loader_small"></div></li>');
+								
+								var cost = $('input[name=cost]').val();
+								var category = $('select[name="category"]').val();
+								
+								$.ajax({type: 'post',url: site_url+'/plugin_requests.php?f=admin_sticker&task=new_sticker&category='+category+'&count_id='+count_id, 
+								contentType:false, processData: false, data: formData, cache : false, 
+								success: function(result){ 
+									$('#load_sticker_'+result.id).after(result.html);
+									$('#load_sticker_'+result.id).remove();
+								}
+								});
+																
+							}else{ alert('this formart no permise'); }						
+						}
+					}
+					
+					$('body').on('change', '.StickerCardsImage', function(event){ var files = this.files; StickerCardsFileUpload(files); });
+					$('body').on('click', '.js_sticker_remover', function(event){ 
+					event.preventDefault(); 
+					var self = $(this);
+					var sticker_id = self.attr('data-id');
+					self.closest('li').hide();
+					$.ajax({type: 'post',url: site_url+'/plugin_requests.php?f=admin_sticker', data: {'task':'sticker_delete', 'sticker_id':sticker_id}, cache : false, 
+								success: function(result){ 
+									self.closest('li').remove();
+								}
+								});
+					});
+					$('body').on('click', '.js_category_sticker_delete', function(event){ 
+					event.preventDefault(); 
+					var self = $(this);
+					var category_id = self.attr('data-id');
+					self.closest('tr').hide();
+					$.ajax({type: 'post',url: site_url+'/plugin_requests.php?f=admin_sticker', data: {'task':'category_delete', 'category_id':category_id}, cache : false, 
+								success: function(result){ 
+									self.closest('tr').remove();
+									window.location.reload();
+								}
+								});
+					});
+					
+				</script>

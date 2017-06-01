@@ -1,0 +1,7 @@
+<?php
+  if(!empty($wo['system']['bonus_enable_plublisher_new']) && $wo['system']['bonus_enable_plublisher_new'] == 1){
+    echo Wo_LoadPage('plugins/plugin_publisher_box');
+ } else {
+    echo Wo_LoadPage('story/publisher-box-default');
+ }
+?>

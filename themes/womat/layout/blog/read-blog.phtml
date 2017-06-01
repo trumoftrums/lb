@@ -1,0 +1,149 @@
+<div class="page-margin">
+   <div class="row">
+      <div class="col-md-8 profile-lists">
+           <div class="read-blog">
+             <h2><?php echo $wo['article']['title']?></h2>
+             <div class="read-blog-desc">
+               <p><?php echo $wo['article']['description']; ?></p>
+             </div>
+             <div class="read-blog-info <?php echo Wo_RightToLeft('text-left') ?>">
+               <?php
+               $posted = str_replace('{BLOG_TIME}', Wo_Time_Elapsed_String($wo['article']['posted']), $wo['lang']['posted_on_blog']);
+               $posted = str_replace('{CATEGORY_NAME}', '<a href="' . $wo['article']['category_link'] . '" class="main">' . $wo['article']['category_name'] . '</a>', $posted);
+               ?>
+               <p><?php echo $posted; ?></p>
+             </div>
+             <div class="read-blog-info-user">
+               <div class="col-md-9">
+                 <div class="user-image <?php echo Wo_RightToLeft('pull-left'); ?>">
+                   <a href="<?php echo $wo['article']['author']['url']?>"><img src="<?php echo $wo['article']['author']['avatar']?>" alt="User Image"></a>
+                 </div>
+                 <div class="user-name">
+                   <a href="<?php echo $wo['article']['author']['url']?>"><?php echo $wo['article']['author']['name']?></a>
+                   <div class="small">
+                   <?php
+                   echo Wo_CountFollowers($wo['article']['author']['user_id']) . ' ';
+                   if ($wo['config']['connectivitySystem'] == 1) {
+                      echo $wo['lang']['friends_btn'];
+                   } else {
+                      echo $wo['lang']['followers'];
+                   }
+                   ?>
+                 </div>
+                 </div>
+               </div>
+               <div class="col-md-3 views <?php echo Wo_RightToLeft('text-right'); ?>">
+                 <?php echo $wo['article']['view']?> <?php echo $wo['lang']['views']?>
+               </div>
+               <div class="clear"></div>
+             </div>
+             <div class="blog-share-buttons">
+                <ul class="list-inline">
+                  <li>
+                    <a href="https://www.facebook.com/sharer.php?u=<?php echo urlencode($wo['article']['url']) ?>" target="_blank">
+                      <div class="btn-share btn-facebook"><i class="fa fa-facebook"></i> Share</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://plus.google.com/share?url=<?php echo urlencode($wo['article']['url']) ?>" target="_blank">
+                      <div class="btn-share btn-google"><i class="fa fa-google-plus"></i> Google+</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="http://twitter.com/intent/tweet?text=<?php echo $wo['article']['title'] ?>&amp;url=<?php echo urlencode($wo['article']['url']) ?>" target="_blank">
+                      <div class="btn-share btn-twitter"><i class="fa fa-twitter"></i> Tweet</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="http://www.reddit.com/submit?url=<?php echo urlencode($wo['article']['url']) ?>" target="_blank">
+                      <div class="btn-share btn-reddit"><i class="fa fa-reddit"></i> Reddit</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode($wo['article']['url']) ?>" target="_blank">
+                      <div class="btn-share btn-pinterest"><i class="fa fa-pinterest"></i> Pin</div>
+                    </a>
+                  </li>
+                </ul>
+            </div>
+               <div style="margin:15px 0px">
+                   <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                   <!-- LifeBary -->
+                   <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-1141030920683241"
+                        data-ad-slot="2757592619"
+                        data-ad-format="auto"></ins>
+                   <script>
+                       (adsbygoogle = window.adsbygoogle || []).push({});
+                   </script>
+               </div>
+            <div class="read-content">
+              <?php echo htmlspecialchars_decode($wo['article']['content']); ?>
+            </div>
+            <div class="read-tags main"><?php echo $wo['lang']['tags'] ?>:
+              <?php if (is_array($wo['article']['tags_array'])) {
+                foreach ($wo['article']['tags_array'] as $key => $tag) {
+                 ?>
+                 <a href="<?php echo Wo_SeoLink('index.php?link1=hashtag&hash=' . $tag) ?>"><?php echo $tag ?></a>,
+                 <?php
+                }
+              } ?>
+            </div>
+               <div style="margin:15px 0px">
+                   <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                   <!-- LifeBary -->
+                   <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-1141030920683241"
+                        data-ad-slot="2757592619"
+                        data-ad-format="auto"></ins>
+                   <script>
+                       (adsbygoogle = window.adsbygoogle || []).push({});
+                   </script>
+               </div>
+               <video controls="controls" style="width:400px;">
+                   <!-- Safari -->
+                   <source src="https://drive.google.com/uc?export=download&id=0B6xdz6YDEE50cWhBYXdobF9wVTA" type='video/mp4'/>
+                   <!-- Chrome and FF -->
+                   <source src="https://drive.google.com/uc?export=download&id=0B6xdz6YDEE50cWhBYXdobF9wVTA" type='video/webm'/>
+               </video>
+            </div>
+          <div class="fb-comments" data-href="<?php echo $wo['article']['url']?>" data-numposts="5" data-width="100%"></div>
+      </div>
+      <div class="col-md-4"><?php echo Wo_LoadPage('blog/sidebar') ?></div>
+   </div>
+   <!-- .row -->
+</div>
+<style>
+  .fb_iframe_widget iframe {
+    width: 100% !important;
+  }
+</style>
+<script>
+jQuery(document).ready(function($) {
+  $(document).on('click', ".delete-my-blog",function() {
+    $.ajax({
+      type: "GET",
+      url: Wo_Ajax_Requests_File(),
+      data: {id: $(this).attr("id"),f:'delete-my-blog'},
+      dataType:'json',
+      success: function(data) {
+         if(data['status'] == 200){
+            $("div[data-rm-blog='"+ data['id'] +"']").remove()
+         } else {
+            alert(data['status'])
+         }
+      }
+    });   
+  });
+});
+</script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.8&appId=1755264744788554";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>

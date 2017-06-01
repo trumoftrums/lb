@@ -1,0 +1,104 @@
+<div class="list-group">
+   <div class="admin-panel-well manage-users">
+     <div class="groups-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-users"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountAllData('group'); ?> <?php echo $wo['lang']['groups'];?>
+         </div>
+      </div>
+     <div class="groups-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-user-plus"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountGroupData('members'); ?> <?php echo $wo['lang']['joined_members'];?>
+         </div>
+      </div>
+      <div class="groups-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-pencil"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountGroupData('groups_posts'); ?> <?php echo $wo['lang']['posts'];?> 
+         </div>
+      </div>
+      <div class="groups-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-user-plus"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountGroupData('join_requests'); ?> <?php echo $wo['lang']['join_requests'];?>
+         </div>
+      </div>
+      <div class="clear"></div>
+   </div>
+   <div class="setting-well">
+   <?php 
+   if ($wo['config']['groups'] == 0) { 
+    echo '<div class="alert alert-danger"><i class="fa fa-fw fa-exclamation-triangle"></i> Groups are disabled, please enable it to view the groups.</div>';
+   } else { ?>
+   <div class="table-responsive">
+      <table class="table table-hover table-bordered table-condensed setting-table">
+         <thead>
+            <tr>
+               <th><?php echo $wo['lang']['id'];?></th>
+               <th><?php echo $wo['lang']['group_name'];?></th>
+               <th><?php echo $wo['lang']['owner'];?></th>
+               <th><?php echo $wo['lang']['category'];?></th>
+               <th><?php echo $wo['lang']['members'];?></th>
+               <th><?php echo $wo['lang']['action'];?></th>
+            </tr>
+         </thead>
+         <tbody class="group-result manage-groups-list">
+            <?php 
+               foreach (Wo_GetAllGroups(10) as $wo['grouplist']) {
+                  echo Wo_LoadPage('admin/manage_groups/groups-list');
+                }
+               ?>
+         </tbody>
+      </table>
+      </div>
+      <input type="hidden" id="hash_id" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+      <div class="view-more-wrapper view-more-pages-wrapper">
+         <span class="text-center btn btn-default" onclick="Wo_GetMoreGroups();">
+         <i class="fa fa-arrow-down progress-icon" data-icon="search"></i> <?php echo $wo['lang']['show_more_groups'];?>
+         </span>
+      </div>
+      <span class="center-text"></span>
+      <?php } ?>
+   </div>
+</div>
+<script>
+$(function() {
+  view_more_pages_wrapper = $('.view-more-pages-wrapper');
+});
+function Wo_GetMoreGroups() {
+  after_group_id = $('.manage-groups-list').find('.setting-grouplist:last').attr('data-group-id');
+  Wo_progressIconLoader(view_more_pages_wrapper.find('.text-center'));
+  $.get(Wo_Ajax_Requests_File() + '?f=admin_setting&s=get_more_groups', {after_group_id: after_group_id}, function(data) {
+    if (data.html.length != 0) {
+      $('tbody.group-result').append(data.html);
+    } else {
+      view_more_pages_wrapper.find('.text-center').text("<?php echo $wo['lang']['no_more_groups'];?>");
+    }
+    Wo_progressIconLoader(view_more_pages_wrapper.find('.text-center'));
+  });
+}
+
+function Wo_DeleteGroup(group_id) {
+  if (confirm("<?php echo $wo['lang']['group_delete_confirmation'];?>") == false) {
+    return false;
+  }
+  hash_id = $('#hash_id').val();
+  $.get(Wo_Ajax_Requests_File(),{f:'admin_setting',s:'delete_group',group_id: group_id, hash_id:hash_id}, function(data) {
+    if (data.status == 200) {
+      $('#GroupID_' + group_id).fadeOut(300, function() {
+        $(this).remove();
+      });
+    }
+  });
+}
+
+</script>

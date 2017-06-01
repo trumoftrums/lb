@@ -1,0 +1,51 @@
+<?php $wo['terms'] = Wo_GetTerms(); ?>
+<div class="list-group">
+<div class="list-group-item"><i class="fa fa-fw fa-bars"></i> <?php echo $wo['lang']['terms']; ?></div>
+<div class="setting-well">
+   <form method="post" action="#" class="setting-terms-container">
+      <h5><?php echo $wo['lang']['terms_of_use'];?> <small>(<?php echo $wo['lang']['html_allowed'];?>)</small></h5>
+      <div class="send-errors"></div>
+      <div class="form-group">
+         <textarea name="terms_of_use" class="form-control" placeholder="<?php echo $wo['lang']['terms_of_use'];?>" rows="15" cols="30"><?php echo $wo['terms']['terms_of_use'];?></textarea>
+      </div>
+      <h5><?php echo $wo['lang']['privacy_policy'];?> <small>(<?php echo $wo['lang']['html_allowed'];?>)</small></h5>
+      <div class="send-errors"></div>
+      <div class="form-group">
+         <textarea name="privacy_policy" class="form-control" placeholder="<?php echo $wo['lang']['privacy_policy'];?>" rows="15" cols="30"><?php echo $wo['terms']['privacy_policy'];?></textarea>
+      </div>
+      <h5><?php echo $wo['lang']['about'];?> <small>(<?php echo $wo['lang']['html_allowed'];?>)</small></h5>
+      <div class="send-errors"></div>
+      <div class="form-group">
+         <textarea name="about" class="form-control" placeholder="<?php echo $wo['lang']['about'];?>" rows="15" cols="30"><?php echo $wo['terms']['about'];?></textarea>
+      </div>
+      <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+      <div class="row">
+         <div class="col-sm-3 pull-left">
+            <button type="submit" class="btn btn-main">
+            <i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i> <?php echo $wo['lang']['save'];?>
+            </button>
+         </div>
+      </div>
+   </form>
+</div>
+<script>
+$(function() {
+    $('form.setting-terms-container').ajaxForm({
+      url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=update_terms_setting',
+      beforeSend: function() {
+        Wo_progressIconLoader($('form.setting-terms-container').find('button'));
+      },
+      success: function(data) {
+        if (data.status == 200) {
+          $('form.setting-terms-container button').html('<i class="fa fa-check"></i> <?php echo $wo["lang"]["saved"];?>');
+          setTimeout(function () {
+            $('form.setting-terms-container button').html('<i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i>  <?php echo $wo["lang"]["save"]?>');
+          }, 2000);
+          
+          Wo_progressIconLoader($('form.setting-terms-container').find('button'));
+
+        } 
+      }
+    });
+});
+</script>

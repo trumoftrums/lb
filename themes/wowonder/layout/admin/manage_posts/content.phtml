@@ -1,0 +1,111 @@
+<div class="list-group">
+    <div class="admin-panel-well manage-users">
+     <div class="posts-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-comments"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountAllData('comments'); ?> <?php echo $wo['lang']['comments'];?>
+         </div>
+      </div>
+     <div class="posts-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-thumbs-up"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountPostData('likes'); ?> <?php echo $wo['lang']['likes'];?>
+         </div>
+      </div>
+      <div class="posts-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-<?php echo $wo['second_post_button_icon'];?>"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountPostData('wonders'); ?> <?php echo $wo['second_post_button_texts'];?>
+         </div>
+      </div>
+      <div class="posts-count admin-static pull-left">
+         <div class="icon">
+            <i class="fa fa-share"></i>
+         </div>
+         <div class="text">
+            <?php echo Wo_CountPostData('replies'); ?> <?php echo $wo['lang']['replies'];?>
+         </div>
+      </div>
+      <div class="clear"></div>
+   </div>
+   <div class="setting-well">
+   <div class="table-responsive">
+      <table class="table table-hover table-bordered table-condensed setting-table">
+         <thead>
+            <tr>
+               <th><?php echo $wo['lang']['id'];?></th>
+               <th><?php echo $wo['lang']['publisher'];?> </th>
+               <th><?php echo $wo['lang']['post_link'];?> </th>
+               <th><?php echo $wo['lang']['time'];?> </th>
+               <th><?php echo $wo['lang']['action'];?></th>
+            </tr>
+         </thead>
+         <tbody class="posts-result manage-posts-list">
+            <?php 
+               $posts = Wo_GetAllPosts();
+                if (count($posts) > 0) {
+                  foreach ($posts as $wo['story']) {
+                    echo Wo_LoadPage('admin/manage_posts/posts-list');
+                  }
+                } 
+               ?>
+         </tbody>
+      </table>
+      </div>
+      <input type="hidden" id="hash_id" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+      <div class="no-result">
+         <?php 
+            if (count($posts) == 0) {
+              echo '<span class="center-text">' . $wo['lang']['there_are_not_new_posts_for_now'] . '</span>';
+            }
+            ?>
+      </div>
+      <?php
+         if (count($posts) > 0) { 
+         ?>
+      <div class="view-more-wrapper view-more-posts-wrapper">
+         <span class="text-center btn btn-default" onclick="Wo_AdminGetMorePosts();">
+         <i class="fa fa-arrow-down progress-icon" data-icon="arrow-down"></i> <?php echo $wo['lang']['show_more_posts'];?>
+         </span>
+      </div>
+      <?php } ?>
+      <span class="center-text"></span>
+   </div>
+</div>
+<script>
+function Wo_AdminDeletePost(post_id) {
+    if (confirm("<?php echo $wo['lang']['post_delete_confirmation'];?>") == false) {
+      return false;
+    }
+    hash_id = $('#hash_id').val();
+    var delete_icon = $('.manage-posts-list').find('#PostID_' + post_id).find('.delete-post');
+    Wo_progressIconLoader(delete_icon);
+    $.post(Wo_Ajax_Requests_File() + '?f=admin_setting&s=delete_post', {post_id:post_id, hash_id:hash_id}, function(data) {
+      if (data.status == 200) {
+        $('#PostID_' + post_id).fadeOut(300, function() {
+          $(this).remove();
+        });
+      }
+    });
+}
+
+function Wo_AdminGetMorePosts() {
+    after_post_id = $('.manage-posts-list').find('.setting-postlist:last').attr('data-post-id');
+    view_more_wrapper = $('.view-more-posts-wrapper');
+    Wo_progressIconLoader(view_more_wrapper.find('.text-center'));
+    $.get(Wo_Ajax_Requests_File() + '?f=admin_setting&s=get_more_posts', {after_post_id:after_post_id}, function(data) {
+      if (data.html.length != 0) {
+        $('tbody.posts-result').append(data.html);
+      } else {
+        view_more_wrapper.find('.text-center').text("<?php echo $wo['lang']['no_more_posts'];?>");
+      }
+      Wo_progressIconLoader(view_more_wrapper.find('.text-center'));
+    });
+}
+</script>

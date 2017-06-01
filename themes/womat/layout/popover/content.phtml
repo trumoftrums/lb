@@ -1,0 +1,32 @@
+<div class="user-fetch">
+   <div class="user-cover" style="background: url(<?php echo $wo['popover']['cover']?>); background-size:cover; background-position:50%; min-height:130px;">
+   </div>
+   <div class="user-avatar">
+      <img src="<?php echo $wo['popover']['avatar']; ?>" alt="user avatar">
+   </div>
+   <div class="text-shadow"></div>
+   <div class="user-name">
+      <a href="<?php echo $wo['popover']['url']; ?>" data-ajax="?link1=timeline&u=<?php echo $wo['popover']['username']?>"><?php echo $wo['popover']['name']; ?></a>
+      <?php if($wo['popover']['verified'] == 1) {   ?>
+      <i class="fa fa-check-circle verified-color" data-toggle="tooltip" title="<?php echo $wo['lang']['verified_user'];?>"></i>
+      <?php } ?>
+   </div>
+   <ul class="user-information <?php echo Wo_RightToLeft('pull-left');?>">
+      <?php $gender = ucfirst(strtolower($wo['popover']['gender']));?>
+      <?php if($wo['config']['user_lastseen'] == 1 && $wo['popover']['showlastseen'] != 0) {  ?>
+      <li><i class="fa fa-eye fa-fw"></i> <?php echo Wo_UserStatus($wo['popover']['user_id'], $wo['popover']['lastseen']);?></li>
+      <?php } ?>
+      <li><i class="fa fa-transgender fa-fw"></i> <?php echo ($gender == 'Male') ? $wo['lang']['male'] : $wo['lang']['female'];?></li>
+      <?php if ($wo['popover']['country_id'] > 0) { ?>
+      <li><i class="fa fa-globe fa-fw"></i> <?php echo $wo['lang']['living_in'];?> <?php echo $wo['countries_name'][$wo['popover']['country_id']];?></li>
+      <?php } ?>
+   </ul>
+   <div class="clear"></div>
+   <div class="user-footer">
+      <div class="user-buttons pull-right">
+         <div class="user-button message-button <?php echo Wo_RightToLeft('pull-right');?>"><?php echo Wo_GetMessageButton($wo['popover']['user_id']); ?></div>
+         <div class="user-button user-follow-button <?php echo Wo_RightToLeft('pull-right');?>"><?php echo Wo_GetFollowButton($wo['popover']['user_id']); ?></div>
+      </div>
+   </div>
+   <div class="clear"></div>
+</div>

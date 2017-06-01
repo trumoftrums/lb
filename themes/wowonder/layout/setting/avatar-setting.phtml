@@ -1,0 +1,94 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-picture-o"></i> <?php echo $wo['lang']['avatar_and_cover']; ?> <?php if(Wo_IsAdmin() === true) { ?><a href="<?php echo $wo['setting']['url'];?>" data-ajax="?link1=timeline&u=<?php echo $wo['setting']['username'] ?>">(<?php echo $wo['setting']['name'];?>)</a><?php } ?></div>
+   <div class="setting-well">
+   <form  method="post" class="form-horizontal setting-profile-form" enctype="multipart/form-data">
+      <fieldset>
+         <div class="setting-profile-alert setting-update-alert"></div>
+         <!-- Text input-->
+         <div class="form-group">
+            <label class="col-md-2" for="avatar"><?php echo $wo['lang']['avatar']; ?></label> 
+            <div class="col-md-7">
+                  <span class="btn btn-default btn-file">
+                     <i class="fa fa-camera" ></i>
+                     <input type="file" id="avatar" accept="image/x-png, image/gif, image/jpeg" name="avatar" multiple="multiple">
+                  </span>
+            </div> 
+         </div>
+         <div class="form-group avatar-read" id="photo-form">
+               <label class="col-md-2"></label>  
+               <div class="col-md-7">
+                  <input type="text" class="form-control input-md" readonly>
+               </div>
+         </div>
+         <!-- Text input-->
+         <div class="form-group">
+            <label class="col-md-2" for="cover"><?php echo $wo['lang']['cover']; ?></label>
+            <div class="col-md-7">
+                  <span class="btn btn-default btn-file">
+                     <i class="fa fa-camera" ></i>
+                     <input type="file" id="cover" accept="image/x-png, image/gif, image/jpeg" name="cover" multiple="multiple">
+                  </span>
+            </div>
+         </div>
+         <div class="form-group cover-read" id="photo-form">
+               <label class="col-md-2"></label>  
+               <div class="col-md-7">
+                  <input type="text" class="form-control input-md" readonly>
+               </div>
+         </div>
+         <hr>
+         <div class="form-group last-btn">
+            <label class="col-md-2"></label>  
+            <div class="col-sm-3">
+               <button type="submit" class="btn btn-main">
+               <i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i> <?php echo $wo['lang']['save']; ?>
+               </button>
+            </div>
+         </div>
+         <input type="hidden" name="user_id" id="user-id" value="<?php echo $wo['setting']['user_id'];?>">
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+      </fieldset>
+   </form>
+</div>
+</div>
+
+<script type="text/javascript">
+$(function() {
+  $("#avatar").change(function () {
+         var filename = $(this).val().replace(/C:\\fakepath\\/i, '');
+         $(".avatar-read input").val(filename);
+         $(".avatar-read").slideDown(200);
+    });
+  $("#cover").change(function () {
+         var filename = $(this).val().replace(/C:\\fakepath\\/i, '');
+         $(".cover-read input").val(filename);
+         $(".cover-read").slideDown(200);
+    });
+  $('form.setting-profile-form').ajaxForm({
+    url: Wo_Ajax_Requests_File() + '?f=update_images_setting',
+    beforeSend: function() {
+      Wo_progressIconLoader($('form.setting-profile-form').find('button'));
+    },
+    success: function(data) {
+      if (data.status == 200) {
+        scrollToTop();
+        $(".cover-read, .avatar-read").slideUp(200);
+        if (data.avatar) {
+          var user_id = $('form.setting-profile-form').find('#user-id').val();
+          $('[id^=updateImage-' + user_id + ']').fadeOut(300, function () { $('[id^=updateImage-' + user_id + ']').attr("src", data.avatar)}).fadeIn(300);
+        }
+        if (data.cover) {
+          $('[id^=cover-image]').fadeOut(300, function () { $('[id^=cover-image]').attr("src", data.cover)}).fadeIn(300);
+        }
+        $('.setting-profile-alert').html('<div class="alert alert-success">' + data.message + '</div>');
+        $('.alert-success').fadeIn('fast', function() {
+          $(this).delay(2500).slideUp(500, function() {
+            $(this).remove();
+          });
+        });
+      } 
+      Wo_progressIconLoader($('form.setting-profile-form').find('button'));
+    }
+  });
+});
+</script>

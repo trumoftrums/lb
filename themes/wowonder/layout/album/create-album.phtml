@@ -1,0 +1,134 @@
+<div class="page-margin">
+   <div class="row">
+      <div class="col-md-2"><?php echo Wo_LoadPage("sidebar/left-sidebar"); ?></div>
+      <div class="col-md-7">
+         <div class="list-group">
+            <div class="list-group-item">
+               <i class="fa fa-fw fa-camera"></i> <?php echo $wo['album']['title'];?>
+               <span class="<?php echo Wo_RightToLeft('pull-right');?>">
+               <a href="<?php echo Wo_SeoLink('index.php?link1=albums');?>" data-ajax="?link1=albums"><i class="fa fa-fw fa-arrow-circle-left"></i><?php echo $wo['lang']['my_albums'];?></a>
+               </span>
+               <div class="clear"></div>
+            </div>
+            <div class="setting-well">
+               <form class="create-album-form form-horizontal" method="post">
+                  <fieldset>
+                     <div class="app-general-alert setting-update-alert"></div>
+                     <!-- Text input-->
+                     <div class="form-group">
+                        <label class="col-md-3" for="album_name"><?php echo $wo['lang']['album_name'];?> *</label>  
+                        <div class="col-md-6">
+                           <input id="album_name" name="album_name" type="text" class="form-control input-md" value="<?php echo $wo['album']['album_name'];?>">
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="col-md-3" for="album_name"><?php echo $wo['lang']['photos'];?> *</label>  
+                        <div class="col-md-5">
+                          <div class="input-group">
+                             <span class="btn btn-default btn-file">
+                             <i class="fa fa-camera" ></i><input type="file" id="publisher-photos" accept="image/x-png, image/gif, image/jpeg" name="postPhotos[]" multiple="multiple">
+                             </span>
+                          </div>
+                        </div>
+                     </div>
+
+                     <div class="form-group" id="photo-form">
+                        <label class="col-md-3"></label>  
+                        <div class="col-md-6">
+                           <input type="text" class="form-control input-md" readonly>
+                        </div>
+                     </div>
+
+                     <div class="publisher-hidden-option">
+         <div id="progress">
+            <span id="percent">0%</span>
+            <div class="progress">
+             <div id="bar" class="progress-bar progress-bar-striped active"></div> 
+            </div>
+            <div class="clear"></div>
+         </div>
+      </div>
+
+                     <hr>
+                     <input type="hidden" name="id" class="form-control input-md" value="<?php echo $wo['album']['id'];?>">
+                     <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+                     <div class="form-group last-btn">
+                        <label class="col-md-3"></label>
+                        <div class="col-sm-3">
+                           <button type="submit" class="form-control btn btn-main">
+                           <i class="fa fa-upload progress-icon" data-icon="plus-square"></i> <?php echo $wo['lang']['upload'];?>
+                           </button>
+                        </div>
+                     </div>
+                  </fieldset>
+               </form>
+            </div>
+         </div>
+      </div>
+      <!-- .col-md-8 -->
+      <?php echo Wo_LoadPage('sidebar/content');?>
+   </div>
+   <!-- .row -->
+</div>
+<!-- .page-margin -->
+<script type="text/javascript">
+   $(function() {
+
+   	$("#publisher-photos").change(function () {
+        var numFiles = this.files.length;
+        $("#photo-form input").val(numFiles + ' photo(s) selected');
+        $("#photo-form").slideDown(200);
+    });
+
+    var bar = $('#bar');
+    var percent = $('#percent');
+    var status = $('#status');
+    var publisher_button = $('#publisher-button');
+   
+     $('form.create-album-form').ajaxForm({
+   
+       url: Wo_Ajax_Requests_File() + '?f=album&s=create_album',
+      
+       beforeSend: function() {
+  
+         var percentVal = '0%';
+         bar.width(percentVal);
+         percent.html(percentVal);
+         Wo_progressIconLoader($('form.create-album-form').find('button'));
+   
+       },
+
+       uploadProgress: function (event, position, total, percentComplete) {
+           var percentVal = percentComplete + '%';
+           bar.width(percentVal);
+           $('#progress').slideDown(200);
+           if(percentComplete > 50) {
+             percent.addClass('white');
+           }
+           percent.html(percentVal);
+      },
+      
+       success: function(data) {
+
+         if (data.status == 200) {
+   
+           window.location.href = data.href;
+   
+         } else {
+   
+             var errors = data.errors.join("<br>");
+   
+             $('.app-general-alert').html('<div class="alert alert-danger">' + errors + '</div>');
+   
+             $('.alert-danger').fadeIn(300);
+   
+         }
+   
+         Wo_progressIconLoader($('form.create-album-form').find('button'));
+   
+       }
+   
+     });
+   
+   });
+</script>

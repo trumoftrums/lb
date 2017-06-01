@@ -1,0 +1,82 @@
+<div class="page-margin">
+   <div class="row">
+      <div class="col-md-8">
+         <div class="list-group red-list">
+            <div class="list-group-item"><i class="fa fa-envelope-o"></i> <?php echo $wo['lang']['contact_us']; ?></div>
+            <div class="setting-well">
+               <form class="contact-us-form form-horizontal" method="post">
+                  <fieldset>
+                     <div class="contact-us-alert setting-update-alert"></div>
+                     <!-- Text input-->
+                     <div class="form-group">
+                        <label class="col-md-3" for="first_name"><?php echo $wo['lang']['first_name'];?> *</label>  
+                        <div class="col-md-6">
+                           <input id="first_name" name="first_name" type="text" class="form-control input-md">
+                        </div>
+                     </div>
+                     <!-- Text input-->
+                     <div class="form-group">
+                        <label class="col-md-3" for="last_name"><?php echo $wo['lang']['last_name'];?> *</label>  
+                        <div class="col-md-6">
+                           <input id="last_name" name="last_name" type="text" class="form-control input-md">
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="col-md-3" for="email"><?php echo $wo['lang']['email'];?> *</label>  
+                        <div class="col-md-6">
+                           <input name="email" id="email" type="text" class="form-control input-md">
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="col-md-3" for="message"><?php echo $wo['lang']['message'];?> *</label>  
+                        <div class="col-md-6">
+                           <textarea name="message" id="message" rows="5" class="form-control input-md"></textarea>
+                        </div>
+                     </div>
+                     <hr>
+                     <div class="form-group last-btn">
+                        <label class="col-md-3"></label>
+                        <div class="col-sm-3 text-left">
+                           <button type="submit" name="send" id="send" tabindex="4" class="form-control btn btn-main">
+                           <i class="fa fa-paper-plane-o progress-icon" data-icon="paper-plane-o"></i> <?php echo $wo['lang']['send'];?>
+                           </button>
+                        </div>
+                     </div>
+                  </fieldset>
+               </form>
+            </div>
+         </div>
+      </div>
+      <!-- .col-md-8 -->
+      <?php
+         if ($wo['loggedin'] == true) {
+          echo Wo_LoadPage('sidebar/content');
+         } else {
+          echo Wo_LoadPage('sidebar/guest');
+         }
+         ?>
+   </div>
+   <!-- .row -->
+</div>
+<!-- .page-margin -->
+<script>
+   $(function() {
+     $('form.contact-us-form').ajaxForm({
+       url: Wo_Ajax_Requests_File() + '?f=contact_us',
+       beforeSend: function() {
+         Wo_progressIconLoader($('form.contact-us-form').find('button'));
+       },
+       success: function(data) {
+         if (data.status == 200) {
+            $('.contact-us-alert').html('<div class="alert alert-success">' + data.message + '</div>');
+            $('.alert-success').fadeIn(300);
+         } else {
+             var errors = data.errors.join("<br>");
+             $('.contact-us-alert').html('<div class="alert alert-danger">' + errors + '</div>');
+             $('.alert-danger').fadeIn(300);
+         }
+         Wo_progressIconLoader($('form.contact-us-form').find('button'));
+       }
+     });
+   });
+</script>

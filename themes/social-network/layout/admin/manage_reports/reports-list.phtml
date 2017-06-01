@@ -1,0 +1,29 @@
+<tr class="setting-userlist <?php echo ($wo['report']['seen'] == 0) ? ' report-not-seen' : '';?> " id="ReportID_<?php echo $wo['report']['id']?>" >
+   <td><?php echo $wo['report']['id']?></td>
+   <td>
+      <a href="<?php echo $wo['report']['story']['publisher']['url']; ?>">
+      <img src="<?php echo $wo['report']['story']['publisher']['avatar']?>" class="setting-avatar" alt="<?php echo $wo['report']['story']['publisher']['avatar']?> Profile Picture">
+      <?php echo $wo['report']['story']['publisher']['name']; ?>
+      </a>
+   </td>
+   <td>
+      <a href="<?php echo $wo['report']['reporter']['url']; ?>">
+      <img src="<?php echo $wo['report']['reporter']['avatar']?>" class="setting-avatar" alt="<?php echo $wo['report']['reporter']['avatar']?> Profile Picture">
+      <?php echo $wo['report']['reporter']['name']; ?>
+      </a>
+   </td>
+   <td><a href="<?php echo $wo['report']['story']['url'];?>" target="_blank"><?php echo $wo['lang']['open_post'];?></a></td>
+   <td>
+      <div class=" ajax-time" title="<?php echo date('c',$wo['report']['time']); ?>">
+         <?php echo Wo_Time_Elapsed_String($wo['report']['time']);?>
+      </div>
+   </td>
+   <td>
+      <span class="mark-safe pointer" onclick="Wo_MarkSafeReportedPost(<?php echo $wo['report']['id']?>);">
+      <i class="fa fa-check progress-icon" data-icon="check"></i> <?php echo $wo['lang']['mark_safe'];?>
+      </span>|
+      <span class="delete-report pointer" onclick="Wo_DeleteReportedPost(<?php echo $wo['report']['story']['id']?>,<?php echo $wo['report']['id']?>);">
+      <i class="fa fa-trash-o progress-icon" data-icon="trash-o"></i> <?php echo $wo['lang']['delete_post'];?>
+      </span>
+   </td>
+</tr>

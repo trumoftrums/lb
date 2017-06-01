@@ -1,0 +1,44 @@
+<div class="row col-sm-12">
+	<div class="panel panel-default">
+		<div class="panel-heading"><?php echo $wo['lang']['plugin_configurations']; ?></div>
+		<div class="panel-body">
+
+			<form class="js_ajax_forms form-horizontal" action="" data-url="?f=admin_bonus&task=setting" method="post">	
+				<div class="form-group x-hidden">
+					<label class="col-sm-4"><?php echo $wo['lang']['plugin_b_home_col']; ?></label>
+					<div class="col-sm-7">
+						<select class="form-control" name="home_left_column">
+							<option <?php if($wo['system']['bonus_enable_home_left_column'] == 1){ echo 'selected=""'; } ?> value="1"><?php echo $wo['lang']['yes']; ?></option>
+							<option <?php if($wo['system']['bonus_enable_home_left_column'] == 0){ echo 'selected=""'; } ?> value="0"><?php echo $wo['lang']['no']; ?></option>
+						</select>
+						<p class="help-block"><?php echo $wo['lang']['plugin_b_home_col_desc']; ?></p>
+					</div>
+				</div>     
+				
+				<div class="form-group">
+					<label class="col-sm-4"><?php echo $wo['lang']['plugin_b_plublisher_new']; ?></label>
+					<div class="col-sm-7">
+						<select class="form-control" name="plublisher_new">
+							<option <?php if($wo['system']['bonus_enable_plublisher_new'] == 1){ echo 'selected=""'; } ?> value="1"><?php echo $wo['lang']['yes']; ?></option>
+							<option <?php if($wo['system']['bonus_enable_plublisher_new'] == 0){ echo 'selected=""'; } ?> value="0"><?php echo $wo['lang']['no']; ?></option>
+						</select>
+						<p class="help-block"><?php echo $wo['lang']['plugin_b_plublisher_new_desc']; ?></p>
+					</div>
+				</div>         
+												
+				<div class="body-header mb10">
+					<button class="btn btn-primary" type="submit"><?php echo $wo['lang']['plugin_save_changes']; ?></button>
+				</div>
+				
+				<div class="row col-xs-12">
+					<?php /* success */ ?>
+					<div class="alert alert-success mb0 mt10 x-hidden" role="alert"></div>
+					<?php /* ssuccess */ ?>
+					<?php /* serror */ ?>
+					<div class="alert alert-danger mb0 mt10 x-hidden" role="alert"></div>
+					<?php /* serror */ ?>
+				</div>			
+			</form>
+		</div>
+	</div>                    
+</div>

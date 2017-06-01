@@ -1,0 +1,356 @@
+<div class="row page-margin" data-page="page" data-id="<?php echo $wo['page_profile']['page_id'];?>">
+  <div class="profile-container">
+     <div class="profile-top-line"></div>
+      <div class="card hovercard">
+        <div class="cardheader user-cover">
+          <?php if($wo['page_profile']['is_page_onwer'] == true) { ?>
+          <form action="#" method="post" class="profile-cover-changer">
+            <div class="input-group">
+              <span class="input-group-btn">
+              <span class="btn btn-upload-image btn-file">
+              <i class="fa fa-camera"></i>
+              <input type="file" name="cover" accept="image/x-png, image/jpeg" onchange="Wo_UpdateProfileCover();">
+              </span>
+              </span>
+            </div>
+            <input type="hidden" name="page_id" value="<?php echo $wo['page_profile']['page_id'];?>">
+          </form>
+          <?php } ?>
+          <div class="user-cover-uploading-container"></div>
+          <div class="user-cover-uploading-progress">
+              <i class="fa fa-spinner fa-spin progress-icon" data-icon="spin"></i>
+          </div>
+          <img id="cover-image" src="<?php echo $wo['page_profile']['cover']?>" alt="<?php echo $wo['page_profile']['name']?> Cover Image"/>
+        </div>
+        <div class="user-avatar flip">
+          <div class="user-avatar-uploading-container">
+            <div class="user-avatar-uploading-progress">
+              <i class="fa fa-spinner fa-spin progress-icon" data-icon="spin"></i>
+            </div>
+          </div>
+          <img id="page-avatar-image" alt="<?php echo $wo['page_profile']['name']?> Profile Picture" src="<?php echo $wo['page_profile']['avatar']?>"/>
+          <?php if($wo['page_profile']['is_page_onwer'] == true) { ?>
+          <form action="#" method="post" class="profile-avatar-changer">
+            <div class="input-group">
+              <span class="input-group-btn">
+              <span class="btn btn-upload-image btn-file">
+              <i class="fa fa-camera"></i>
+              <input type="file" name="avatar" accept="image/x-png, image/jpeg" onchange="Wo_UpdateProfileAvatar();">
+              </span>
+              </span>
+            </div>
+            <input type="hidden" name="page_id" id="page-id" value="<?php echo $wo['page_profile']['page_id'];?>">
+          </form>
+          <?php } ?>
+        </div>
+        <div class="text-shadow"></div>
+        <div class="info">
+          <div class="title">
+            <a href="<?php echo $wo['page_profile']['url'];?>" data-ajax="?link1=timeline&u=<?php echo $wo['page_profile']['page_name'];?>">
+            <?php echo $wo['page_profile']['name']; ?>
+            </a>
+            <?php if($wo['page_profile']['verified'] == 1) {   ?>
+            <i class="fa fa-check-circle verified-color" data-toggle="tooltip" title="Verified Page"></i>
+            <?php } ?>
+          </div>
+          <div class="options-buttons <?php echo Wo_RightToLeft('pull-left');?> ">
+            <span class="user-follow-button page-like-btn">
+            <?php echo Wo_GetLikeButton($wo['page_profile']['page_id']);?>
+            </span>
+            <span class="user-follow-button page-like-btn">
+            <?php echo Wo_GetCallInAction($wo['page_profile']['call_action_type'], $wo['page_profile']['call_action_type_url']);?>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="col-md-8">
+             <?php
+            if (isset($_GET['type'])) {
+              if ($_GET['type'] == 'invite') {
+            ?>
+        <div class="list-group profile-lists">
+         <div class="list-group-item"><i class="fa fa-fw fa-users"></i> <?php echo $wo['lang']['invite_your_frineds'];?></div>
+            <div class="setting-well">
+            <?php
+               if (Wo_CountPageInvites($wo['page_profile']['page_id']) == 0) {
+                  echo '<h5 class="search-filter-center-text">' . $wo['lang']['not_invite'] . '</h5>';
+                } else {
+                foreach (Wo_GetPageInvites($wo['page_profile']['page_id']) as $wo['UsersList']) {
+                  echo Wo_LoadPage('page/invite-list');
+               }
+              }
+             ?>
+            </div>
+            <div class="clear"></div>
+        </div>
+    <?php } } else { ?>
+    <?php echo Wo_GetPagePostPublisherBox($wo['page_profile']['page_id']); ?>
+    <?php if ($wo['loggedin'] == true) { echo Wo_LoadPage('story/filter-by'); } ?>
+    <div id="posts" data-story-page="<?php echo $wo['page_profile']['page_id'];?>">
+      <div class="pinned-post-container">
+        <?php
+          $pinedstory = Wo_GetPinnedPost($wo['page_profile']['page_id'], 'page');
+          if (count($pinedstory) == 1) {
+              foreach ($pinedstory  as $wo['story']) {
+                echo Wo_LoadPage('story/content');
+              }
+          }
+          ?>
+      </div>
+      <?php
+        $stories = Wo_GetPosts(array('filter_by' => 'all', 'page_id' => $wo['page_profile']['page_id'])); 
+        if (count($stories) == 0 && count($pinedstory) == 0) {
+           echo Wo_LoadPage('story/page-no-stories');
+        } else {
+           foreach ($stories as $wo['story']) {
+             echo Wo_LoadPage('story/content');
+           }
+        }
+        ?>
+    </div>
+    <?php if ($wo['loggedin'] == true && count($stories) > 0) {  ?>
+    <div class="load-more pointer" id="load-more-posts" onclick="Wo_GetMorePosts();">
+      <span class="btn btn-default"><i class="fa fa-chevron-circle-down progress-icon" data-icon="chevron-circle-down"></i> <?php echo $wo['lang']['load_more_posts']; ?><span>
+    </div>
+    <?php
+      }
+      }
+      ?>
+    <div id="load-more-filter">
+      <span class="filter-by-more hidden" data-filter-by="all"></span>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <ul class="list-group">
+      <li class="list-group-item" style="background-color: #fff;border-bottom:0;  position: relative; display: block; padding: 5px 10px;font-size: 13px;background-color: #fff;color: #555">
+          <strong><i class="fa fa-thumbs-up fa-fw"></i></strong> 
+          <?php echo Wo_CountPageLikes($wo['page_profile']['page_id']);?> <?php echo $wo['lang']['people_likes_this']; ?> 
+          <?php if ($wo['page_profile']['is_page_onwer'] == true) { ?>
+          <span class="green">+<?php echo Wo_CountLikesThisWeek($wo['page_profile']['page_id']); ?> <?php echo $wo['lang']['this_week']; ?></span>
+          <?php } ?>
+      </li>
+      <?php if ($wo['page_profile']['is_page_onwer'] == true) { ?>
+      <li class="list-group-item">
+        <strong><i class="fa fa-cog fa-fw"></i></strong>
+        <span><a data-ajax="?link1=page-setting&page=<?php echo $wo['page_profile']['page_name'];?>" href="<?php echo Wo_SeoLink('index.php?link1=page-setting&page=' .  $wo['page_profile']['page_name']); ?>"><?php echo $wo['lang']['edit_page_settings'];?></a></span>
+      </li>
+      <?php } ?>
+      <?php  if($wo['config']['pro'] == 1 && $wo['page_profile']['is_page_onwer'] == true) {  ?>
+      <?php if ($wo['user']['is_pro'] == 1) { ?>
+      <?php if ($wo['user']['pro_type'] > 1) {?>
+      <?php if ($wo['page_profile']['boosted'] == 0) {?>
+      <li class="list-group-item">
+        <strong><i class="fa fa-bolt fa-fw"></i></strong>
+        <span><a href="<?php echo $wo['marker'];?>boosted"><?php echo $wo['lang']['boost_page'];?></a></span>
+      </li>
+      <?php  } else {  ?>
+      <li class="list-group-item">
+        <strong style="color:#e13c4c;"><i class="fa fa-bolt fa-fw"></i></strong>
+        <span><span style="color:#e13c4c;"><?php echo $wo['lang']['page_boosted'];?></span> | <a href="<?php echo $wo['marker'];?>un-boost"><?php echo $wo['lang']['un_boost_page'];?></a></span>
+      </li>
+      <?php  }  ?>
+      <?php  }  ?>
+      <?php  } else {  ?>
+      <li class="list-group-item">
+        <strong><i class="fa fa-bolt fa-fw"></i></strong>
+        <span><a href="<?php echo Wo_SeoLink('index.php?link1=go-pro');?>"><?php echo $wo['lang']['boost_page'];?></a></span>
+      </li>
+      <?php  }  ?>
+      <?php  }  ?>
+      <li class="list-group-item">
+        <strong><i class="fa fa-pencil-square-o fa-fw"></i></strong>
+        <?php echo Wo_CountPagePosts($wo['page_profile']['page_id']);?> <?php echo $wo['lang']['posts']; ?>
+      </li>
+      <li class="list-group-item">
+        <strong><i class="fa fa-user-plus fa-fw"></i></strong>
+        <a data-ajax="?link1=timeline&u=<?php echo $wo['page_profile']['page_name'];?>&type=invite" href="<?php echo Wo_SeoLink('index.php?link1=timeline&u=' . $wo['page_profile']['page_name'] . '&type=invite');?>"><?php echo $wo['lang']['page_inviate_label']; ?></a>
+      </li>
+    </ul>
+    <ul class="list-group">
+      <li class="list-group-item text-muted" contenteditable="false">
+        <i class="fa fa-list fa-fw"></i> <?php echo $wo['lang']['details']; ?>
+      </li>
+      <li class="list-group-item">
+        <strong><i class="fa fa-bars fa-fw" data-toggle="tooltip" title="<?php echo $wo['lang']['category']; ?>"></i></strong>
+        <?php echo $wo['page_profile']['category']; ?>
+      </li>
+      <?php  if(!empty($wo['page_profile']['company'])) {  ?>
+      <li class="list-group-item">
+        <strong><i class="fa fa-building-o fa-fw" data-toggle="tooltip" title="<?php echo $wo['lang']['company']; ?>"></i></strong>
+        <span><?php echo $wo['page_profile']['company']?></span>
+      </li>
+      <?php  }  ?>
+      <?php  if(!empty($wo['page_profile']['phone'])) {  ?>
+      <li class="list-group-item">
+        <strong><i class="fa fa-phone fa-fw" data-toggle="tooltip" title="<?php echo $wo['lang']['phone_number']; ?>"></i></strong>
+        <span><?php echo $wo['page_profile']['phone']?></span>
+      </li>
+      <?php  }  ?>
+      <?php if(!empty($wo['page_profile']['address'])) {  ?>
+      <li class="list-group-item">
+        <strong><i class="fa fa-map-marker fa-fw"></i></strong>
+        <span><?php echo $wo['lang']['located_in']; ?> <?php echo $wo['page_profile']['address'];?></span>
+        <?php if (!empty($wo['config']['google_map_api'])) { ?>
+        <iframe width="100%" frameborder="0" style="border:0;margin-top: 10px;" src="https://www.google.com/maps/embed/v1/place?key=<?php echo $wo['config']['google_map_api']; ?>&q=<?php echo $wo['page_profile']['address'];?>&language=en"></iframe>
+        <?php } ?>
+      </li>
+      <?php } ?>
+    </ul>
+    <?php if(!empty($wo['page_profile']['page_description'])) {  ?>
+    <ul class="list-group">
+      <li class="list-group-item text-muted" contenteditable="false"><i class="fa fa-exclamation fa-fw"></i> <?php echo $wo['lang']['about']; ?></li>
+      <li class="list-group-item text-left">
+        <a href="<?php echo $wo['page_profile']['website']?>" target="_blank">
+        <?php echo $wo['page_profile']['page_description']?>
+        </a>
+      </li>
+    </ul>
+    <?php } ?>
+    <?php if(!empty($wo['page_profile']['website'])) {  ?>
+    <ul class="list-group">
+      <li class="list-group-item text-muted" contenteditable="false"><i class="fa fa-globe"></i> <?php echo $wo['lang']['website']; ?></li>
+      <li class="list-group-item text-left">
+        <i class="fa fa-link fa-fw"></i> 
+        <a href="<?php echo $wo['page_profile']['website']?>" target="_blank">
+        <?php echo $wo['page_profile']['website']?>
+        </a>
+      </li>
+    </ul>
+    <?php } ?>
+    <?php if(!empty($wo['page_profile']['facebook']) || !empty($wo['page_profile']['twitter']) || !empty($wo['page_profile']['google']) || !empty($wo['page_profile']['linkedin']) || !empty($wo['page_profile']['vk'])) { ?>
+    <ul class="list-group">
+      <li class="list-group-item text-muted" contenteditable="false">
+        <i class="fa fa-share-alt fa-fw"></i> <?php echo $wo['lang']['social_links']; ?>
+      </li>
+      <li class="list-group-item text-center">
+        <div class="bottom">
+          <?php  if(!empty($wo['page_profile']['twitter'])) {  ?>
+          <a class="btn social-btn btn-twitter" href="https://twitter.com/<?php echo $wo['page_profile']['twitter']?>" target="_blank">
+          <i class="fa fa-twitter"></i>
+          </a>
+          <?php }  if(!empty($wo['page_profile']['google'])) {  ?>
+          <a class="btn social-btn btn-google" rel="publisher" href="https://plus.google.com/<?php echo $wo['page_profile']['google']?>" target="_blank">
+          <i class="fa fa-google-plus"></i>
+          </a>
+          <?php }  if(!empty($wo['page_profile']['facebook'])) {  ?>
+          <a class="btn social-btn btn-facebook" rel="publisher" href="https://www.facebook.com/<?php echo $wo['page_profile']['facebook']?>" target="_blank">
+          <i class="fa fa-facebook"></i>
+          </a>
+          <?php }  if(!empty($wo['page_profile']['linkedin'])) {  ?>
+          <a class="btn social-btn btn-linkedin" rel="publisher" href="https://www.linkedin.com/profile/view?id=<?php echo $wo['page_profile']['linkedin']?>" target="_blank">
+          <i class="fa fa-linkedin"></i>
+          </a>
+          <?php } ?>
+          <?php  if(!empty($wo['page_profile']['vk'])) {  ?>
+          <a class="btn social-btn btn-vk" rel="publisher" href="https://vk.com/<?php echo $wo['page_profile']['vk'];?>" target="_blank">
+          <i class="fa fa-vk"></i>
+          </a>
+          <?php } ?>
+        </div>
+      </li>
+    </ul>
+    <?php } ?>
+    <?php if($wo['loggedin'] == true) {  ?>
+    <ul class="list-group">
+      <li class="list-group-item text-muted search-for-posts-container" contenteditable="false"><i class="fa fa-search progress-icon fa-fw" data-icon="search"></i> <?php echo $wo['lang']['search_for_posts']; ?>
+      </li>
+      <li class="list-group-item">
+        <input type="text" class="form-control search-for-posts" onkeyup="Wo_SearchForPosts(this.value);">
+      </li>
+    </ul>
+    <?php
+    $pages = Wo_PageSug(1);
+      if (count($pages) != 0) {
+      ?>
+      <ul class="list-group sidebar-conatnier" id="sidebar-page-list-container">
+         <li class="list-group-item text-muted" contenteditable="false">
+            <i class="fa fa-flag fa-fw"></i> <?php echo $wo['lang']['pages_you_may_like']; ?>
+            <span onclick="Wo_ReloadSideBarPages();" class="<?php echo Wo_RightToLeft('pull-right');?> refresh">
+            <i class="fa fa-chevron-circle-right progress-icon" data-icon="chevron-circle-right"></i>
+            </span>
+         </li>
+         <div class="sidebar-pages-may-know-container">
+            <?php 
+            foreach ($pages as $wo['PageList']) {
+                $wo['PageList']['user_name'] = $wo['PageList']['name'];
+                echo Wo_LoadPage('sidebar/sidebar-home-page-list');
+            } 
+            ?>
+         </div>
+         <div class="clear"></div>
+      </ul>
+      <?php } ?>
+    <?php } ?>
+    <?php 
+      $sidebar_ad = Wo_GetAd('sidebar', false);
+      if (!empty($sidebar_ad)) {?>
+    <ul class="list-group sidebar-ad">
+      <?php echo $sidebar_ad; ?>
+    </ul>
+    <?php } ?>
+    <?php echo Wo_LoadPage('footer/sidebar-footer')?>
+  </div>
+</div>
+<!-- JS Pages functions -->
+<script>
+$(function () {
+  if($(window).width() > 600) {
+    $(".user-avatar").hover(function () {
+      $('.profile-avatar-changer').fadeIn(100);
+    }, function () {
+      $('.profile-avatar-changer').fadeOut(100);
+    });
+  }
+  if($(window).width() > 600) {
+    $(".user-cover").hover(function () {
+      $('.profile-cover-changer').fadeIn(100);
+    }, function () {
+      $('.profile-cover-changer').fadeOut(100);
+    });
+  }
+  $('form.profile-avatar-changer').ajaxForm({
+    url: Wo_Ajax_Requests_File() + '?f=update_page_avatar_picture',
+
+    beforeSend: function () {
+      $('.user-avatar-uploading-container,.user-avatar-uploading-progress').fadeIn(200);
+    },
+    success: function (data) {
+      if(data.status == 200) {
+        $('[id^=page-avatar-image]').attr("src", data.img);
+      }
+      $('.user-avatar-uploading-container, .user-avatar-uploading-progress').fadeOut(200);
+    }
+  });
+
+  $('form.profile-cover-changer').ajaxForm({
+    url: Wo_Ajax_Requests_File() + '?f=update_page_cover_picture',
+
+    beforeSend: function () {
+      $('.user-cover-uploading-container,.user-cover-uploading-progress').fadeIn(200);
+    },
+    success: function (data) {
+      if(data.status == 200) {
+        $('[id^=cover-image]').attr("src", data.img);
+      }
+      $('.user-cover-uploading-container,.user-cover-uploading-progress').fadeOut(200);
+    }
+  });
+});
+
+function Wo_UpdateProfileAvatar() {
+  $("form.profile-avatar-changer").submit();
+}
+
+function Wo_UpdateProfileCover() {
+  $("form.profile-cover-changer").submit();
+}
+</script>
+<?php if (!empty($wo['page_profile']['background_image']) && $wo['page_profile']['background_image_status'] == 1) { ?>
+<style>
+  body {
+    background: url(<?php echo Wo_GetMedia($wo['page_profile']['background_image']); ?>) fixed;
+    background-size:100% auto;
+  }
+</style>
+<?php } ?>

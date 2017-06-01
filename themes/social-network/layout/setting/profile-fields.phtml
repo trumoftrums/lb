@@ -1,0 +1,34 @@
+<div class="form-group">
+   <?php $fid = '';
+   if (!empty($wo['setting']['fileds'][$wo['field']['fid']])) {
+       $fid = $wo['setting']['fileds'][$wo['field']['fid']];
+    } 
+    ?>
+   <label class="col-md-<?php echo ($wo['field']['placement'] == 'general') ? 3: 2;?>" for="working"><?php echo $wo['field']['name']; ?></label>  
+   <div class="col-md-6">
+      <?php 
+      if ($wo['field']['select_type'] == 'yes') {
+         $options = @explode(',', $wo['field']['type']); ?>
+         <select name="<?php echo $wo['field']['fid'];?>" class="form-control">
+         <?php
+         foreach ($options as $key => $value) {
+            $selected = (($key + 1) == $fid) ? 'selected' : '';
+            ?>
+            <option value="<?php echo $key + 1;?>" <?php echo $selected;?>><?php echo $value;?></option>
+            <?php
+         }
+         ?>
+         </select>
+         <?php
+      } else {
+         if ($wo['field']['type'] == 'textbox') { ?>
+            <input id="<?php echo $wo['field']['fid'];?>" name="<?php echo $wo['field']['fid'];?>" type="text" class="form-control input-md" value="<?php echo $fid?>">
+         <?php } else if ($wo['field']['type'] == 'textarea') {?>
+            <textarea class="form-control" id="<?php echo $wo['field']['fid'];?>" name="<?php echo $wo['field']['fid'];?>" cols="20" rows="3"><?php echo $fid?></textarea>
+        <?php
+         }
+      }
+      ?>
+      <span class="help-block"><?php echo $wo['field']['description'];?></span>
+   </div>
+</div>

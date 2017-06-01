@@ -1,0 +1,225 @@
+<?php 
+$selected_pro_yes = ($wo['config']['pro'] == 1) ? ' checked' : '';
+$selected_pro_no  = ($wo['config']['pro'] == 0) ? ' checked' : '';
+$selected_mode_yes = ($wo['config']['paypal_mode'] == 'live') ? ' checked' : '';
+$selected_mode_no  = ($wo['config']['paypal_mode'] == 'sandbox') ? ' checked' : '';
+$selected_reCaptcha_yes   = ($wo['config']['reCaptcha'] == 1)   ? ' checked' : '';
+$selected_reCaptcha_no   = ($wo['config']['reCaptcha'] == 0)   ? ' checked' : '';
+
+$selected_credit_card_yes   = ($wo['config']['credit_card'] == 'yes')   ? ' checked' : '';
+$selected_credit_card_no   = ($wo['config']['credit_card'] == 'no')   ? ' checked' : '';
+
+$selected_bitcoin_yes   = ($wo['config']['bitcoin'] == 'yes')   ? ' checked' : '';
+$selected_bitcoin_no   = ($wo['config']['bitcoin'] == 'no')   ? ' checked' : '';
+
+?>
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-fire"></i> Pro Setting</div>
+   <div class="setting-well page-margin">
+      <form action="" method="post" class="admin-site-setting form-horizontal">
+        <div class="form-group">
+            <label class="col-md-3" for="pro">Pro Mode</label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="pro-0">
+               <input type="radio" name="pro" id="pro-0" value="1" <?php echo $selected_pro_yes; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="pro-1">
+               <input type="radio" name="pro" id="pro-1" value="0" <?php echo $selected_pro_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+               <span class="help-block">If you disbale Pro Mode, All features will be free and activated without Boost feature.</span>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label class="col-md-3" for="paypal_mode">PayPal Mode</label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="paypal_mode-0">
+               <input type="radio" name="paypal_mode" id="paypal_mode-0" value="live" <?php echo $selected_mode_yes; ?>>
+               Live
+               </label> 
+               <label class="radio-inline" for="paypal_mode-1">
+               <input type="radio" name="paypal_mode" id="paypal_mode-1" value="sandbox" <?php echo $selected_mode_no; ?>>
+               SandBox
+               </label>
+            </div>
+        </div>
+         <div class="form-group">
+            <label class="col-md-3" for="paypal_id">PayPal Clinet ID </label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="paypal_id" value="<?php echo $wo['config']['paypal_id'];?>">
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="paypal_secret">PayPal Secret Key</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="paypal_secret" value="<?php echo $wo['config']['paypal_secret'];?>"> 
+            </div>
+         </div>
+         <hr>
+          <div class="form-group">
+            <label class="col-md-3" for="bitcoin">Bitcoin payments</label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="bitcoin-0">
+               <input type="radio" name="bitcoin" id="bitcoin-0" value="yes" <?php echo $selected_bitcoin_yes; ?>>
+               Enable
+               </label> 
+               <label class="radio-inline" for="bitcoin-1">
+               <input type="radio" name="bitcoin" id="bitcoin-1" value="no" <?php echo $selected_bitcoin_no; ?>>
+               Disable
+               </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3" for="credit_card">Credit card payments</label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="credit_card-0">
+               <input type="radio" name="credit_card" id="credit_card-0" value="yes" <?php echo $selected_credit_card_yes; ?>>
+               Enable
+               </label> 
+               <label class="radio-inline" for="credit_card-1">
+               <input type="radio" name="credit_card" id="credit_card-1" value="no" <?php echo $selected_credit_card_no; ?>>
+               Disable
+               </label>
+            </div>
+        </div>
+        <hr>
+         <div class="form-group">
+            <label class="col-md-3" for="stripe_secret">Stripe API secret key</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="stripe_secret" value="<?php echo $wo['config']['stripe_secret'];?>">
+               <span class="help-block">Your Stripe secret key that starts with sk_</span> 
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="stripe_id">Stripe publishable key</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="stripe_id" value="<?php echo $wo['config']['stripe_id'];?>">
+               <span class="help-block">Your Stripe publishable key that starts with pk_</span> 
+            </div>
+         </div>
+
+         <hr>
+         <div class="form-group">
+            <label class="col-md-3" for="weekly_price">Weekly Price (<?php echo $wo['config']['currency'];?>)</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="weekly_price" value="<?php echo $wo['config']['weekly_price'];?>">
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="monthly_price">Monthly Price (<?php echo $wo['config']['currency'];?>)</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="monthly_price" value="<?php echo $wo['config']['monthly_price'];?>">
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="yearly_price">Yearly Price (<?php echo $wo['config']['currency'];?>)</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="yearly_price" value="<?php echo $wo['config']['yearly_price'];?>">
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="lifetime_price">LifeTime Price (<?php echo $wo['config']['currency'];?>)</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="lifetime_price" value="<?php echo $wo['config']['lifetime_price'];?>">
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-3" for="currency">Currency</label>  
+            <div class="col-md-6">
+               <select name="currency" class="form-control">
+                  <option value="USD" <?php echo ($wo['config']['currency'] == 'USD')  ? ' selected': '';?>>USD</option>
+                  <option value="EUR" <?php echo ($wo['config']['currency'] == 'EUR')  ? ' selected': '';?>>EUR</option>
+                  <option value="JPY" <?php echo ($wo['config']['currency'] == 'JPY')  ? ' selected': '';?>>JPY</option>
+                  <option value="TRY" <?php echo ($wo['config']['currency'] == 'TRY')  ? ' selected': '';?>>TRY</option>
+                  <option value="GBP" <?php echo ($wo['config']['currency'] == 'GBP')  ? ' selected': '';?>>GBP</option>
+                  <option value="RUB" <?php echo ($wo['config']['currency'] == 'RUB')  ? ' selected': '';?>>RUB</option>
+                  <option value="PLN" <?php echo ($wo['config']['currency'] == 'PLN')  ? ' selected': '';?>>PLN</option>
+                  <option value="ILS" <?php echo ($wo['config']['currency'] == 'ILS')  ? ' selected': '';?>>ILS</option>
+                  <option value="BRL" <?php echo ($wo['config']['currency'] == 'BRL')  ? ' selected': '';?>>BRL</option>
+               </select>
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-3" for="monthly_boosts">Monthly boosts:</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="monthly_boosts" value="<?php echo $wo['config']['monthly_boosts'];?>">
+               <span class="help-block">Monthly Max posts/pages boosts allowed.</span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="yearly_boosts">Yearly boosts:</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="yearly_boosts" value="<?php echo $wo['config']['yearly_boosts'];?>">
+               <span class="help-block">Yearly Max posts/pages boosts allowed.</span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="lifetime_boosts">Lifetime boosts:</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="lifetime_boosts" value="<?php echo $wo['config']['lifetime_boosts'];?>">
+               <span class="help-block">Lifetime Max posts/pages boosts allowed.</span>
+            </div>
+         </div>
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+         <hr>
+         <div class="form-group">
+            <label class="col-md-3"></label>  
+            <div class="col-md-6">
+            <span class="help-block" style="color:red;">Please save the form before testing the PayPal respond.</span><br>
+               <button type="submit" class="btn btn-main">
+               <i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i> <?php echo $wo['lang']['save']?>
+               </button> 
+               <a class="btn btn-main" onclick="Wo_TestPayPal();">
+               <i class="fa fa-file-o progress-icon" data-icon="file-o"></i>  Get / Test PayPal Respond
+               </a>  
+            </div>
+         </div>
+          <div class="form-group textarea_paypal hidden">
+            <hr>
+            <label class="col-md-3" for="lifetime_price">PayPal Respond:</label>  
+            <div class="col-md-6">
+               <textarea class="form-control" cols="30" rows="10" id="textarea_paypal"></textarea>
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+<script type="text/javascript">
+$(function() {
+    $('form.admin-site-setting').ajaxForm({
+      url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=update_pro_setting',
+      beforeSend: function() {
+        Wo_progressIconLoader($('form.admin-site-setting').find('button'));
+      },
+      success: function(data) {
+        if (data.status == 200) {
+          $('form.admin-site-setting button').html('<i class="fa fa-check"></i> <?php echo $wo["lang"]["saved"];?>');
+          setTimeout(function () {
+            $('form.admin-site-setting button').html('<i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i>  <?php echo $wo["lang"]["save"]?>');
+          }, 2000);
+          
+          Wo_progressIconLoader($('form.admin-site-setting').find('button'));
+
+        } 
+      }
+    });
+});
+
+function Wo_TestPayPal() {
+  Wo_progressIconLoader($('form.admin-site-setting').find('a'));
+  $.get(Wo_Ajax_Requests_File(), {f: 'admin_setting', s: 'test_paypal'}, function (data) {
+    if (data.status == 200) {
+      $('.textarea_paypal').removeClass('hidden', function () {
+        data2 = JSON.stringify(data.respond_code, null, "\t");
+        data2 = JSON.stringify(data.respond_code, null, 4);
+        $('#textarea_paypal').text(data2);
+      });
+    }
+    Wo_progressIconLoader($('form.admin-site-setting').find('a'));
+  });
+}
+</script>

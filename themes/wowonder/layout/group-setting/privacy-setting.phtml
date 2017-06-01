@@ -1,0 +1,69 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-shield"></i><?php echo $wo['lang']['privacy'];?> <a href="<?php echo $wo['setting']['url'];?>" data-ajax="?link1=timeline&u=<?php echo $wo['setting']['group_name']?>">(<?php echo $wo['setting']['name'];?>)</a></div>
+   <div class="setting-well">
+   <form  method="post" class="form-horizontal setting-information-form">
+      <fieldset>
+         <div class="setting-information-alert setting-update-alert"></div>
+         <div class="form-group">
+            <label class="col-md-5" for="privacy"><?php echo $wo['lang']['group_type'];?> </label>
+            <div class="col-md-5">
+               <select id="privacy" name="privacy" class="form-control">
+                  <?php 
+                  $selected_privacy_yes   = ($wo['setting']['privacy'] == 1)   ? ' selected' : '';
+                  $selected_privacy_no  = ($wo['setting']['privacy'] == 2)   ? ' selected' : '';
+                  ?>
+                  <option value="1" <?php echo $selected_privacy_yes; ?>><?php echo $wo['lang']['public'];?> </option>
+                  <option value="2" <?php echo $selected_privacy_no; ?>><?php echo $wo['lang']['private'];?> </option>
+               </select>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-5" for="join_privacy"><?php echo $wo['lang']['confirm_request_group_privacy_label'];?></label>
+            <div class="col-md-5">
+               <select id="join_privacy" name="join_privacy" class="form-control">
+                  <?php 
+                  $selected_followp_yes   = ($wo['setting']['join_privacy'] == 1)   ? ' selected' : '';
+                  $selected_followp_no  = ($wo['setting']['join_privacy'] == 2)   ? ' selected' : '';
+                  ?>
+                  <option value="1" <?php echo $selected_followp_yes; ?>><?php echo $wo['lang']['no'];?></option>
+                  <option value="2" <?php echo $selected_followp_no; ?>><?php echo $wo['lang']['yes'];?></option>
+               </select>
+            </div>
+         </div>
+         <hr>
+         <div class="form-group last-btn">
+            <label class="col-md-5"></label>  
+            <div class="col-sm-3">
+               <button type="submit" class="form-control btn btn-main">
+               <i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i> <?php echo $wo['lang']['save']; ?>
+               </button>
+            </div>
+         </div>
+         <input type="hidden" name="group_id" value="<?php echo $wo['setting']['id'];?>">
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+      </fieldset>
+   </form>
+</div>
+</div>
+<script type="text/javascript">
+$(function() {
+  $('form.setting-information-form').ajaxForm({
+    url: Wo_Ajax_Requests_File() + '?f=groups&s=update_privacy_setting',
+    beforeSend: function() {
+      Wo_progressIconLoader($('form.setting-information-form').find('button'));
+    },
+    success: function(data) {
+      if (data.status == 200) {
+        scrollToTop();
+        $('.setting-information-alert').html('<div class="alert alert-success">' + data.message + '</div>');
+        $('.alert-success').fadeIn('fast', function() {
+          $(this).delay(2500).slideUp(500, function() {
+            $(this).remove();
+          });
+        });
+      }
+      Wo_progressIconLoader($('form.setting-information-form').find('button'));
+    }
+  });
+});
+</script>

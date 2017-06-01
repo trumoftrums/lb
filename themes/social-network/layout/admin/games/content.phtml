@@ -1,0 +1,116 @@
+<?php
+$error = '';
+$succuss = '';
+if (isset($_POST['game'])) {
+	if (!empty($_POST['game'])) {
+	   if (!filter_var($_POST['game'], FILTER_VALIDATE_URL)) {
+       	  $error = '<i class="fa fa-fw fa-exclamation-triangle"></i> ' . $wo['lang']['website_invalid_characters'];
+       } else {
+        $reg = '#http://www.miniclip.com/games/([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)#s';
+       	  if (preg_match($reg, $_POST['game'], $match)) {
+       	  	  $get_url = $_POST['game'];
+              include_once("assets/import/simple_html_dom.inc.php");
+              $get_content = file_get_html($get_url);
+              foreach ($get_content->find('title') as $element) {
+                   $page_title = $element->plaintext;
+              }
+             $img = 'upload/photos/game-icon.png';
+             if (!empty($_POST['avatar'])) {
+             	if (filter_var($_POST['game'], FILTER_VALIDATE_URL)) {
+       	           $img = $_POST['avatar'];
+                }
+             }
+             $page_title = explode("-", $page_title);
+             $data_array = array('game_avatar' => Wo_Secure(Wo_ImportImageFromUrl($img)), 'game_name' => Wo_Secure($page_title[0]), 'game_link' => Wo_Secure($match[1]), 'time' => time());
+       	  	 $add_game = Wo_AddGame($data_array);
+       	  	 if ($add_game === true) {
+       	  	 	$succuss = '<i class="fa fa-fw fa-check"></i> ' . $wo['lang']['game_added'];
+       	  	 }
+       	  } else {
+       	  	 $error = '<i class="fa fa-fw fa-exclamation-triangle"></i> ' . $wo['lang']['url_not_supported_game'];
+       	  }
+       	  
+       }
+    } else {
+       $error = '<i class="fa fa-fw fa-exclamation-triangle"></i> ' . $wo['lang']['please_add_a_game'];
+    }
+}
+if (!empty($_GET['delete_ip'])) {
+	if (Wo_DeleteBanned($_GET['delete_ip']) === true) {
+		$succuss = '<i class="fa fa-fw fa-check"></i> ' . $wo['lang']['ip_deleted'];
+	}
+}
+?>
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-gamepad"></i> <?php echo $wo['lang']['games'];?></div>
+   <div class="setting-well">
+      <?php if (!empty($error)) { ?>
+      <div class="alert alert-danger">
+      	<?php echo $error;?>
+      </div>
+      <?php } ?>
+      <?php if (!empty($succuss)) { ?>
+      <div class="alert alert-success">
+      	<?php echo $succuss;?>
+      </div>
+      <?php } ?>
+      <form method="post" class="setting-add-game">
+      <fieldset>
+         	<h5><?php echo $wo['lang']['add_new_game'];?> <small>Supports from miniclip.com</small></h5>
+         </fieldset>
+        
+         <div class="row">
+         	<div class="col-lg-5">
+         		 <div class="form-group add-game-progress-icon">
+            <input type="text" name="game" id="game" placeholder="Game url" class="form-control">
+                </div>
+         	</div>
+         	<div class="col-lg-5">
+         		 <div class="form-group add-game-progress-icon">
+            <input type="text" name="avatar" id="avatar" placeholder="Game img url" class="form-control">
+                </div>
+         	</div>
+         	<div class="col-md-2">
+         		<div class="form-group">
+            <button type="submit" class="btn btn-default form-control"><i class="fa fa-plus"></i> <?php echo $wo['lang']['add'];?></button>
+         </div>
+         	</div>
+         </div>
+      </form>
+      <div class="clear"></div>
+      <table class="table  table-hover table-bordered table-condensed setting-table">
+         <thead>
+            <tr>
+               <th><?php echo $wo['lang']['id'];?></th>
+               <th><?php echo $wo['lang']['name'];?></th>
+               <th><?php echo $wo['lang']['players'];?></th>
+               <th><?php echo $wo['lang']['time'];?></th>
+               <th><?php echo $wo['lang']['action'];?></th>
+            </tr>
+         </thead>
+         <tbody class="page-result manage-pages-list">
+               <?php 
+               foreach (Wo_GetAllGames(5000) as $wo['gamelist']) {
+                  echo Wo_LoadPage('admin/games/game-list');
+                }
+               ?>
+         </tbody>
+      </table>
+      <span class="center-text"></span>
+   </div>
+</div>
+<script>
+function Wo_DeleteGame(game_id) {
+  if (confirm("Are you sure you want to delete this game?'") == false) {
+    return false;
+  }
+  $.get(Wo_Ajax_Requests_File(),{f:'admin_setting',s:'delete_game',game_id: game_id}, function(data) {
+    if (data.status == 200) {
+      $('#GameID_' + game_id).fadeOut(300, function() {
+        $(this).remove();
+      });
+    }
+  });
+}
+
+</script>

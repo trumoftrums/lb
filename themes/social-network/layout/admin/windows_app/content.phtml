@@ -1,0 +1,50 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-windows"></i> Windows app settings</div>
+   <div class="setting-well">
+      <form action="" method="post" class="admin-site-setting form-horizontal">
+        <div class="alert alert-info">
+        	<i class="fa fa-fw fa-info-circle"></i> If you don't have the app yet, You can get it from <a href="http://www.wowonder.com/windows_app.php">here</a>.
+        </div>
+        <hr>
+        <div class="form-group">
+            <label class="col-md-3">API ID</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" id="app-id" value="<?php echo $wo['config']['widnows_app_api_id'];?>" disabled>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3">API Secret Key</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" id="app-key" value="<?php echo $wo['config']['widnows_app_api_key'];?>" disabled>
+               <span class="help-block">Use these keys to setup your application.</span>
+            </div>
+         </div>
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+         <div class="form-group">
+            <label class="col-md-3"></label>  
+            <div class="col-md-6">
+               <span onclick="Wo_ResetKeys();" class="btn btn-main">
+                   <i class="fa fa-repeat progress-icon" data-icon="repeat"></i> Reset Secret Key
+               </span><br><br>
+               <div class="red">Note: If you reset the secret key, the application will stop working on all your users devices.</div>
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+<script type="text/javascript">
+function Wo_ResetKeys() {
+	if (!confirm('Are you sure you want to reset the api secret key ? the application will stop working on all your users devices.')) {
+		return false;
+	}
+	Wo_progressIconLoader($('form.admin-site-setting').find('span'));
+	$.get(Wo_Ajax_Requests_File(), {f:'admin_setting', s: 'reset_windows_app_keys'}, function (data) {
+		if (data.status == 200) {
+			$('#app-key').val(data.app_key);
+		} else {
+			alert('Erorr found while reseting, please try again later.');
+		}
+		Wo_progressIconLoader($('form.admin-site-setting').find('span'));
+	});
+}
+</script>
