@@ -26,8 +26,9 @@
 						<?php 
 					    if ($wo['product']['seller']['id'] != $wo['user']['user_id']) {
 					    ?>
-					    <span class="contact" onclick="Wo_OpenChatTab(<?php echo $wo['product']['seller']['id']?>)"><i class="fa fa-comments-o"></i> <?php echo $wo['lang']['contact_seller'] ?></span> 
-					    <?php } ?>
+					    <span class="contact" onclick="Wo_OpenChatTab(<?php echo $wo['product']['seller']['id']?>)"><i class="fa fa-comments-o"></i> <?php echo $wo['lang']['contact_seller'] ?></span>
+                        <span class="contact" onclick="Wo_OpenChatTab(<?php echo $wo['product']['seller']['id']?>)"><i class="fa fa-comments-o"></i> <?php echo $wo['lang']['contact_seller'] ?></span>
+                        <?php } ?>
 					</div>
 				<div class="product-desc">
 					<?php echo mb_substr($wo['product']['description'], 0, 150, "UTF-8") . '...';?>
