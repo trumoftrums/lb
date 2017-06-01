@@ -1,12 +1,12 @@
 <div class="product" id="product-<?php echo $wo['product']['id']?>" data-id="<?php echo $wo['product']['id']?>">
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-3 col-sm-4 col-xs-4">
 			<div class="product-image">
 				<a href="<?php echo $wo['product']['url']?>"><img src="<?php echo $wo['product']['images'][0]['image_org'];?>"></a>
 			</div>
 		</div>
-		<div class="col-md-9">
-			<div class="col-md-9">
+		<div class="col-md-9 col-sm-8 col-xs-8 cover-info-pro">
+			<div class="col-md-9 cover-title-pro">
 				<div class="product-title">
 					<a href="<?php echo $wo['product']['url']?>"><?php echo $wo['product']['name']?></a>
 				</div>
@@ -33,7 +33,7 @@
 					<?php echo mb_substr($wo['product']['description'], 0, 150, "UTF-8") . '...';?>
 				</div>
 			</div>
-			<div class="col-md-3 no-padding-right">
+			<div class="col-md-3 no-padding-right cover-price-phone">
 				<div class="product-price <?php echo Wo_RightToLeft('text-right'); ?>">
                     <?php echo $wo['product']['price'].' '?> <?php echo $wo['config']['classified_currency_s'];?>
 				</div>

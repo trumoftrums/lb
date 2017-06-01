@@ -3,16 +3,29 @@
 		<div class="col-md-3">
 			<div class="procuts-categories">
 				<ul class="list-group">
-				    <li class="list-group-item active"><i class="fa fa-bars"></i> <?php echo $wo['lang']['categories'] ?></li>
-				    <?php 
-				    $category_id = (!empty($_GET['c_id'])) ? (int) $_GET['c_id'] : 0;
-				    foreach ($wo['products_categories'] as $key => $category) {
-				    	$active = ($category_id == $key) ? ' active' : '';
-				    ?>
-				    <li class="list-group-item gray-list<?php echo $active?>"><a href="<?php echo Wo_SeoLink('index.php?link1=products&c_id=' . $key);?>"><?php echo $category;?></a></li>
-				    <?php
-				    }
-				    ?>
+				    <li class="list-group-item active main-hover-menu"><i class="fa fa-bars"></i> <?php echo $wo['lang']['categories'] ?></li>
+                    <div class="cover-cate-pc">
+                        <?php
+                        $category_id = (!empty($_GET['c_id'])) ? (int) $_GET['c_id'] : 0;
+                        foreach ($wo['products_categories'] as $key => $category) {
+                            $active = ($category_id == $key) ? ' active' : '';
+                            ?>
+                            <li class="list-group-item gray-list<?php echo $active?>"><a href="<?php echo Wo_SeoLink('index.php?link1=products&c_id=' . $key);?>"><?php echo $category;?></a></li>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                    <div class="cover-cate-phone">
+                        <?php
+                        $category_id = (!empty($_GET['c_id'])) ? (int) $_GET['c_id'] : 0;
+                        foreach ($wo['products_categories'] as $key => $category) {
+                            $active = ($category_id == $key) ? ' active' : '';
+                            ?>
+                            <li class="list-group-item gray-list<?php echo $active?>"><a href="<?php echo Wo_SeoLink('index.php?link1=products&c_id=' . $key);?>"><?php echo $category;?></a></li>
+                            <?php
+                        }
+                        ?>
+                    </div>
 				</ul>
 			</div>	
 		</div>
@@ -76,6 +89,9 @@
 	</div>
 </div>
 <script>
+    $(".main-hover-menu").click(function(){
+        $(".cover-cate-phone").toggle('slow');
+    });
 function Wo_LoadProducts() {
 	$('.load-produts').html('<div class="white-loading list-group"><div class="cs-loader"><div class="cs-loader-inner"><label> ●</label><label> ●</label><label> ●</label><label> ●</label><label> ●</label><label> ●</label></div></div></div>');
 	var $c_id = $('#c_id').val();
