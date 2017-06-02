@@ -77,6 +77,11 @@ if ($followers_alert == 0) {
          </li>
       </ul>
    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle sixteen-font-size show-search-form" data-toggle="dropdown" role="button" aria-expanded="false">
+            <i class="fa fa-search"></i>
+        </a>
+    </li>
    <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
          <!-- <span id="user-full-name" class="User-Name">
@@ -188,3 +193,8 @@ if ($followers_alert == 0) {
       </ul>
    </li>
 </ul>
+<script>
+    $(".show-search-form").click(function(){
+        $(".cover-search-form").toggle();
+    });
+</script>
