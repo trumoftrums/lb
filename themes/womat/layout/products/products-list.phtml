@@ -44,7 +44,7 @@
 			</div>
 			<div class="col-md-3 no-padding-right cover-price-phone">
 				<div class="product-price <?php echo Wo_RightToLeft('text-right'); ?>">
-                    <?php echo $wo['product']['price'].' '?> đ <?php /*echo $wo['config']['classified_currency_s'];*/?>
+                    <?php echo number_format($wo['product']['price'],0,",",".").' '?> đ <?php /*echo $wo['config']['classified_currency_s'];*/?>
 				</div>
 			</div>
 			<div class="clear"></div>
