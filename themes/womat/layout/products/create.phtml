@@ -56,7 +56,7 @@
                      <div class="form-group">
                         <label class="col-md-3" for="price"><?php echo $wo['lang']['price'] ?> *</label>  
                         <div class="col-md-6">
-                           <input id="price" name="price" type="text" class="form-control input-md" value="0.00">
+                           <input id="price" name="price" type="text" class="form-control input-md autonumber onlynumber" value="">
                            <?php  
                            $price_text = str_replace('USD', $wo['config']['classified_currency'], $wo['lang']['your_product_price']);
                            $price_text = str_replace('$', $wo['config']['classified_currency_s'], $price_text);
@@ -124,6 +124,35 @@
 </div>
 <!-- .page-margin -->
 <script type="text/javascript">
+    $("input.onlynumber").keydown(function(e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+//        console.log(e.keyCode);
+        if ($.inArray(e.keyCode, [8, 9, 27, 13, 110, 190]) !== -1 ||
+            // Allow: Ctrl+A
+            (e.keyCode == 65 && e.ctrlKey === true) ||
+            // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+            // let it happen, don't do anything
+            return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });
+    $('input.autonumber').keyup(function(event) {
+
+        // skip for arrow keys
+        if(event.which >= 37 && event.which <= 40) return;
+
+        // format number
+        $(this).val(function(index, value) {
+            var nvl = value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            return nvl;
+        });
+    });
+
+
    $(function() {
    	$("#publisher-photos").change(function () {
         var numFiles = this.files.length;

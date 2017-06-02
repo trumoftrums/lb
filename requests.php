@@ -6951,8 +6951,6 @@ if ($f == 'products') {
             $errors[] = $error_icon . $wo['lang']['please_check_details'];
         } else if (empty($_POST['price'])) {
             $errors[] = $error_icon . $wo['lang']['please_choose_price'];
-        } else if (!is_numeric($_POST['price'])) {
-            $errors[] = $error_icon . $wo['lang']['please_choose_c_price'];
         } else if ($_POST['price'] == '0.00') {
             $errors[] = $error_icon . $wo['lang']['please_choose_price'];
         } else if (empty($_FILES['postPhotos']['name'])) {
@@ -6977,7 +6975,8 @@ if ($f == 'products') {
             $type = 1;
         }
         if (empty($errors)) {
-            $price              = Wo_Secure($_POST['price']);
+            $price = str_replace(".","",$_POST['price']);
+            $price              = Wo_Secure($price);
             $product_data_array = array(
                 'user_id' => $wo['user']['user_id'],
                 'name' => Wo_Secure($_POST['name']),
@@ -7043,8 +7042,6 @@ if ($f == 'products') {
             $errors[] = $error_icon . $wo['lang']['please_check_details'];
         } else if (empty($_POST['price'])) {
             $errors[] = $error_icon . $wo['lang']['please_choose_price'];
-        } else if (!is_numeric($_POST['price'])) {
-            $errors[] = $error_icon . $wo['lang']['please_choose_c_price'];
         } else if ($_POST['price'] == '0.00') {
             $errors[] = $error_icon . $wo['lang']['please_choose_price'];
         }
@@ -7067,7 +7064,8 @@ if ($f == 'products') {
             $type = 1;
         }
         if (empty($errors)) {
-            $price              = Wo_Secure($_POST['price']);
+            $price = str_replace(".","",$_POST['price']);
+            $price              = Wo_Secure($price);
             $product_data_array = array(
                 'name' => $_POST['name'],
                 'category' => $_POST['category'],
