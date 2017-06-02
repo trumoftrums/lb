@@ -8,7 +8,14 @@
 		<div class="col-md-9 col-sm-8 col-xs-8 cover-info-pro">
 			<div class="col-md-9 cover-title-pro">
 				<div class="product-title">
-					<a href="<?php echo $wo['product']['url']?>"><?php echo $wo['product']['name']?></a>
+					<a href="<?php echo $wo['product']['url']?>">
+                        <?php if(count(explode(' ', $wo['product']['name'])) > 11){
+                            echo implode(' ', array_slice(explode(' ', $wo['product']['name']), 0, 11))."...";
+                        }else{
+                            echo $wo['product']['name'];
+                        }
+                        ?>
+                    </a>
 				</div>
 				<div class="product-by">
 				    <?php
@@ -22,14 +29,14 @@
 				    ?>
 				</div>
 				<div class="product-links">
-						<a class="more-info" href="<?php echo $wo['product']['url']?>"><i class="fa fa-info-circle"></i> <?php echo $wo['lang']['more_info'] ?></a>
+						<!--<a class="more-info" href="<?php /*echo $wo['product']['url']*/?>"><i class="fa fa-info-circle"></i> <?php /*echo $wo['lang']['more_info'] */?></a>-->
 						<?php 
 					    if ($wo['product']['seller']['id'] != $wo['user']['user_id']) {
 					    ?>
 					    <span class="contact" onclick="Wo_OpenChatTab(<?php echo $wo['product']['seller']['id']?>)"><i class="fa fa-comments-o"></i> <?php echo $wo['lang']['contact_seller'] ?></span>
 
                         <?php } ?>
-                        <span class="glyphicon glyphicon-phone" style="color: green; font-family: Roboto !important;font-size: 12px"><?php echo $wo['product']['phone'] ?></span>
+                        <span style="color: green; font-family: Roboto !important;font-size: 12px"><i class="fa fa-phone"></i> <?php echo $wo['product']['phone'] ?></span>
 					</div>
 				<div class="product-desc">
 					<?php echo mb_substr($wo['product']['description'], 0, 150, "UTF-8") . '...';?>
@@ -37,7 +44,7 @@
 			</div>
 			<div class="col-md-3 no-padding-right cover-price-phone">
 				<div class="product-price <?php echo Wo_RightToLeft('text-right'); ?>">
-                    <?php echo $wo['product']['price'].' '?> <?php echo $wo['config']['classified_currency_s'];?>
+                    <?php echo $wo['product']['price'].' '?> đ <?php /*echo $wo['config']['classified_currency_s'];*/?>
 				</div>
 			</div>
 			<div class="clear"></div>

@@ -726,7 +726,7 @@
         </div>
 		
       </div>	  
-	  
+
       <?php } ?>
       <?php 
         if ($wo['loggedin'] == true) {
@@ -737,6 +737,22 @@
     </div>
   </div>
 </div>
+<?php
+if (!empty($wo['story']['product_id'])) {
+    echo '<div style="margin-bottom:20px"
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- LifeBary -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1141030920683241"
+     data-ad-slot="2757592619"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>';
+}
+?>
 <script type="text/javascript">
 $(function () {
   $("#post-<?php echo $wo['story']['id']; ?> .post-description p, .product-description").readmore({

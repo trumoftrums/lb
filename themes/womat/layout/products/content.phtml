@@ -68,7 +68,21 @@
 				         <div id="products">
 						<?php
 						foreach ($products as $key => $wo['product']) {
-							echo Wo_LoadPage('products/products-list'); 
+							echo Wo_LoadPage('products/products-list');
+							if($key > 1 && $key%6 == 0){
+							    echo '<div style="margin-bottom: 20px">
+                                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                                    <!-- LifeBary -->
+                                    <ins class="adsbygoogle"
+                                         style="display:block"
+                                         data-ad-client="ca-pub-1141030920683241"
+                                         data-ad-slot="2757592619"
+                                         data-ad-format="auto"></ins>
+                                    <script>
+                                    (adsbygoogle = window.adsbygoogle || []).push({});
+                                    </script>
+                                </div>';
+                            }
 						}
 					} else {
 				       echo $wo['lang']['no_available_products'];
