@@ -82,6 +82,23 @@ if ($followers_alert == 0) {
             <i class="fa fa-search"></i>
         </a>
     </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle sixteen-font-size " data-toggle="dropdown" role="button" aria-expanded="false">
+            <i class="fa fa-usd"></i>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a href="<?php echo Wo_SeoLink('index.php?link1=blogs'); ?>" data-ajax="?link1=go-pro">
+                    <i class="fa fa-clipboard fa-fw icon-drop-menu"></i> <?php echo $wo['lang']['blog'] ?></a>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo Wo_SeoLink('index.php?link1=products'); ?>" data-ajax="?link1=go-pro">
+                    <i class="fa fa-shopping-cart fa-fw icon-drop-menu"></i> <?php echo $wo['lang']['market'];?></a>
+                </a>
+            </li>
+        </ul>
+    </li>
    <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
          <!-- <span id="user-full-name" class="User-Name">
