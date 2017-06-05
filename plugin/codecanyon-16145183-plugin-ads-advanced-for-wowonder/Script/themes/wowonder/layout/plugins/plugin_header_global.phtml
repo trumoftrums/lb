@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="<?php echo $wo['config']['site_url'];?>/assets/plugins/stylesheet/leader.css">
+<?php if($wo['language_type'] == 'rtl') { ?>
+<link rel="stylesheet" href="<?php echo $wo['config']['site_url'];?>/assets/plugins/stylesheet/leader_rtl.css">
+<?php } ?>
+<script>
+var __ = [];
+var site_url = "<?php echo $wo['config']['site_url']; ?>";
+var site_ajax = "<?php echo $wo['config']['site_url'].'/plugin_requests.php'; ?>";
+</script>
+<?php if(!empty($wo['plugin_list']['header_css']) && $wo['plugin_list']['header_css']){ foreach($wo['plugin_list']['header_css'] as $load_css){ echo '<link rel="stylesheet" href="'.$wo['config']['site_url'].'/assets/plugins/stylesheet/'.$load_css.'.css">'; } } ?>
+<?php if(!empty($wo['plugin_list']['header']) && $wo['plugin_list']['header']){ foreach($wo['plugin_list']['header'] as $plugins_header){ echo Wo_LoadPage('plugins/'.$plugins_header); } } ?>
+<link rel="stylesheet" type='text/css' href="<?php echo $wo['config']['site_url'];?>/assets/plugins/javascript/dataTables/dataTables.bootstrap.min.css">
+<script type="text/javascript" src="<?php echo $wo['config']['site_url'];?>/assets/plugins/javascript/dataTables/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?php echo $wo['config']['site_url'];?>/assets/plugins/javascript/dataTables/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo $wo['config']['site_url'];?>/assets/plugins/javascript/bigpipe.js"></script>

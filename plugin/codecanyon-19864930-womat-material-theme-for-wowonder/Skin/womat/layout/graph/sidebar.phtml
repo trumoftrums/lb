@@ -1,0 +1,25 @@
+  <div class="list-group">
+               <div class="list-group-item">
+                   Platform status
+                   <div class="clear"></div>
+                </div>
+                <div class="setting-well">
+                    <span style="float:left; margin-right:10px; font-size:30px; color:#589ddd"><i class="fa fa-clock-o"></i></span>
+                    <div style="font-size:16px;">
+                        <div style="margin-top:10px; color:#589ddd">60 ms</div>
+                        <div style="font-size:12px; color:#888">Average response time</div>
+                    </div>
+                    <div class="clear"></div>
+                    <hr>
+                    <span style="float:left; margin-right:10px; font-size:30px; color:#589ddd"><i class="fa fa-hourglass-start"></i></span>
+                    <div style="font-size:16px;">
+                        <div style="margin-top:10px; color:#589ddd">100%</div>
+                        <div style="font-size:12px; color:#888">Uptime</div>
+                    </div>
+                </div>
+            </div>
+            <ul class="list-group filterby">
+            <li class="list-group-item hidden" contenteditable="false">Filter by</li>
+                <li class="list-group-item <?php echo ($wo['active'] == 1) ? 'avtive': ''; ?> filter-by-li" dir="auto"><a style="display: block" href="<?php echo Wo_SeoLink('index.php?link1=developers') ?>">Development</a></li>
+                <li class="list-group-item <?php echo ($wo['active'] == 2) ? 'avtive': ''; ?> filter-by-li" dir="auto"><a style="display: block" href="<?php echo Wo_SeoLink('index.php?link1=developers?page=share') ?>">Share Plugin</a></li>
+            </ul>

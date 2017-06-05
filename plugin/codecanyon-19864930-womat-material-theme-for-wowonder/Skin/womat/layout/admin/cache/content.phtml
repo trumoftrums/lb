@@ -1,0 +1,47 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-database"></i> <?php echo $wo['lang']['cache']; ?></div>
+   <div class="setting-well">
+<?php $folderSize  = Wo_FolderSize('cache'); ?>
+<div class="setting-cache-container">
+   <?php if($folderSize > 5000000) { ?>
+   <div class="alert alert-danger">
+      <i class="fa fa-exclamation-circle"></i> <?php echo $wo['lang']['cache_recomended_clear'];?>
+   </div>
+   <?php } ?>
+   <div class="row">
+      <div class="col-lg-12">
+         <h4><?php echo $wo['lang']['cache_size'];?> <span class="cache"><?php echo Wo_SizeFormat($folderSize);?></span></h4>
+         <div class="col-lg-3">
+         <button type="submit" onclick="Wo_ClearCache();" name="save_setting" class="form-control  btn-main">
+         <i class="fa fa-trash-o progress-icon" data-icon="trash-o"></i> <?php echo $wo['lang']['clear_cache'];?>
+         </button>
+         </div>
+      </div>
+   </div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+$(function() {
+	setInterval(function() {Wo_GetCacheSize();}, 4000);
+});
+
+function Wo_GetCacheSize() {
+	$.get(Wo_Ajax_Requests_File() + '?f=admin_setting&s=get_cache_folder_size',function(data) {
+     	if (data.status == 200) {
+		   $('.setting-cache-container .cache').html(data.html);
+        }
+	});
+}
+
+function Wo_ClearCache() {
+	Wo_progressIconLoader($('.setting-cache-container').find('button'));
+	$.get(Wo_Ajax_Requests_File() + '?f=admin_setting&s=clear_cache_folder',function(data) {
+		if (data.status == 200) {
+			$('.setting-cache-container .cache').text('0 B');
+
+		}
+		Wo_progressIconLoader($('.setting-cache-container').find('button'));
+	});
+}
+</script>

@@ -1,0 +1,109 @@
+<div class="page-margin products">
+	<div class="row">
+		<div class="col-md-3">
+			<div class="procuts-categories">
+				<ul class="list-group">
+				    <li class="list-group-item active"><i class="fa fa-bars"></i> <?php echo $wo['lang']['categories'] ?></li>
+				    <?php 
+				    $category_id = (!empty($_GET['c_id'])) ? (int) $_GET['c_id'] : 0;
+				    foreach ($wo['products_categories'] as $key => $category) {
+				    	$active = ($category_id == $key) ? ' active' : '';
+				    ?>
+				    <li class="list-group-item gray-list<?php echo $active?>"><a href="<?php echo Wo_SeoLink('index.php?link1=products&c_id=' . $key);?>"><?php echo $category;?></a></li>
+				    <?php
+				    }
+				    ?>
+				</ul>
+			</div>	
+		</div>
+		<div class="col-md-9">
+			<div class="list-group">
+				<div class="list-group-item active"><i class="fa fa-shopping-cart"></i> <?php echo $wo['lang']['latest_products'] ?></div>
+				<div class="latest-products">
+					<?php
+					$category_name = '';
+					$data = array();
+					if (!empty($_GET['c_id'])) {
+						if (is_numeric($_GET['c_id'])) {
+							if (array_key_exists($_GET['c_id'], $wo['products_categories'])) {
+								?>
+								<input type="hidden" value="<?php echo Wo_Secure($_GET['c_id']); ?>" id="c_id" />
+								<?php
+								$category_name = $wo['products_categories'][$_GET['c_id']];
+								$data['c_id'] = Wo_Secure($_GET['c_id']);
+							}
+						}
+					} else {
+						echo '<input type="hidden" value="0" id="c_id" />';
+					}
+					$data['limit'] = 10;
+					$products = Wo_GetProducts($data);
+					if (count($products) > 0) {
+						?>
+						 <form action="">
+				    	     <div class="form-group inner-addon left-addon">
+				    	         <i class="glyphicon fa fa-search progress-icon" data-icon="search"></i>
+				    	         <?php
+				    	         $placeholder = $wo['lang']['search_for_products_main'];
+				    	         if (!empty($category_name)) {
+				    	         	$placeholder = str_replace('{category_name}', $category_name, $wo['lang']['search_for_products']);
+				    	         }
+				    	         ?>
+				    		     <input type="text" class="form-control" onkeyup="Wo_SearchProducts(this.value)" placeholder="<?php echo $placeholder; ?>">
+				    	     </div>
+				         </form>
+				         <div id="products">
+						<?php
+						foreach ($products as $key => $wo['product']) {
+							echo Wo_LoadPage('products/products-list'); 
+						}
+					} else {
+				       echo $wo['lang']['no_available_products'];
+					}
+					?>
+					</div> 
+				</div> 	
+			</div>
+			<div class="posts_load load-produts">
+			    <?php if (count($products) > 0): ?>
+				<div class="load-more">
+                    <button class="btn btn-default text-center pointer" onclick="Wo_LoadProducts();">
+                    <i class="fa fa-arrow-down progress-icon" data-icon="arrow-down"></i> <?php echo $wo['lang']['load_more_products'] ?></button>
+                </div>
+                <?php endif ?>
+			</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<script>
+function Wo_LoadProducts() {
+	$('.load-produts').html('<div class="white-loading list-group"><div class="cs-loader"><div class="cs-loader-inner"><label> ●</label><label> ●</label><label> ●</label><label> ●</label><label> ●</label><label> ●</label></div></div></div>');
+	var $c_id = $('#c_id').val();
+	var $last_id = $('.product:last').attr('data-id');
+	$.post(Wo_Ajax_Requests_File() + '?f=load_more_products', {last_id: $last_id, c_id:$c_id}, function (data) {
+		if (data.status == 200) {
+			if (data.html.length > 0) {
+				$('.load-produts').html('<div class="load-more"><button class="btn btn-default text-center pointer" onclick="Wo_LoadProducts();"><i class="fa fa-arrow-down progress-icon" data-icon="arrow-down"></i> <?php echo $wo['lang']['load_more_products'] ?></button></div>');
+				$('#products').append(data.html);
+			} else {
+				$('.load-produts').html('<div class="load-more"><button class="btn btn-default text-center pointer" onclick="Wo_LoadProducts();"><?php echo $wo['lang']['no_available_products'] ?></button></div>');
+			}
+		}
+	});
+}
+function Wo_SearchProducts(value) {
+	var c_id = 0;
+	if ($('#c_id').length > 0) {
+		c_id = $('#c_id').val();
+	}
+	$.post(Wo_Ajax_Requests_File() + '?f=search_products', {value: value, c_id:c_id}, function (data) {
+		if (data.status == 200) {
+			if (data.html.length > 0) {
+				$('#products').html(data.html);
+			} else {
+				$('#products').html('<?php echo $wo['lang']['no_available_products'] ?>');
+			}
+		}
+	});
+}
+</script>

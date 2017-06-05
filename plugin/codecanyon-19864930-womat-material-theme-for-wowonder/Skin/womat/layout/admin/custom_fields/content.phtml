@@ -1,0 +1,50 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-bars"></i> Profle fields</div>
+   <div class="setting-well page-margin">
+     <a href="<?php echo Wo_SeoLink('index.php?link1=admincp&page=add_new_field');?>" class="btn btn-main btn-sm"><i class="fa fa-plus"></i> Add new field</a><br><br>
+     <div class="table-responsive">
+      <table class="table table-hover table-bordered table-condensed setting-table">
+         <thead>
+            <tr>
+               <th><?php echo $wo['lang']['id'];?></th>
+               <th>Field name</th>
+               <th>Type</th>
+               <th>Length</th>
+               <th>Placement</th>
+               <th>Action</th>
+            </tr>
+         </thead>
+         <tbody class="posts-result manage-posts-list">
+            <?php
+            $fields = Wo_GetProfileFields('admin');
+            if (count($fields) > 0) {
+                foreach ($fields as $key => $wo['field']) {
+                    echo Wo_LoadPage('admin/custom_fields/fields');
+                }
+            }  
+            ?>
+         </tbody>
+      </table>
+      </div>
+   </div>
+</div>
+
+<script type="text/javascript">
+function Wo_DeleteField(id) {
+  if (id == '') {
+    return false;
+  }
+  if (!confirm('Are you sure you want to delete this field ?')) {
+    return false;
+  }
+  Wo_progressIconLoader($('#' + id).find('.delete-field'));
+  $.get(Wo_Ajax_Requests_File(), {f: 'admin_setting', s:'delete_field', id:id}, function (data) {
+     if (data.status == 200) {
+        $('#' + id).fadeOut(300, function () {
+          $(this).remove();
+        });
+     }
+     Wo_progressIconLoader($('#' + id).find('.delete-field'));
+  });
+}
+</script>

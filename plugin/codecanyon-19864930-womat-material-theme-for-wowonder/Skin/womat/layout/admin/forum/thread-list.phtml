@@ -1,0 +1,36 @@
+<?php $threads = Wo_GetForumThreads(array('limit'=>500000)) ?>
+
+<?php if (count($threads)): ?>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Author</th>
+            <th>Headline</th>
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+    <?php foreach ($threads as $thread): ?>
+	    <tr data-thread-ident="<?php echo $thread['id']; ?>">
+	        <td><?php echo $thread['id']; ?></td>
+	        <td class="small"><?php echo $thread['user_data']['username']; ?></td>
+	        <td class="small">
+	        	<a href="<?php echo $thread['url']; ?>">
+	        		<?php echo $thread['headline']; ?>
+	        	</a>
+	        </td>
+	        <td class="text-center">
+	        <div class="btn-group">
+	            <button class="btn main btn-default delete-thread" id="<?php echo $thread['id']; ?>">
+	                <i class="fa fa-trash-o" aria-hidden="true"></i>
+	            </button>
+	        </div>
+	       </td>
+	    </tr>
+	<?php endforeach; ?>
+
+</table>
+<?php echo Wo_loadPage('admin/forum/includes/delete-thread'); ?>
+<?php else: ?>
+   <?php echo '<h5 class="search-filter-center-text">' . $wo['lang']['no_threads_found'] .  '</h5>'; ?>
+<?php endif; ?>

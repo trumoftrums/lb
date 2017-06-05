@@ -1,0 +1,159 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-comments-o"></i> Forums Settings</div>
+    <div class="setting-well page-margin">
+      <div class="w-100" style="min-width: 600px;">     
+          <ul class="nav nav-tabs text-center" role="tablist">
+              <li role="presentation" class="active" style="width: 16.6%">
+              	<a href="#newsection" aria-controls="newsection" role="tab" data-toggle="tab">New Section</a>
+              </li>
+
+              <li role="presentation" class="" style="width: 16.6%">
+              	<a href="#newforum" aria-controls="newforum" role="tab" data-toggle="tab">New Forum</a>
+              </li>
+
+              <li role="presentation" class="" style="width: 16.6%">
+              	<a href="#sections" aria-controls="sections" role="tab" data-toggle="tab">Sections</a>
+              </li>
+
+              <li role="presentation" style="width: 16.6%">
+              	<a href="#forums" aria-controls="forums" role="tab" data-toggle="tab">Forums</a>
+              </li>
+
+              <li role="presentation" style="width: 16.6%">
+              	<a href="#threads" aria-controls="threads" role="tab" data-toggle="tab">Threads</a>
+              </li>
+
+              <li role="presentation" style="width: 16.6%">
+              	<a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a>
+              </li>
+
+          </ul>
+
+          <br>
+          <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="newsection">
+              	<?php echo Wo_loadPage('admin/forum/new-section'); ?>
+                  <div class="clear"></div>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="newforum">
+              	<?php echo Wo_loadPage('admin/forum/new-forum'); ?>
+                  <div class="clear"></div>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="sections">
+              	<?php echo Wo_loadPage('admin/forum/section-list'); ?>
+                  <div class="clear"></div>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="forums">
+      			  <?php echo Wo_loadPage('admin/forum/forum-list'); ?>
+                  <div class="clear"></div>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="threads">
+             		<?php echo Wo_loadPage('admin/forum/thread-list'); ?>
+                  <div class="clear"></div>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="messages">
+              	<?php echo Wo_loadPage('admin/forum/message-list'); ?>
+                  <div class="clear"></div>
+              </div>
+              <div class="clear"></div>
+          </div> 
+      </div>
+    </div>
+</div>
+
+<script>
+    jQuery(document).ready(function($) {
+        // delete thread
+        $(document).on('click', ".delete-thread", function(event) {
+            $("#delete-thread").attr('data-rmd-thread-ident', $(this).attr('id')).modal('show');
+
+        });
+
+        // delete reply
+        $(document).on('click', ".delete-th-reply", function(event) {
+            event.preventDefault();
+            $("#delete-reply").attr('data-rmd-reply-ident', $(this).attr('id')).modal('show');
+
+        });
+
+        // delete forum section
+        $(document).on('click', ".delete-section", function(event) {
+            event.preventDefault();
+            $("#delete-section").attr('data-section-ident', $(this).attr('id')).modal('show');
+
+        });
+
+        //delete forum
+        $(document).on('click', ".delete-forum", function(event) {
+            event.preventDefault();
+            $("#delete-forum").attr('data-forum-ident', $(this).attr('id')).modal('show');
+
+        });
+
+
+
+
+
+
+    });
+
+    // delete forum section
+
+
+    function Wo_DelForumSection(id) {
+        if (!id) {
+            return false;
+        }
+        else{
+              Wo_progressIconLoader($('#delete-section').find('button'));
+              $.ajax({
+                  type: "GET",
+                  url: Wo_Ajax_Requests_File(),
+                  data: {
+                      id: id,
+                      f: 'delete-forum-section'
+                  },
+                  dataType: 'json',
+                  success: function(data) {
+                      if (data['status'] == 200) {
+                          $("#delete-section").modal("hide");
+                          $("[data-rmd-section-ident='" + id + "']").slideUp(function() {
+                              $(this).remove()
+                          });
+                      }
+                      Wo_progressIconLoader($('#delete-section').find('button'));
+                  }
+              });
+            
+        }
+    }
+
+    // delete forum
+    function Wo_DelForum(id) {
+        if (!id) {
+            return false;
+        }
+        else{
+              Wo_progressIconLoader($('#delete-forum').find('button'));
+              $.ajax({
+                  type: "GET",
+                  url: Wo_Ajax_Requests_File(),
+                  data: {
+                      id: id,
+                      f: 'delete-forum'
+                  },
+                  dataType: 'json',
+                  success: function(data) {
+                      if (data['status'] == 200) {
+                          $("#delete-forum").modal("hide");
+                          $("[data-rmd-forum-ident='" + id + "']").slideUp(function() {
+                              $(this).remove()
+                          });
+                      }
+                      Wo_progressIconLoader($('#delete-forum').find('button'));
+                  }
+              });
+            
+        }
+    }
+</script>

@@ -1,0 +1,25 @@
+<?php echo Wo_LoadPage('events/includes/header'); ?>
+	
+	<?php if (count($wo['events']) > 0): ?>
+		<div id="events-past">
+		<?php foreach ($wo['events'] as $wo['event']): ?>
+			<?php echo Wo_LoadPage('events/includes/events-list'); ?>
+		<?php endforeach; ?>
+		<div class="clear"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
+			 	<div class="posts_load">
+				    <?php if (count($wo['events']) > 9): ?>
+					<div class="load-more">
+	                    <button class="btn btn-default text-center pointer load-more-events" data-events-type="past">
+	                    <i class="fa fa-arrow-down progress-icon" data-icon="arrow-down"></i> <?php echo $wo['lang']['load_more'] ?></button>
+	                </div>
+	                <?php endif ?>
+				</div>
+			</div>
+		</div>
+	<?php else: ?>
+		<?php echo '<h5 class="search-filter-center-text"> '. $wo['lang']['no_events_found'] .' </h5>';?>
+	<?php endif; ?>
+<?php echo Wo_LoadPage('events/includes/footer'); ?>

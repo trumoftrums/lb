@@ -1,0 +1,9 @@
+<div class="profile-style">
+  <a href="<?php echo Wo_SeoLink('index.php?link1=app&app_id=' .  $wo['app']['id']);?>">
+    <div class="avatar <?php echo Wo_RightToLeft('pull-left');?>">
+      <img src="<?php echo $wo['app']['app_avatar'];?>" alt="<?php echo $wo['app']['app_name']; ?>" />
+    </div>
+    <?php echo $wo['app']['app_name']; ?>
+  </a>
+  <div class="app-website"></div>
+</div>

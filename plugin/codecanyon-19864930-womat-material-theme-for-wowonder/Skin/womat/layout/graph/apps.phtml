@@ -1,0 +1,25 @@
+<div class="page-margin">
+   <div class="row">
+      <div class="col-md-2"><?php echo Wo_LoadPage("sidebar/left-sidebar"); ?></div>
+      <div class="col-md-7 profile-lists">
+         <div class="list-group">
+            <div class="list-group-item"><i class="fa fa-fw fa-flag"></i> My Applications<span class="<?php echo Wo_RightToLeft('pull-right'); ?>" ><a href="<?php echo Wo_SeoLink('index.php?link1=create-app');?>" data-ajax="?link1=create-app"><?php echo $wo['lang']['create']; ?></a></span></div>
+            <div class="setting-well">
+               <?php
+                  $apps = Wo_GetAppsData();
+                  if (count($apps) > 0) {
+                     foreach ($apps as $wo['app']) {
+                         echo Wo_LoadPage('graph/app-list');
+                     }
+                  } else {
+                     echo '<h5 class="search-filter-center-text"> No applications found</h5>';
+                  }
+                  
+                  ?>
+               <div class="clear"></div>
+            </div>
+         </div>
+      </div>
+      <?php echo Wo_LoadPage('sidebar/content');?>
+   </div>
+</div>

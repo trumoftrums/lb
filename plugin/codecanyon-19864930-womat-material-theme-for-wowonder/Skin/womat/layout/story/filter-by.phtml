@@ -1,0 +1,11 @@
+<style>.pac-item > span:last-child {display: none;}.filterby li{text-align: center;height: 55px;} .filterby .avtive{border-left: 0px solid;padding: 6px !important;border-bottom: 3px solid #F62459 !important;}.filterby .avtive span{color:#F62459;font-weight:bold}.filterby .fa{padding-top:5px}</style>
+<ul class="list-group filterby" style="display:flex">
+<li class="list-group-item" style="display:none"></li>
+<li class="list-group-item avtive filter-by-li" onclick="Wo_FilterPostBy('all');" dir="auto"><span></span><span class="fa fa-bars progress-icon"></span><span><?php echo $wo['lang']['all']; ?></span></li>
+<li class="list-group-item filter-by-li" onclick="Wo_FilterPostBy('text');" dir="auto"><span class="fa fa-pencil progress-icon"></span><span><?php echo $wo['lang']['text']; ?></span></li>
+<li class="list-group-item filter-by-li" onclick="Wo_FilterPostBy('photos');" dir="auto"><span class="fa fa-file-image-o progress-icon"></span><span><?php echo $wo['lang']['photos']; ?></span></li>
+<li class="list-group-item filter-by-li" onclick="Wo_FilterPostBy('video');" dir="auto"><span class="fa fa-film progress-icon"></span><span><?php echo $wo['lang']['videos']; ?></span></li>
+<li class="list-group-item filter-by-li" onclick="Wo_FilterPostBy('music');" dir="auto"><span class="fa fa-music progress-icon"></span><span><?php echo $wo['lang']['sounds']; ?></span></li>
+<li class="list-group-item filter-by-li" onclick="Wo_FilterPostBy('files');" dir="auto"><span class="fa fa-file-text-o progress-icon"></span><span><?php echo $wo['lang']['files']; ?></span></li>
+<li class="list-group-item filter-by-li" onclick="Wo_FilterPostBy('maps');" dir="auto"><span class="fa fa-map-marker progress-icon"></span><span><?php echo $wo['lang']['maps']; ?></span></li>
+</ul>

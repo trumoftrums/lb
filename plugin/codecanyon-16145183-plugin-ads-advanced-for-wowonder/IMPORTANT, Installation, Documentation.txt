@@ -1,0 +1,42 @@
+﻿
+
+Plugin for WoWonder v1.4.x Update Documentation
+
+Note:
+
+This update is just for who is using 1.4.4, if you're still using older versions, please update the script one by one, or contact us.
+
+
+// ------------------------------------- //
+
+
+1) How To Install
+
+- BACKUP, BACKUP, BACKUP, AND BACKUP everything, files, DATABASE. {THIS IS IMPORTANT UPDATE AND WILL EFFECT YOUR DB}.
+
+- Upload and overwrite ALL files/folders (SELECT ALL) file(s) located inside "Script/" folder to your server, 
+  if you have renamed your theme, please open "Script/themes/wowonder/" and upload & overwrite ALL files/folders to your theme folder.
+
+- Upload "install_ads.php" file located on "Script/install/" folder to your server.
+
+- Once the files are uploaded, open and run http://www.YOURSITE.COM/install/install_ads.php
+
+- Note: Don't run "install/install_ads.php" file till all the files are uploaded.
+
+- Note: The "install/install_ads.php" file runtime process may take up to 1 min, press in "install/update" please don't close it till the site is updated.
+
+- Refresh your page, clear your browser cache, Done !
+
+- For more information, please read our FAQ in "Document" folder
+
+// ------------------------------------- //
+
+
+if you're facing any problems, please contact me so i can help.
+
+Updated: 21/1/2017
+By: Pp Galvan (LdrMx)
+Email: soniderot@hotmai.com
+Website: http://wo.mired10.com
+
+Copyright © 2016 LdrMx. All rights reserved.

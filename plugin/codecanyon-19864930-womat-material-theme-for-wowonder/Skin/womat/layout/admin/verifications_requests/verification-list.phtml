@@ -1,0 +1,18 @@
+<tr class="setting-verificationlist <?php echo ($wo['verification']['seen'] == 0) ? ' report-not-seen' : '';?> " id="VerificationID_<?php echo $wo['verification']['id']?>" >
+   <td><?php echo $wo['verification']['id']?></td>
+   <td>
+      <a href="<?php echo $wo['verification']['request_from']['url']; ?>">
+      <img src="<?php echo $wo['verification']['request_from']['avatar']?>" class="setting-avatar" alt="<?php echo $wo['verification']['request_from']['name']; ?> Profile Picture">
+      <?php echo $wo['verification']['request_from']['name']; ?>
+      </a>
+   </td>
+   <td><?php echo $wo['verification']['type']; ?></td>
+   <td>
+      <span class="verify pointer" onclick="Wo_Verify(<?php echo $wo['verification']['request_from']['id']?>,<?php echo $wo['verification']['id']?>,'<?php echo $wo['verification']['type']?>');">
+      <i class="fa fa-check-circle progress-icon" data-icon="check-circle"></i> <?php echo $wo['lang']['verify'];?>
+      </span>|
+      <span class="delete-verification pointer" onclick="Wo_DeleteVerification(<?php echo $wo['verification']['id']?>);">
+      <i class="fa fa-trash-o progress-icon" data-icon="trash-o"></i> <?php echo $wo['lang']['ignore'];?>
+      </span>
+   </td>
+</tr>

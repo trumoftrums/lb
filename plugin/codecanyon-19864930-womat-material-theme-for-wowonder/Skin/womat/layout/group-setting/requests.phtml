@@ -1,0 +1,16 @@
+<div class="list-group profile-lists">
+   <div class="list-group-item"><i class="fa fa-fw fa-user-plus"></i> <?php echo $wo['lang']['join_requests'];?></div>
+   <div class="setting-well">
+      <?php
+         $requests = Wo_GetGroupRequests($wo['setting']['id']);
+         if (count($requests) > 0) {
+            foreach ($requests as $wo['request']) {
+                echo Wo_LoadPage('group-setting/requests-list');
+            }
+         } else {
+            echo '<h5 class="search-filter-center-text"> ' . $wo['lang']['no_requests_found'] . '</h5>';
+         }
+         ?>
+      <div class="clear"></div>
+   </div>
+</div>

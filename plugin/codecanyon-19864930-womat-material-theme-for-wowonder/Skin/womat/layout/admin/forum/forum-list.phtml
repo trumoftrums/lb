@@ -1,0 +1,34 @@
+<?php $forums = Wo_GetForums(array('limit' => 500000, 'order_by' => 'DESC')) ?>
+
+<?php if (count($forums) > 0): ?>
+<table class="table table-striped custab">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+    <?php foreach ($forums as $forum): ?>
+        <tr class="forum-list" id="<?php echo $forum['id']; ?>" data-rmd-forum-ident="<?php echo $forum['id']; ?>" >
+            <td><?php echo $forum['id']; ?></td>
+            <td class="small"><?php echo $forum['name']; ?></td>
+            <td class="small"><?php echo $forum['description']; ?></td>
+            <td class="text-center">
+            <div class="btn-group">
+                <button class="btn main btn-default delete-forum" id="<?php echo $forum['id']; ?>">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </button>
+            </div>
+           </td>
+        </tr>
+    <?php endforeach; ?>
+
+</table>
+
+<?php //echo Wo_loadPage('admin/forum/includes/delete-forum'); ?>
+
+<?php else: ?>
+   <?php echo '<h5 class="search-filter-center-text">' . $wo['lang']['no_forums_found'] .  '</h5>'; ?>
+<?php endif; ?>

@@ -1,0 +1,157 @@
+<div class="list-group ">
+   <div class="list-group-item dashboard"><i class="fa fa-fw fa-money"></i> Payments</div>
+   <div class="admin-panel-well payments">
+      <div class="admin-static admin-static50 pull-left">
+         <div class="icon">
+            <?php echo Wo_GetCurrency($wo['config']['currency']);?><?php echo Wo_CountAllPayment(); ?>
+         </div>
+         <div class="text">
+            Total earnings
+         </div>
+      </div>
+      <div class="admin-static admin-static50 pull-left">
+         <div class="icon">
+            <?php echo Wo_GetCurrency($wo['config']['currency']);?><?php echo Wo_CountThisMonthPayment(); ?>
+         </div>
+         <div class="text">
+            This month earnings
+         </div>
+      </div>
+      <div class="p-green admin-static pull-left">
+         <div class="icon">
+            <?php echo Wo_CountAllPaymentData('weekly'); ?>
+         </div>
+         <div class="text">
+             <i class="fa fa-fw fa-star"></i> Star Sales
+         </div>
+      </div>
+      <div class="p-yel admin-static pull-left">
+         <div class="icon">
+            <?php echo Wo_CountAllPaymentData('monthly'); ?>
+         </div>
+         <div class="text">
+            <i class="fa fa-fw fa-fire"></i> Hot Sales
+         </div>
+      </div>
+      <div class="p-red admin-static pull-left">
+         <div class="icon">
+            <?php echo Wo_CountAllPaymentData('yearly'); ?>
+         </div>
+         <div class="text">
+             <i class="fa fa-fw fa-bolt"></i> Ultima Sales
+         </div>
+      </div>
+      <div class="p-blue admin-static pull-left">
+         <div class="icon">
+            <?php echo Wo_CountAllPaymentData('lifetime'); ?>
+         </div>
+         <div class="text">
+             <i class="fa fa-fw fa-rocket"></i> Vip Sales
+         </div>
+      </div>
+      <div class="clear"></div>
+   </div>
+   <div class="page-margin">
+      <div id="admin-chart-container" style="min-width: 100%; height: 400px; margin: 0 auto;"></div>
+   </div>
+</div>
+<?php 
+$percentage = (30 / 58) * 100;
+//echo $percentage . "%";
+$user_statics = array();
+$page_statics = array();
+$groups_statics = array();
+$posts_statics = array();
+$months = array('1','2','3','4','5','6','7','8','9','10','11','12');
+// user_statics
+foreach ($months as $value) {
+   $user_statics[] = Wo_GetRegisteredPaymentsStatics($value, 'weekly');
+}
+$user_statics = implode(', ', $user_statics);
+
+// page_statics
+foreach ($months as $value) {
+   $page_statics[] = Wo_GetRegisteredPaymentsStatics($value, 'monthly');
+}
+$page_statics = implode(', ', $page_statics);
+
+// groups_statics
+foreach ($months as $value) {
+   $groups_statics[] = Wo_GetRegisteredPaymentsStatics($value, 'yearly');
+}
+$groups_statics = implode(', ', $groups_statics);
+
+foreach ($months as $value) {
+   $posts_statics[] = Wo_GetRegisteredPaymentsStatics($value, 'lifetime');
+}
+$posts_statics = implode(', ', $posts_statics);
+?>
+<script>
+   $(function () {
+    Highcharts.setOptions({
+      colors: ['#6abd46', '#f2b92b', '#ce3d3d', '#4c75a3']
+    });
+    $('#admin-chart-container').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Monthly Average'
+        },
+        xAxis: {
+            categories: [
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
+                'May',
+                'Jun',
+                'Jul',
+                'Aug',
+                'Sep',
+                'Oct',
+                'Nov',
+                'Dec'
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '<?php echo date("Y");?>'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Star Sales',
+            data: [<?php echo $user_statics;?>]
+
+        }, {
+            name: 'Hot Sales',
+            data: [<?php echo $page_statics;?>]
+
+        }, {
+            name: 'Ultima Sales',
+            data: [<?php echo $groups_statics;?>]
+
+        }, {
+            name: 'Vip Sales',
+            data: [<?php echo $posts_statics;?>]
+
+        }]
+    });
+});
+</script>

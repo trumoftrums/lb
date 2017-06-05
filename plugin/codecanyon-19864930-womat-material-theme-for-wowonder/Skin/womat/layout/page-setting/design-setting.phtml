@@ -1,0 +1,92 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-paint-brush"></i> <?php echo $wo['lang']['design'];?> <?php if(Wo_IsAdmin() === true) { ?><a href="<?php echo $wo['setting']['url'];?>" data-ajax="?link1=timeline&u=<?php echo $wo['setting']['page_name'] ?>">(<?php echo $wo['setting']['name'];?>)</a><?php } ?></div>
+   <div class="setting-well">
+   <form  method="post" class="form-horizontal setting-profile-form" enctype="multipart/form-data">
+      <fieldset>
+         <div class="setting-profile-alert setting-update-alert"></div>
+          <!-- Text input-->
+         <div class="form-group">
+            <label class="col-md-2" for="background_image"><?php echo $wo['lang']['background']; ?></label>  
+            <div class="col-md-6">
+               <span class="btn btn-default btn-file">
+                     <i class="fa fa-picture-o "></i>
+                     <input type="file" id="background_image" accept="image/x-png, image/jpeg" name="background_image">
+               </span>
+            </div>
+         </div>
+         <div class="form-group avatar-read" id="photo-form">
+               <label class="col-md-2"></label>  
+               <div class="col-md-6">
+                  <input type="text" class="form-control input-md" readonly>
+               </div>
+         </div>
+                  <?php if (!empty($wo['setting']['background_image'])) { ?>
+         <div class="form-group">
+            <?php 
+            $selected_my_background   = ($wo['setting']['background_image_status'] == '1')   ? ' checked' : '';
+            $selected_defualt_background = ($wo['setting']['background_image_status'] == '0')   ? ' checked' : '';
+            ?>
+            <label class="col-md-2" for="background_image_status"><?php echo $wo['lang']['theme']; ?></label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="background_image_status-0">
+               <input type="radio" name="background_image_status" id="background_image_status-0" value="defualt" <?php echo $selected_defualt_background; ?>>
+               <?php echo $wo['lang']['deafult']; ?>
+               </label> 
+               <label class="radio-inline" for="background_image_status-1">
+               <input type="radio" name="background_image_status" id="background_image_status-1" value="my_background" <?php echo $selected_my_background; ?>>
+               <?php echo $wo['lang']['my_background']; ?>
+               </label>
+            </div>
+         </div>
+         <?php }?>
+         <hr>
+         <div class="form-group last-btn">
+            <label class="col-md-2"></label>  
+            <div class="col-sm-3">
+               <button type="submit" class="btn btn-main">
+               <i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i> <?php echo $wo['lang']['save']; ?>
+               </button>
+            </div>
+         </div>
+         <input type="hidden" name="page_id" id="page-id" value="<?php echo $wo['setting']['id'];?>">
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+      </fieldset>
+   </form>
+</div>
+</div>
+
+<script type="text/javascript">
+$(function() {
+  $("#background_image").change(function () {
+         var filename = $(this).val().replace(/C:\\fakepath\\/i, '');
+         $(".avatar-read input").val(filename);
+         $(".avatar-read").slideDown(200);
+    });
+  $("#css_file").change(function () {
+         var filename = $(this).val().replace(/C:\\fakepath\\/i, '');
+         $(".css_file-read input").val(filename);
+         $(".css_file-read").slideDown(200);
+    });
+  $('form.setting-profile-form').ajaxForm({
+    url: Wo_Ajax_Requests_File() + '?f=update_page_design_setting',
+    beforeSend: function() {
+      Wo_progressIconLoader($('form.setting-profile-form').find('button'));
+    },
+    success: function(data) {
+      if (data.status == 200) {
+        scrollToTop();
+        $('.setting-profile-alert').html('<div class="alert alert-success">' + data.message + '</div>');
+        $('.alert-success').fadeIn('fast', function() {
+          $(this).delay(2500).slideUp(500, function() {
+            $(this).remove();
+          });
+        });
+      } 
+      Wo_progressIconLoader($('form.setting-profile-form').find('button'));
+    }
+  });
+  $("#background_image").on('change', function() {
+         $("#background_image_status-1").attr("checked", true);
+  });
+});
+</script>

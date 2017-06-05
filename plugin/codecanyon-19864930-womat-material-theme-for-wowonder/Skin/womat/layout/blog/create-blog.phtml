@@ -1,0 +1,121 @@
+<div class="page-margin">
+   <div class="row">
+      <div class="col-md-2"><?php echo Wo_LoadPage("sidebar/left-sidebar"); ?></div>
+      <div class="col-md-10 profile-lists">
+        <div class="list-group">
+          <div class="list-group-item">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <?php echo $wo['lang']['create_new_article']; ?>
+            <span class="pull-right"><a href="<?php echo Wo_SeoLink('index.php?link1=my-blogs') ?>" data-ajax="?link1=my-blogs"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> <?php echo $wo['lang']['my_articles'] ?></a></span>
+          </div>
+          <div class="setting-well-p">
+            <form  class="form form-horizontal" method="post" id="insert-blog" action="#">
+              <div class="setting-general-alert setting-update-alert" id="blog-alert"></div>
+              <div class="form-group">
+                <label class="col-md-2" for="new-blog-title"><?php echo $wo['lang']['title'] ?></label>  
+                <div class="col-md-10">
+                   <input id="blog_title" name="blog_title" id="new-blog-title" type="text" class="form-control input-md"> 
+                </div>
+             </div>
+
+             <div class="form-group">
+                <label class="col-md-2" for="new-blog-desc"><?php echo $wo['lang']['description'] ?></label>  
+                <div class="col-md-10">
+                   <input name="blog_description" id="new-blog-desc" type="text" class="form-control input-md">
+                </div>
+             </div>
+             <div class="form-group">
+                <label class="col-md-2" for="new-blog-desc"><?php echo $wo['lang']['content'] ?>:</label>  
+                <div class="col-md-10">
+                   <textarea name="blog_content" id="blog"></textarea> 
+                </div>
+             </div>
+             <div class="form-group th-alert">
+                <label class="col-md-2" for="new-blog-desc" title="Upload"  class="pointer"><?php echo $wo['lang']['thumbnail'] ?></label>  
+                <div class="col-md-10 main prv-img pointer" id="select-img">
+                   <p><i class="fa fa-camera fa-wh" aria-hidden="true"></i> <?php echo $wo['lang']['select'] ?></p>
+                </div>
+             </div>
+
+              <div class="form-group">
+                  <label class="col-md-2" for="blog_category"><?php echo $wo['lang']['category'];?></label>  
+                  <div class="col-md-10">
+                     <select name="blog_category" id="blog_category" class="form-control">
+                        <?php foreach ($wo['page_categories'] as $category_id => $category_name) {?>
+                        <option value="<?php echo $category_id?>"><?php echo $category_name; ?></option>
+                        <?php } ?>
+                     </select>
+                  </div>
+               </div>
+
+               <div class="form-group">
+                <label class="col-md-2" for="new-blog-desc"><?php echo $wo['lang']['tags']; ?></label>  
+                <div class="col-md-10">
+                   <input data-role="tagsinput" id="blog_tags" name="blog_tags" type="text" class="form-control input-md"> 
+                </div>
+             </div>
+               <input type="file" class="hidden" id="thumbnail" name="thumbnail">
+
+                <div class="form-group last-btn">
+                  <label class="col-md-2"></label>
+                  <div class="col-sm-10">
+                     <button type="submit" class="btn btn-main">
+                     <i class="fa fa-upload progress-icon" data-icon="upload"></i> <?php echo $wo['lang']['publish']; ?>
+                     </button>
+                  </div>
+               </div>
+               <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+            </form>
+          </div>
+        </div>
+      </div>
+   </div>
+   <!-- .row -->
+</div>
+<script src="<?php echo $wo['config']['theme_url'];?>/javascript/bootstrap-tagsinput-latest/src/bootstrap-tagsinput.js"></script>
+<script>
+
+jQuery(document).ready(function($) {
+
+    $("#blog_tags").tagsinput({
+      maxTags: 15,
+    });
+
+    $("#select-img").click(function(event) {
+      $("#thumbnail").click()
+    });
+
+    $("#thumbnail").change(function(event) {
+      $(".prv-img").html("<img src='" + window.URL.createObjectURL(this.files[0]) + "' alt='Picture'>")
+    });
+
+
+    $('#insert-blog').ajaxForm({
+      url: Wo_Ajax_Requests_File() + '?f=insert-blog',
+      beforeSend: function() {
+        Wo_progressIconLoader($('#insert-blog').find('button'));
+      },
+      success: function(data) {
+        scrollToTop();
+        if (data['status'] == 200) {
+          $("#blog-alert").html('<div class="alert alert-success">'+ data['message'] +'</div>');
+          window.location = data.url;
+        } else if (data['message']) {
+          $("#blog-alert").html('<div class="alert alert-danger">' + data['message'] + '</div>');
+        } 
+        Wo_progressIconLoader($('#insert-blog').find('button'));
+      }});
+ });
+
+tinymce.init({
+  selector: '#blog',
+  height: 300,
+  toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image  uploadImages |  preview media fullpage | forecolor backcolor emoticons',
+  plugins: [
+      'advlist autolink link image  lists charmap  preview hr anchor pagebreak spellchecker',
+      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+      'save table contextmenu directionality emoticons template paste textcolor'
+    ]
+});
+</script> 
+

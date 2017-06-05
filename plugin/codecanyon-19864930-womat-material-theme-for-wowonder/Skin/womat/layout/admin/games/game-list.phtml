@@ -1,0 +1,22 @@
+<tr class="setting-gamelist" id="GameID_<?php echo $wo['gamelist']['id']?>" data-game-id="<?php echo $wo['gamelist']['id']?>">
+   <td><?php echo $wo['gamelist']['id']?></td>
+   <td>
+      <a href="<?php echo $wo['gamelist']['url']; ?>">
+      <img src="<?php echo $wo['gamelist']['game_avatar']; ?>" class="setting-avatar" alt="<?php echo $wo['gamelist']['name']?> Game Picture">
+      <?php echo $wo['gamelist']['name']; ?>
+      </a>
+   </td>
+   <td>
+     <?php echo $wo['gamelist']['players'];?>
+   </td>
+   <td>
+     <div class="ajax-time" title="<?php echo date('c',$wo['gamelist']['time']); ?>">
+         <?php echo Wo_Time_Elapsed_String($wo['gamelist']['time']);?>
+     </div>
+   </td>
+   <td>
+      <span class="pointer" onclick="Wo_DeleteGame(<?php echo $wo['gamelist']['id']?>);">
+      <i class="fa fa-trash-o"></i>
+      </span>
+   </td>
+</tr>

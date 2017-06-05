@@ -1,0 +1,54 @@
+<?php if ($wo['loggedin'] == true) { ?>
+<div class="left-sidebar">
+	<ul>
+		<?php if ($wo['config']['groups'] == 1) { ?><li><a href="<?php echo Wo_SeoLink('index.php?link1=groups'); ?>" data-ajax="?link1=groups"><img class="sidebar-icon"  src="<?php echo Wo_GetIcon('users-1'); ?>" alt="users-1"><?php echo $wo['lang']['groups'];?></a></li><?php } ?>
+		<?php if ($wo['config']['pages'] == 1) { ?><li><a href="<?php echo Wo_SeoLink('index.php?link1=pages'); ?>" data-ajax="?link1=pages"><img class="sidebar-icon"  src="<?php echo Wo_GetIcon('flag-2'); ?>" alt="flag-2"><?php echo $wo['lang']['pages'];?></a></li><?php } ?>
+		<li><a href="<?php echo Wo_SeoLink('index.php?link1=albums'); ?>" data-ajax="?link1=albums"><img class="sidebar-icon"  src="<?php echo Wo_GetIcon('picture-2'); ?>" alt="picture-2"><?php echo $wo['lang']['albums'];?></a></li>
+		<?php if ($wo['config']['classified'] == 1) { ?>
+		<li><a href="<?php echo Wo_SeoLink('index.php?link1=my-products'); ?>" data-ajax="?link1=my-products"><img class="sidebar-icon"  src="<?php echo Wo_GetIcon('shopping-cart'); ?>" alt="shopping-cart"><?php echo $wo['lang']['my_products'];?></a></li>
+		<?php } ?>
+        <li><hr></li>
+		<?php if ($wo['config']['games'] == 1) { ?><li><a href="<?php echo Wo_SeoLink('index.php?link1=games'); ?>" data-ajax="?link1=games"><img class="sidebar-icon"  src="<?php echo Wo_GetIcon('app'); ?>" alt="app"><?php echo $wo['lang']['games'];?></a></li><?php } ?>
+		<li><hr></li>
+		<li><a href="<?php echo Wo_SeoLink('index.php?link1=saved-posts');?>" data-ajax="?link1=saved-posts"><img class="sidebar-icon"  src="<?php echo Wo_GetIcon('medal'); ?>" alt="medal"><?php echo $wo['lang']['saved_posts'];?></a></li>
+
+		<?php if ($wo['config']['blogs'] == 1) { ?>
+		<li><hr></li>
+
+		<li><a href="<?php echo Wo_SeoLink('index.php?link1=blogs'); ?>"><img class="sidebar-icon"  src="<?php echo Wo_GetIcon('document'); ?>" alt="document"><?php echo $wo['lang']['blog'] ?></a></li>
+		<?php } ?>
+        <?php if ($wo['config']['events'] == 1) { ?>
+		<li>
+			<a href="<?php echo Wo_SeoLink('index.php?link1=events'); ?>"><img class="sidebar-icon"  src="<?php echo Wo_GetIcon('calendar'); ?>" alt="calendar"><?php echo $wo['lang']['events'] ?></a>
+		</li>
+		<?php } ?>
+		<?php if ($wo['config']['forum'] == 1) { ?>
+		<li><hr></li>
+
+		<li><a href="<?php echo Wo_SeoLink('index.php?link1=forum'); ?>"><img class="sidebar-icon"  src="<?php echo Wo_GetIcon('chatting'); ?>" alt="chatting"><?php echo $wo['lang']['forum'];?></a></li>
+		<?php } ?>
+
+		<?php if ($wo['config']['classified'] == 1) { ?>
+		<li><a href="<?php echo Wo_SeoLink('index.php?link1=products'); ?>"><img class="sidebar-icon"  src="<?php echo Wo_GetIcon('store'); ?>" alt="store"><?php echo $wo['lang']['market'];?></a></li>
+		<?php } ?>
+		<li><hr></li>
+		<?php if ($wo['user']['is_pro'] == 0 && $wo['config']['pro'] == 1) { ?>
+		<li><a href="<?php echo Wo_SeoLink('index.php?link1=go-pro');?>"><i class="fa fa-arrow-down fa-fw"></i><?php echo $wo['lang']['put_me_here'];?></a></li>
+		<?php } ?>
+	</ul>
+	<?php if ($wo['config']['pro'] == 1) { ?>
+      <div class="featured-users">
+        <ul class="list-inline">
+          <?php 
+          $users = Wo_FeaturedUsers(9);
+          ?>
+          <?php 
+          foreach ($users as $wo['user-list']) {
+              echo Wo_LoadPage('home/user-list');
+          }
+          ?>
+        </ul>
+      </div><br>
+      <?php } ?>
+</div>
+<?php } ?>

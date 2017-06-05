@@ -1,0 +1,85 @@
+<div id="newforum-alert"></div>
+<!-- create a new forum -->
+<div class="setting-well page-margin">
+	<form class="form" id="add-new-forum">
+		<div class="form-group">
+			<div class="col-md-1"></div>
+			<label for="name" class="col-md-2">
+				Name
+			</label>
+			<div class="col-md-9">
+				<input type="text" name="name" class="form-control">
+			</div>
+			<div class="clear"></div>
+		</div>	
+		<div class="form-group">
+			<div class="col-md-1"></div>
+			<label for="name" class="col-md-2">
+				Description
+			</label>
+			<div class="col-md-9">
+				<textarea name="description" class="form-control"></textarea>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-1"></div>
+			<label for="section" class="col-md-2">
+				Sestion
+			</label>
+			<div class="col-md-9">
+				<select name="section" id="section" class="form-control">
+					<?php foreach (Wo_GetForumSec(array('forums'=>false,'limit'=>500)) as $section): ?>
+						<option value="<?php echo $section['id']; ?>">
+							<?php echo $section['section_name']; ?>
+						</option>
+					<?php endforeach ?>
+				</select>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-1"></div>
+			<label for="name" class="col-md-2">
+				
+			</label>
+			<div class="col-md-9">
+				<button type="submit" class="btn btn-main">
+               		<i class="fa progress-icon fa-plus" data-icon="plus"></i> <?php echo $wo['lang']['add'] ?>
+               </button>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<input type="reset" class="hidden">
+	</form>	
+</div>
+<script>
+	jQuery(document).ready(function($) {
+		// create new forum
+        $('#add-new-forum').ajaxForm({
+
+          url: Wo_Ajax_Requests_File()  +  '?f=add-new-forum&hash=' + $('.main_session').val(),
+          beforeSend: function() {
+            Wo_progressIconLoader($('#newforum').find('button'));
+          },
+          type:'POST',
+          dataType: 'json',
+          success: function(data) {
+            scrollToTop();
+            if (data['status'] == 200) {
+                
+                $("#newforum-alert").html('<div class="alert alert-success">'+ data['message'] +'</div>');
+                $("#newforum input[type=reset]").click();
+                window.location.reload();
+            }else{
+                
+                $("#newforum-alert").html('<div class="alert alert-danger">' + data['message'] + '</div>');
+            } 
+            Wo_progressIconLoader($('#newforum').find('button'));
+            
+          }
+        });
+	});
+</script>

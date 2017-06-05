@@ -1,0 +1,75 @@
+        <h5><?php echo $wo['lang']['plugin_ads_transaction_details']; ?></h5>
+        <div class="transaction-detail">
+            <table class="table-bordered table">
+                    <tr>
+                        <td><?php echo $wo['lang']['plugin_ads_campaign_name']; ?>  </td>
+                        <td><?php echo $ad['campaign_name']; ?></td>
+                    </tr>
+
+                    <tr>
+                        <td><?php echo $wo['lang']['plugin_ads_ad_type']; ?>  </td>
+                        <td><?php echo $ad['type']; ?></td>
+                    </tr>
+
+                    <tr>
+                        <td><?php echo $wo['lang']['plugin_ads_plan_type']; ?>  </td>
+                        <td><?php echo $ad['plan_type']; ?></td>
+                    </tr>
+
+                    <tr>
+                        <td><?php echo $wo['lang']['plugin_ads_plan_change']; ?> <a href=""><?php //echo $wo['lang']['plugin_ads_change']; ?></a></td>
+                        <td><?php echo $ad['name']; ?></td>
+                    </tr>
+
+                    <tr>
+                        <td><?php echo $wo['lang']['plugin_ads_price']; ?>  </td>
+                        <td>$<?php echo $ad['price']; ?></td>
+                    </tr>
+            </table>
+
+        </div>
+
+        <h5><?php echo $wo['lang']['plugin_ads_select_payment_method']; ?></h5>
+
+        <ul class="nav ads-payment-method">
+            <?php if($wo['system']['ads_enable_paypal'] == 1){ ?>
+                <li>
+        <a href="<?php echo $wo['config']['site_url']; ?>/index.php?link1=ads-activate&ad_id=<?php echo $ad['id']; ?>&action=paypal<?php if($wo['system']['ads_enable_sandbox'] == 1){ ?>&sandbox=1<?php }else{ ?>&sandbox=0<?php }//IF ?>">
+            <img width="60" src="<?php echo $wo['config']['site_url']; ?>/assets/plugins/img/paypal-icon.png"/>
+        </a>
+                </li>
+            <?php }//IF ?>
+			<?php if(!empty($wo['system']['ads_enable_voguepay']) && $wo['system']['ads_enable_voguepay'] == 1){ ?>
+            <li>
+<form method='POST' action='https://voguepay.com/pay/'>
+<input type='hidden' name='v_merchant_id' value='<?php if($wo['system']['voguePayMerchantId'] != ''){ echo $wo['system']['voguePayMerchantId']; } else { echo 'demo'; } ?>' />
+<input type='hidden' name='merchant_ref' value='<?php echo $ad['id']; ?>' />
+<input type='hidden' name='memo' value='<?php echo $ad['campaign_name']; ?>' />
+<input type='hidden' name='notify_url' value='<?php echo $wo['config']['site_url']; ?>/index.php?link1=ads-activate&ad_id=<?php echo $ad['id']; ?>&action=voguepay&type=notification' />
+<input type='hidden' name='success_url' value='<?php echo $wo['config']['site_url']; ?>/index.php?link1=ads-activate&ad_id=<?php echo $ad['id']; ?>&action=voguepay&type=thank_you' />
+<input type='hidden' name='fail_url' value='<?php echo $wo['config']['site_url']; ?>/index.php?link1=ads-activate&ad_id=<?php echo $ad['id']; ?>&action=voguepay&type=failed' />
+<input type='hidden' name='developer_code' value='<?php echo $wo['user']['user_id']; ?>' />
+<input type='hidden' name='store_id' value='<?php echo $ad['id']; ?>' />
+<input type='hidden' name='cur' value='USD' />
+<input type='hidden' name='total' value='<?php echo $ad['price']; ?>' />
+<input type='image' width="60" src='<?php echo $wo['config']['site_url']; ?>/assets/plugins/img/voguepay-icon.png' alt='Submit' />
+</form>
+                </li>
+            <?php }//IF ?>
+			 <?php if($wo['system']['ads_enable_stripe'] == 1){ ?>
+			    <li>
+<form action="<?php echo $wo['config']['site_url']; ?>/index.php?link1=ads-activate&ad_id=<?php echo $ad['id']; ?>&action=stripe&type=thank_you" method="POST">
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="<?php if($wo['system']['stripe_publishable_key'] != ''){ echo $wo['system']['stripe_publishable_key']; } else { echo 'pk_test_FW6bir1XIC0ZeTFxHJ4SfPTV'; } ?>"
+    data-amount="<?php echo (int)($ad['price'] * 100); ?>"
+	data-bitcoin="true"
+    data-name="Active Ads"
+    data-description="<?php echo $ad['campaign_name']; ?>"
+    data-image="<?php echo $wo['config']['site_url']; ?>/assets/plugins/img/stripe-icon.png"
+    data-locale="auto">
+  </script>
+</form>
+				</li>	
+			<?php }//IF ?>						
+        </ul>

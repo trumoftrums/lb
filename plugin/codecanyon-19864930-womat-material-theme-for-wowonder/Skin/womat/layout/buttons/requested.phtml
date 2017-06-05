@@ -1,0 +1,6 @@
+<span id="Follow-<?php echo $wo['follow']['user_id']?>">
+    <button type="button" onclick="Wo_RegisterFollow(<?php echo $wo['follow']['user_id'];?>, <?php echo ($wo['follow']['confirm_followers'] == 1) ? 1 : 0;?>)" class="btn-requested btn btn-default btn-sm">
+       <i class="fa fa-clock-o progress-icon" data-icon="clock-o"></i>
+       <span class="button-text"> <?php echo $wo['lang']['requested'];?></span>
+    </button>
+</span>

@@ -1,0 +1,68 @@
+.x-form-tools-sticker {
+	position: relative; /* for sticker-menu */
+	overflow: hidden;
+	display: inline-block;
+	cursor: pointer;
+}
+.sticker-menu {
+	display: none;
+	position: absolute;
+	bottom: 27px;
+	right: -3px;
+	min-width: 196px;
+	margin: 0;
+	padding: 8px 6px;
+	font-size: 13px;
+	line-height: 100%;
+	background-color: #fff;
+	border: 1px solid #d4d5d6;
+	border-radius: 2px;
+	box-shadow: 0 1px 1px rgba(0,0,0,.05);
+	z-index: 9999;
+}
+.sticker-menu:before {
+	position: absolute;
+	top: 100%;
+	right: 3px;
+	content: "";
+	border-color: #d4d5d6 transparent transparent transparent;
+	border-style: solid;
+	border-width: 8px;
+}
+.sticker-menu:after {
+	position: absolute;
+	top: 100%;
+	right: 4px;
+	content: "";
+	border-color: #fff transparent transparent transparent;
+	border-style: solid;
+	border-width: 7px;
+}
+.publisher .sticker-menu {
+	bottom: auto;
+	top: 47px;
+	left: 0;
+}
+.publisher .sticker-menu:before {
+	right: auto;
+	left: 12px;
+	top: auto;
+	bottom: 100%;
+	border-color: transparent transparent #d4d5d6 transparent;
+}
+.publisher .sticker-menu:after {
+	right: auto;
+	left: 13px;
+	top: auto;
+	bottom: 100%;
+	border-color: transparent transparent #fff transparent;
+}
+
+.sticker-menu i {
+	cursor: pointer;
+	margin-right: 6px;
+	margin-bottom: 12px;
+}
+.sticker-menu i:hover {
+	border: 1px solid #d4d5d6;
+}

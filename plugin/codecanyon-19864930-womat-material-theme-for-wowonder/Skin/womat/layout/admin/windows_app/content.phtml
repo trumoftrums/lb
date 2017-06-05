@@ -1,0 +1,151 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-connectdevelop"></i> Messengers & Native Apps</div>
+   <div class="setting-well">
+      <form action="" method="post" class="admin-site-setting form-horizontal">
+        <div class="alert alert-info">
+        	<i class="fa fa-fw fa-info-circle"></i> If you don't have the windows messenger yet, You can get it from <a href="http://www.wowonder.com/windows_app.php">here</a>.
+        </div>
+        <div class="alert alert-info">
+          <i class="fa fa-fw fa-info-circle"></i> If you don't have the Android messengers yet, You can get them from <a href="http://www.wowonder.com/windows_app.php?app=android">here</a>.
+        </div>
+        <div class="alert alert-info">
+          <i class="fa fa-fw fa-info-circle"></i> If you don't have the IOS messengers yet, You can get them from <a href="http://www.wowonder.com/windows_app.php?app=ios">here</a>.
+        </div>
+        <div class="alert alert-success">
+          <i class="fa fa-fw fa-info-circle"></i> If you don't have the native android timeline app yet, You can get them from <a href="http://www.wowonder.com/windows_app.php?app=native_android">here</a>.
+        </div>
+        <hr>
+        <div class="form-group">
+            <label class="col-md-3">API ID</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" id="app-id" value="<?php echo $wo['config']['widnows_app_api_id'];?>">
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3">API Secret Key</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" id="app-key" value="<?php echo $wo['config']['widnows_app_api_key'];?>">
+               <span class="help-block">Use these keys to setup your application(s).</span>
+            </div>
+         </div>
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+         <div class="form-group">
+            <label class="col-md-3"></label>  
+            <div class="col-md-6">
+               <span onclick="Wo_ResetKeys();" class="btn btn-main">
+                   <i class="fa fa-repeat progress-icon" data-icon="repeat"></i> Reset Secret Key
+               </span><br><br>
+               <div class="red">Note: If you reset the secret key, all of your windows / phone applications will stop working on all your users devices.</div>
+            </div>
+         </div>
+      </form>
+   </div>
+   <hr>
+   <div class="setting-well">
+      <form action="" method="post" class="verify-site-setting form-horizontal">
+        <div class="form-group">
+            <label class="col-md-3">Android code</label>  
+            <div class="col-md-6 android_app">
+            <?php if ($wo['decode_android_v'] != $wo['decode_android_value']): ?>
+               <input type="text" name="android_purchase_code" class="form-control" id="app-id" value="" placeholder="Your android messenger access code">
+               <span class="help-block"><a href="https://api.envato.com/authorization?response_type=code&client_id=wowonder-verification-78ngohfi&redirect_uri=http://www.wowonder.com/purchase_android_app.php?checked=true" target="_blank">Get access code</a></span>
+              <?php else: ?>
+                 <span><i class="fa fa-check"></i> Application verified</span>
+              <?php endif; ?>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3">IOS code</label>  
+            <div class="col-md-6 ios_app">
+            <?php if ($wo['decode_ios_v'] != $wo['decode_ios_value']): ?>
+               <input type="text" name="ios_purchase_code" class="form-control" id="app-id" value="" placeholder="Your IOS messenger access code">
+               <span class="help-block"><a href="https://api.envato.com/authorization?response_type=code&client_id=wowonder-ios-u2dki0b1&redirect_uri=http://www.wowonder.com/purchase_ios_app.php?checked=true" target="_blank">Get access code</a></span>
+              <?php else: ?>
+                 <span><i class="fa fa-check"></i> Application verified</span>
+              <?php endif; ?>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3">Windows code</label> 
+            <div class="col-md-6 windows_app">
+              <?php if ($wo['decode_windwos_v'] != $wo['decode_windwos_value']): ?>
+               <input type="text" name="windows_purchase_code" class="form-control" id="app-key" value="" placeholder="Your desktop messenger access code">
+               <span class="help-block"><a href="https://api.envato.com/authorization?response_type=code&client_id=wowonder-windows-rdp0492u&redirect_uri=http://www.wowonder.com/purchase_windows_app.php?checked=true" target="_blank">Get access code</a></span>
+             <?php else: ?>
+              <span><i class="fa fa-check"></i> Application verified</span>
+             <?php endif; ?>
+            </div>
+         </div>
+         <hr><br>
+         <div class="form-group">
+            <label class="col-md-3">Android timeline code</label>  
+            <div class="col-md-6 android_native_purchase_code">
+            <?php if ($wo['decode_android_n_v'] != $wo['decode_android_n_value']): ?>
+               <input type="text" name="android_native_purchase_code" class="form-control" id="app-id" value="" placeholder="Your android native access code">
+               <span class="help-block"><a href="https://api.envato.com/authorization?response_type=code&client_id=android-timeline-kssuxhdu&redirect_uri=http://www.wowonder.com/purchase_android_native_app.php?checked=true" target="_blank">Get access code</a></span>
+              <?php else: ?>
+                 <span><i class="fa fa-check"></i> Application verified</span>
+              <?php endif; ?>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3"></label>  
+            <div class="col-md-6">
+               <span onclick="Wo_Verfiy();" class="btn btn-main">
+                   <i class="fa fa-check progress-icon" data-icon="check"></i> Verify application(s)
+               </span>
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+<script type="text/javascript">
+function Wo_ResetKeys() {
+	if (!confirm('Are you sure you want to reset the api secret key ? all of your windows / phone applications will stop working on all your users devices.')) {
+		return false;
+	}
+	Wo_progressIconLoader($('form.admin-site-setting').find('span'));
+	$.get(Wo_Ajax_Requests_File(), {f:'admin_setting', s: 'reset_windows_app_keys'}, function (data) {
+		if (data.status == 200) {
+			$('#app-key').val(data.app_key);
+		} else {
+			alert('Erorr found while reseting, please try again later.');
+		}
+		Wo_progressIconLoader($('form.admin-site-setting').find('span'));
+	});
+}
+$(function() {
+    $('form.verify-site-setting').ajaxForm({
+      url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=verfiy_apps',
+      beforeSend: function() {
+        Wo_progressIconLoader($('form.verify-site-setting').find('span.btn-main'));
+      },
+      success: function(data) {
+         if (data.android_native_status == 200) {
+           $('.android_native_purchase_code').html('<span><i class="fa fa-check"></i> Application verified</span>');
+        } else if (data.android_native_status == 400) {
+           alert('Android native app: ' + data.android_text);
+        }
+        if (data.android_status == 200) {
+           $('.android_app').html('<span><i class="fa fa-check"></i> Application verified</span>');
+        } else if (data.android_status == 400) {
+           alert('Android app: ' + data.android_text);
+        }
+        if (data.windows_status == 200) {
+           $('.windows_app').html('<span><i class="fa fa-check"></i> Application verified</span>');
+        } else if (data.windows_status == 400) {
+           alert('Windows app: ' + data.windows_text);
+        }
+        if (data.ios_status == 200) {
+           $('.ios_app').html('<span><i class="fa fa-check"></i> Application verified</span>');
+        } else if (data.ios_status == 400) {
+           alert('IOS app: ' + data.windows_text);
+        }
+        Wo_progressIconLoader($('form.verify-site-setting').find('span.btn-main'));
+      }
+    });
+});
+function Wo_Verfiy() {
+  $('form.verify-site-setting').submit();
+}
+</script>

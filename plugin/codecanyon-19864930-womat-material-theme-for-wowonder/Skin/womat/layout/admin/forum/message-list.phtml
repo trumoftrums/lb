@@ -1,0 +1,32 @@
+<?php $replies = Wo_GetThreadReplies(array('limit'=>500000, 'order_by' => 'DESC')) ?>
+<?php if (count($replies) > 0): ?>
+<table class="table table-striped custab">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Author</th>
+            <th>Subject</th>
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+    <?php foreach ($replies as $reply): ?>
+	    <tr data-thread-reply="<?php echo $reply['id']; ?>">
+	        <td><?php echo $reply['id']; ?></td>
+	        <td class="small"><?php echo $reply['user_data']['username']; ?></td>
+	        <td class="small"><?php echo $reply['post_subject']; ?></td>
+	        <td class="text-center">
+	        <div class="btn-group">
+	            <button class="btn main btn-default delete-th-reply" id="<?php echo $reply['id']; ?>">
+	                <i class="fa fa-trash-o" aria-hidden="true"></i>
+	            </button>
+	        </div>
+	       </td>
+	    </tr>
+	<?php endforeach; ?>
+
+</table>
+<?php echo Wo_loadPage('admin/forum/includes/delete-reply'); ?>
+
+<?php else: ?>
+   <?php echo '<h5 class="search-filter-center-text">' . $wo['lang']['no_result'] .  '</h5>'; ?>
+<?php endif; ?>

@@ -1,0 +1,94 @@
+<div class="page-margin">
+   <div class="row">
+      <div class="col-md-2"><?php echo Wo_LoadPage("sidebar/left-sidebar"); ?></div>
+      <div class="col-md-7">
+         <div class="list-group">
+            <div class="list-group-item">
+               <i class="fa fa-fw fa-cog"></i>Create new application
+               <span class="<?php echo Wo_RightToLeft('pull-right');?>">
+               <a data-ajax="?link1=apps" href="<?php echo Wo_SeoLink('index.php?link1=apps');?>"><i class="fa fa-fw fa-arrow-circle-left"></i>My Apps</a>
+               </span>
+               <div class="clear"></div>
+            </div>
+            <div class="setting-well">
+               <form class="app-general-form form-horizontal" method="post">
+                  <fieldset>
+                     <div class="app-general-alert setting-update-alert"></div>
+                     <!-- Text input-->
+                     <div class="form-group">
+                        <label class="col-md-3" for="app_name">Name *</label>  
+                        <div class="col-md-6">
+                           <input id="app_name" name="app_name" type="text" class="form-control input-md">
+                           <span class="help-block">Your application name. This is used to attribute the source user-facing authorization screens. 32 characters max.</span>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="col-md-3" for="app_website_url">Domain *</label>  
+                        <div class="col-md-6">
+                           <input name="app_website_url" id="app_website_url" type="text" class="form-control input-md">
+                           <span class="help-block">Your application's publicly accessible home page.</span>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="col-md-3" for="app_callback_url">Redirect URI</label>  
+                        <div class="col-md-6">
+                           <input name="app_callback_url" id="app_callback_url" type="text" class="form-control input-md">
+                           <span class="help-block">Where should we return after successfully authenticating?</span>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="col-md-3" for="app_description">Description *</label>  
+                        <div class="col-md-6">
+                           <textarea name="app_description" id="" rows="3" class="form-control input-md"></textarea>
+                           <span class="help-block">Your application description, which will be shown in user-facing authorization screens. Between 10 and 200 characters max.</span>
+                        </div>
+                     </div>
+                     <hr>
+                     <div class="form-group">
+                        <label class="col-md-3" for="app_avatar">Photo *</label>  
+                        <div class="col-md-6">
+                           <input name="app_avatar" id="app_avatar" type="file" class="form-control input-md">
+                           <span class="help-block">Your application thumbnail</span>
+                        </div>
+                     </div>
+                     <div class="form-group last-btn">
+                        <label class="col-md-3"></label>
+                        <div class="col-sm-3">
+                           <button type="submit" class="form-control btn btn-main">
+                           <i class="fa fa-plus-square progress-icon" data-icon="plus-square"></i> <?php echo $wo['lang']['create'];?>
+                           </button>
+                        </div>
+                     </div>
+                  </fieldset>
+                  <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+               </form>
+            </div>
+         </div>
+      </div>
+      <!-- .col-md-8 -->
+      <?php echo Wo_LoadPage('sidebar/content');?>
+   </div>
+   <!-- .row -->
+</div>
+<!-- .page-margin -->
+<script>
+$(function() {
+  $('form.app-general-form').ajaxForm({
+    url: Wo_Ajax_Requests_File() + '?f=apps&s=create_app',
+    beforeSend: function() {
+      Wo_progressIconLoader($('form.app-general-form').find('button'));
+    },
+    success: function(data) {
+      scrollToTop();
+      if (data.status == 200) {
+        window.location.href = data.location;
+      } else {
+          var errors = data.errors.join("<br>");
+          $('.app-general-alert').html('<div class="alert alert-danger">' + errors + '</div>');
+          $('.alert-danger').fadeIn(300);
+      }
+      Wo_progressIconLoader($('form.app-general-form').find('button'));
+    }
+  });
+});
+</script>

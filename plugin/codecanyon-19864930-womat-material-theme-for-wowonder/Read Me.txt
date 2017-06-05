@@ -1,0 +1,18 @@
+Thank you for trying WoMat theme. The theme is elegant, clean and material design
+and so much easy to setup.
+
+
+----> Just Extract the Skin folder.
+----> Copy "womat" folder.
+----> Paste it in the theme directory of your website.
+----> Then, activate the theme through Admin Panel.
+
+
+
+If you want any kind of help, feel free to contact us.
+
+
+Website: https://codecanyon.net/user/themelated/portfolio
+
+
+Thanks, Have a nice day!

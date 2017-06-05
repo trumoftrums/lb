@@ -1,0 +1,129 @@
+<?php 
+$selected_amazone_yes   = ($wo['config']['amazone_s3'] == 1)   ? ' checked' : '';
+$selected_amazone_no   = ($wo['config']['amazone_s3'] == 0)   ? ' checked' : '';
+$disabled = '';
+$text = '';
+if (!version_compare(PHP_VERSION, '5.5.0', '>=')) {
+	$disabled = 'disabled';
+	$text = 'Amazon S3 require PHP 5.5 or higher to run, your php version is: ' . PHP_VERSION;
+}
+?>
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-wrench"></i> Amazon S3</div>
+   <div class="setting-well page-margin">
+    <?php if (!empty($disabled)): ?>
+    	<div class="alert alert-danger">
+          <i class="fa fa-fw fa-exclamation-triangle"></i> <?php echo $text; ?>
+        </div>
+    <?php endif ?>
+     <h4 class="red"></h4>
+      <form action="" method="post" class="admin-site-setting form-horizontal">
+         <div class="form-group">
+            <label class="col-md-3" for="amazone_s3">Amazon S3 storage</label>
+            <div class="col-md-5"> 
+               <label class="radio-inline" for="amazone_s3-0">
+               <input type="radio" name="amazone_s3" id="amazone_s3-0" value="1" <?php echo $disabled?> <?php echo $selected_amazone_yes; ?>>
+               <?php echo $wo['lang']['enable']; ?>
+               </label> 
+               <label class="radio-inline" for="amazone_s3-1">
+               <input type="radio" name="amazone_s3" id="amazone_s3-1" value="0" <?php echo $selected_amazone_no; ?>>
+               <?php echo $wo['lang']['disable']; ?>
+               </label>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="bucket_name">Bucket Name</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="bucket_name" value="<?php echo $wo['config']['bucket_name'];?>">
+               <span class="help-block">Your Amazon S3 bucket name</span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="amazone_s3_key">S3 Key</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="amazone_s3_key" value="<?php echo $wo['config']['amazone_s3_key'];?>">
+               <span class="help-block">Your Amazon S3 account key</span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="amazone_s3_s_key">S3 Secret Key</label>  
+            <div class="col-md-6">
+               <input type="text" class="form-control" name="amazone_s3_s_key" value="<?php echo $wo['config']['amazone_s3_s_key'];?>">
+               <span class="help-block">Your Amazon S3 account secret key</span>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3">S3 bucket region</label>  
+            <div class="col-md-6">
+               <select name="region" class="form-control">
+                  <option value="us-east-1" <?php echo ($wo['config']['region'] == 'us-east-1')   ? ' selected' : '';?> >US East (N. Virginia)</option>
+                  <option value="us-west-2" <?php echo ($wo['config']['region'] == 'us-west-2')   ? ' selected' : '';?> >US West (Oregon)</option>
+                  <option value="ap-northeast-2" <?php echo ($wo['config']['region'] == 'ap-northeast-2')   ? ' selected' : '';?> >Asia Pacific (Seoul)</option>
+                  <option value="ap-southeast-1" <?php echo ($wo['config']['region'] == 'ap-southeast-1')   ? ' selected' : '';?> >Asia Pacific (Singapore)</option>
+                  <option value="ap-southeast-2" <?php echo ($wo['config']['region'] == 'ap-southeast-2')   ? ' selected' : '';?> >Asia Pacific (Sydney)</option>
+                  <option value="ap-northeast-1" <?php echo ($wo['config']['region'] == 'ap-northeast-1')   ? ' selected' : '';?> >Asia Pacific (Tokyo)</option>
+                  <option value="eu-central-1" <?php echo ($wo['config']['region'] == 'eu-central-1')   ? ' selected' : '';?> >EU (Frankfurt)</option>
+                  <option value="eu-west-1" <?php echo ($wo['config']['region'] == 'eu-west-1')   ? ' selected' : '';?> >EU (Ireland)</option>
+               </select>
+               <br><br>
+               <span class="help-block ">1. Before enabling Amazon S3, make sure you upload the whole "upload/" folder to your bucket.</span>
+               <span class="help-block ">2. Before disabling Amazon S3, make sure you download the whole "upload/" folder to your server.</span>
+               <span class="help-block ">3. We recommend to upload the folder and files via <a href="http://s3tools.org/s3cmd">S3cmd</a>.</span>
+               <span class="help-block ">4. If your site is still brand new, you can escape the upload step, but make sure to click on "Test Connection".</span>
+            </div>
+         </div>
+         
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+         <div class="form-group">
+            <label class="col-md-3"></label>  
+            <div class="col-md-6">
+               <button type="submit" class="btn btn-main">
+               <i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i>  <?php echo $wo['lang']['save']?>
+               </button> 
+               <span class="btn btn-main" onclick="Wo_TestS3()">
+                  <i class="fa fa-plug progress-icon" data-icon="plug"></i>  Test Connection
+               </span>   
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+<script type="text/javascript">
+$(function() {
+    $('form.admin-site-setting').ajaxForm({
+      url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=update_site_setting',
+      beforeSend: function() {
+        Wo_progressIconLoader($('form.admin-site-setting').find('button'));
+      },
+      success: function(data) {
+        if (data.status == 200) {
+          $('form.admin-site-setting button').html('<i class="fa fa-check"></i> <?php echo $wo["lang"]["saved"];?>');
+          setTimeout(function () {
+            $('form.admin-site-setting button').html('<i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i>  <?php echo $wo["lang"]["save"]?>');
+          }, 2000);
+          
+          Wo_progressIconLoader($('form.admin-site-setting').find('button'));
+
+        } 
+      }
+    });
+});
+
+function Wo_TestS3() {
+	Wo_progressIconLoader($('form.admin-site-setting').find('span'));
+	$.get(Wo_Ajax_Requests_File(), {f:'admin_setting', s: 'test_s3'}, function (data) {
+		if (data.status == 200) {
+			alert('Connection established!');
+		} else if (data.status == 300) {
+			alert('Bucket doesn\'t exists');
+		} else if (data.status == 500) {
+			alert('Your s3 account doesn\'t have any buckets, please create one.');
+		} else if (data.status == 400) {
+			alert(data.message);
+		} else  {
+			alert('Error while connecting to amazone, please check your details');
+		}
+		Wo_progressIconLoader($('form.admin-site-setting').find('span'));
+	});
+}
+</script>

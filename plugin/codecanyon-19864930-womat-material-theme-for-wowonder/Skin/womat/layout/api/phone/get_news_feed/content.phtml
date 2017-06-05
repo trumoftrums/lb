@@ -1,0 +1,190 @@
+<?php 
+$attr = '';
+if (!empty($_GET['user_id'])) {
+   $attr ='data-story-user="' .  Wo_Secure($_GET['user_id']) . '"';
+} else
+if (!empty($_GET['page_id'])) {
+    $attr ='data-story-page="' .  Wo_Secure($_GET['page_id']) . '"';
+} else
+if (!empty($_GET['group_id'])) {
+    $attr ='data-story-group="' .  Wo_Secure($_GET['group_id']) . '"';
+}
+
+?>
+<div class="col-md-12">
+    <div id="<?php echo (!empty($_GET['hashtag'])) ? 'posts_hashtag' : 'posts' ?>" <?php echo $attr?>>
+        <?php
+        if ($wo['config']['pro'] == 1 && empty($_GET['post_id']) && empty($_GET['hashtag']) && empty($_GET['save_posts']) && empty($_GET['page_id']) && empty($_GET['group_id']) && empty($_GET['user_id'])) {
+          $promoted = $wo['story'] = Wo_GetPromotedPost();
+          if (count($promoted) > 0) {
+          $wo['story']['post_is_promoted'] = 1;
+         ?>
+         <div class="promoted-post">
+           <img  class="promoted-icon" src="<?php echo $wo['config']['theme_url'] . '/img/promote.png';?>" alt="Promoted" data-toggle="tooltip" title="<?php echo $wo['lang']['promoted'];?>">
+           <?php echo Wo_LoadPage('story/api-posts'); ?>
+         </div>
+        <?php } }
+        if (!empty($_GET['post_id'])) {
+            $wo['story'] = Wo_PostData($_GET['post_id']);
+            if (!empty($wo['story'])) {
+                echo Wo_LoadPage('story/api-posts');
+            } else {
+                echo Wo_LoadPage('story/no-stories');
+            }
+        } else if (!empty($_GET['save_posts'])) {
+            $stories = Wo_GetSavedPosts($wo['user']['user_id']);
+            if (count($stories) <= 0) {
+                echo Wo_LoadPage('saved-posts/no-posts');
+            } else {
+                foreach ($stories as $wo['story']) {
+                   echo Wo_LoadPage('story/api-posts');
+                }
+            }
+        } else {
+            $array = array('limit' => 10);
+            if (!empty($_GET['user_id'])) {
+                $array['publisher_id'] = Wo_Secure($_GET['user_id']);
+            }
+            if (!empty($_GET['page_id'])) {
+                $array['page_id'] = Wo_Secure($_GET['page_id']);
+            }
+            if (!empty($_GET['group_id'])) {
+                $array['group_id'] = Wo_Secure($_GET['group_id']);
+            }
+            if (!empty($_GET['hashtag'])) {
+                $stories = Wo_GetHashtagPosts($_GET['hashtag']);
+            } else {
+                $stories = Wo_GetPosts($array);
+            }
+            if (count($stories) <= 0) {
+                echo Wo_LoadPage('story/no-stories');
+            } else {
+                foreach ($stories as $wo['story']) {
+                    echo Wo_LoadPage('story/api-posts');
+                }
+            }
+        }
+        ?>
+    </div>
+    <?php if (!empty($stories) && count($stories) > 0) { ?>
+    <?php if (!empty($_GET['hashtag'])) { ?> <input type="hidden" value="<?php echo $_GET['hashtag'];?>" id="hashtagName"> <?php } ?>
+     <input type="hidden" value="true" id="api">
+     <div class="load-more pointer" id="load-more-posts" onclick="<?php echo (!empty($_GET['hashtag'])) ? 'Wo_GetMoreHashTagsPosts();' : 'Wo_GetMorePosts();' ?>">
+        <span class="btn btn-default">
+        <i class="fa fa-chevron-circle-down progress-icon" data-icon="chevron-circle-down"></i> <?php echo $wo['lang']['load_more_posts'];?><span>
+     </div>
+     <?php } ?>
+     <div id="load-more-filter">
+        <span class="filter-by-more hidden" data-filter-by="all"></span>
+     </div>
+     <?php if (!empty($stories)) {?>
+     <div class="scroll-to-top" onclick="scrollToTop()"><i class="fa fa-arrow-up"></i></div>
+     <?php } ?>
+</div>
+<input type="hidden" id="ISAPI" value="1">
+<style>
+.scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    line-height: 1;
+    cursor: pointer;
+    text-align: center;;
+    color: <?php echo $wo['config']['btn_color'];?>;
+    font-size: 15px;
+    padding: 15px;
+    border-radius: 100%;
+    background-color: <?php echo $wo['config']['btn_background_color'];?>;
+}
+
+#wonder-button, #like-button, #comments-button {
+  width: 32.3%;
+}
+.stats {
+  width: 100%;
+}
+.like-btn-mobile {
+  display: inherit !important;
+}
+</style>
+<script>
+
+function isFunction(possibleFunction) {
+     return typeof(possibleFunction) === typeof(Function);
+}
+function InjectAPI(data, e) {
+    if (isFunction(csharp)) {
+        csharp(data);
+        e.preventDefault();
+        return false;
+    }
+}
+$(function () {
+  var scrolled = 0;
+  var nearToBottom = 100;
+      if($('#posts').length > 0) {
+          if ($(window).scrollTop() + $(window).height() > $(document).height() - nearToBottom) {
+            if (scrolled == 0) {
+               scrolled = 1;
+               Wo_GetMorePosts();
+            }
+          }
+      }
+  scrolled_hash = 0;
+  // Stick the home side bar if the screen width is > than 900
+  if(current_width > 900) {
+    $(window).scroll(function () {
+      var nearToBottom = 200;
+      if($('#posts_hashtag').length > 0) {
+          if ($(window).scrollTop() + $(window).height() > $(document).height() - nearToBottom) {
+            if (scrolled_hash == 0) {
+               scrolled_hash = 1;
+               Wo_GetMoreHashTagsPosts();
+            }
+          }
+      }
+    });
+  }
+});
+function Wo_GetMoreHashTagsPosts() {
+    var more_posts = $('#load-more-posts');
+    var after_post_id = $('.post:last').attr('data-post-id');
+    var hashtagName = $('#hashtagName').val();
+    var is_api = 0;
+    var api = $('#api').val();
+    if (api) {
+        is_api = 1;
+    }
+    Wo_progressIconLoader($('#load-more-posts'));
+    $.post(Wo_Ajax_Requests_File() + '?f=get_more_hashtag_posts', {after_post_id: after_post_id,hashtagName:hashtagName,is_api:is_api}, function(data) {
+        if (data.status == 200) {
+            if (data.html.length == 0) {
+                $('#posts_hashtag').append(data.html);
+                more_posts.html('<span class="btn btn-default"><?php echo $wo["lang"]["no_more_posts"];?><span>');
+            } else {
+              $('#posts_hashtag').append(data.html);
+            }
+            Wo_progressIconLoader($('#load-more-posts'));
+            scrolled_hash = 0;
+        }
+    });
+}
+function Wo_loadAPIAllComments(post_id) {
+  main_wrapper = $('#post-' + post_id);
+  view_more_wrapper = main_wrapper.find('.view-more-wrapper');
+  Wo_progressIconLoader(view_more_wrapper);
+  $.get(Wo_Ajax_Requests_File(), {
+    f: 'posts',
+    s: 'load_more_comments',
+    post_id: post_id,
+    is_api: 1
+  }, function (data) {
+    if(data.status == 200) {
+      main_wrapper.find('.comments-list').html(data.html);
+      view_more_wrapper.remove();
+    }
+  });
+}
+</script>

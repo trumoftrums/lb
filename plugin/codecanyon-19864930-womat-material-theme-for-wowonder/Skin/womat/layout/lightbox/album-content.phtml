@@ -1,0 +1,25 @@
+<div class="lightbox-backgrond" onclick="Wo_CloseLightbox();"></div>
+<div class="lightbox-content multi">
+  <div class="story-img">
+      <span class="changer previous-btn" onclick="Wo_PreviousAlbumPicture(<?php echo $wo['image']['post_id'];?>, <?php echo $wo['image']['id'];?>);">
+      <i class="fa fa-arrow-left"></i>
+      </span>
+      <span class="changer next-btn multi" onclick="Wo_NextAlbumPicture(<?php echo $wo['image']['post_id'];?>, <?php echo $wo['image']['id'];?>);">
+      <i class="fa fa-arrow-right"></i>
+      </span>
+      <img src="<?php echo $wo['image']['image_org'];?>" alt="media">
+  </div>
+</div>
+<script>
+$(document).keydown(function(e) {
+    if (e.keyCode == 27) {
+        Wo_CloseLightbox();
+    }   
+});
+$( ".story-img" ).mouseover(function() {
+  $( ".changer" ).fadeIn(200);
+});
+$( ".story-img" ).mouseleave(function() {
+  $( ".changer" ).fadeOut(200);
+});
+</script>

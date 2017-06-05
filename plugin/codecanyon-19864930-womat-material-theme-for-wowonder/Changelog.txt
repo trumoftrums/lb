@@ -1,0 +1,38 @@
+v1.1.4
+- Added Compatibility with WoWonder v1.4.5
+
+-------------------------------------------------------------
+
+
+v1.1.3.1
+- Fixed Home feed issuses
+
+-------------------------------------------------------------
+
+
+v1.1.3
+- Added Facebook like loading post animation in Homepage
+- Fixed Group layout
+- Fixed Messages layout
+- Fixed some bugs in Admin Panel Design
+- Fixed minor issues
+
+-------------------------------------------------------------
+
+
+v1.1.2
+- Added Search bar in mobile view
+- Fixed some bugs in Admin Panel Design
+- Fixed minor issues
+
+--------------------------------------------------------------
+
+
+v1.1.1
+- Fixed the overlapping of the Pro members in left sidebar
+
+--------------------------------------------------------------
+
+
+v1.1.0
+- Initial Release

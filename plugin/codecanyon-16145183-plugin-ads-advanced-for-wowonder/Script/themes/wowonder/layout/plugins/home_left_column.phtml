@@ -1,0 +1,77 @@
+<ul class="row nav nav-pills nav-stacked nav-home hidden-xs">
+                <li>
+                    <a href="<?php echo $wo['user']['url'];?>">
+                        <img alt="<?php echo $wo['user']['name']?> <?php echo $wo['lang']['plugin_profile_picture']; ?>" src="<?php echo $wo['user']['avatar']?>">
+                        <span><?php echo $wo['user']['name']?></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo 'setting/profile-setting';?>" data-ajax="?link1=setting&<?php echo $wo['user']['username'];?>page=profile-setting">
+                        <i class="fa fa-pencil-square fa-fw"></i> 
+                        <?php echo $wo['lang']['plugin_edit_profile']; ?>
+                    </a>
+                </li>
+                 <?php if(Wo_IsAdmin() || Wo_IsModerator()) { ?>
+				<li>
+                    <a href="<?php echo Wo_SeoLink('index.php?link1=admincp'); ?>">
+                        <i class="fa fa-bar-chart fa-fw"></i> 
+                        <?php echo $wo['lang']['admin_area']; ?>
+                    </a>
+                </li>
+			     <?php if(count($wo['system']) != 0) { ?>
+				<li>
+				    <a href="<?php echo $wo['config']['site_url'].'/index.php?link1=admin-plugins'; ?>">
+                        <i class="fa fa-puzzle-piece fa-fw"></i> 
+                        <?php echo $wo['lang']['plugin_plugins']; ?>
+                    </a>
+                </li>
+                 <?php } } ?> 
+                <li class="ptb5">
+                    <small class="text-muted"><?php echo $wo['lang']['plugin_favorites_m']; ?></small>
+                </li>
+
+                <li <?php if($wo['plugin_page'] == 'home'){ echo 'class="active"'; } ?> >
+                    <a href="<?php echo $wo['config']['site_url']; ?>"><i class="fa fa-newspaper-o fa-fw"></i> <?php echo $wo['lang']['plugin_news_feed']; ?></a>
+                </li>
+                <li>
+                    <a href="<?php echo $wo['config']['site_url'].'/messages'; ?>"><i class="fa fa-comments-o fa-fw"></i> <?php echo $wo['lang']['messages']; ?></a>
+                </li>
+		       
+			   <li class="ptb5">
+                    <small class="text-muted"><?php echo $wo['lang']['plugin_pages_m']; ?></small>
+                </li>
+				
+				<?php $pages = Wo_GetMyPages(); if (count($pages) > 0) { foreach ($pages as $_page) { ?>
+				  <li><a href="<?php echo $_page['url'];?>" data-ajax="?link1=timeline&u=<?php echo $_page['page_name'];?>">
+				  <img src="<?php echo $_page['avatar'];?>" alt="<?php echo $_page['page_name']; ?> <?php echo $wo['lang']['plugin_profile_picture']; ?>" class="fa fa-fw"/> <?php echo $_page['page_title']; ?></a></li>
+				<?php } } ?>
+				
+				<li>
+                    <a href="<?php echo Wo_SeoLink('index.php?link1=create-page');?>"><i class="fa fa-flag fa-fw"></i> <?php echo $wo['lang']['plugin_create_page']; ?></a>
+                </li>
+				<li>
+                    <a href="<?php echo Wo_SeoLink('index.php?link1=pages'); ?>"><i class="fa fa-cubes fa-fw"></i> <?php echo $wo['lang']['plugin_manage_pages']; ?></a>
+                </li>
+				
+				<li class="ptb5">
+                    <small class="text-muted"><?php echo $wo['lang']['plugin_groups_m']; ?></small>
+                </li>
+				
+				<?php $pages = Wo_GetMyGroups(); if (count($pages) > 0) { foreach ($pages as $_group) { ?>
+				  <li><a href="<?php echo $_group['url'];?>" data-ajax="?link1=timeline&u=<?php echo $_group['group_name'];?>">
+				  <img src="<?php echo $_group['avatar'];?>" alt="<?php echo $_group['group_name']; ?> <?php echo $wo['lang']['plugin_profile_picture']; ?>" class="fa fa-fw"/> <?php echo $_group['group_title']; ?></a></li>
+				<?php } } ?>
+				
+				<li>
+                    <a href="<?php echo Wo_SeoLink('index.php?link1=create-group'); ?>"><i class="fa fa-users fa-fw"></i> <?php echo $wo['lang']['plugin_create_group']; ?></a>
+                </li>
+				<li>
+                    <a href="<?php echo Wo_SeoLink('index.php?link1=groups'); ?>"><i class="fa fa-cubes fa-fw"></i> <?php echo $wo['lang']['plugin_manage_groups']; ?></a>
+                </li>
+								
+				<?php /* plugin menu */ ?>
+				<?php if(!empty($wo['plugin_list']['plugin_menu'])){ ?>
+					<li class="ptb5"><small class="text-muted"><?php echo $wo['lang']['plugin_aplications_m']; ?></small></li>					
+					<?php echo Wo_LoadPage('plugins/plugin_menu'); /* plugin menu */ ?>	
+				<?php } ?>				
+</ul>

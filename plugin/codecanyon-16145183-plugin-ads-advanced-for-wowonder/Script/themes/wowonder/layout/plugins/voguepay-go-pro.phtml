@@ -1,0 +1,25 @@
+<div class="modal fade" id="pay-go-pro" role="dialog"  data-keyboard="false">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title"><i class="fa fa-money"></i> VoguePay</h4>
+         </div>
+         <div class="modal-body">
+
+<form method='POST' action='https://voguepay.com/pay/'>
+<input type='hidden' name='v_merchant_id' value='<?php if($wo['system']['voguePayMerchantId'] != ''){ echo $wo['system']['voguePayMerchantId']; } else { echo 'demo'; } ?>' />
+<input type='hidden' name='merchant_ref' value='{type}' />
+<input type='hidden' name='memo' value='{pro_type_description}' />
+<input type='hidden' name='notify_url' value='<?php echo $wo['config']['site_url']."/plugin_requests.php?f=voguepay_upgrade&success=true&pro_type={pro_type_case}"; ?>&type=notification' />
+<input type='hidden' name='success_url' value='<?php echo $wo['config']['site_url']."/plugin_requests.php?f=voguepay_upgrade&success=true&pro_type={pro_type_case}"; ?>&type=thank_you' />
+<input type='hidden' name='fail_url' value='<?php echo $wo['config']['site_url']."/plugin_requests.php?f=payment&success=false"; ?>&type=failed' />
+<input type='hidden' name='developer_code' value='<?php echo $wo['user']['user_id']; ?>' />
+<input type='hidden' name='store_id' value='{pro_type_case}' />
+<input type='hidden' name='cur' value='<?php echo $wo['config']['currency'];?>' />
+<input type='hidden' name='total' value='{pro_type_price}' />
+<button class="btn-bitcoin btn" type='submit'><i class="fa fa-bitcoin"></i> <?php echo $wo['lang']['upgrade_now'];?> with VoguePay, click for continue...</button>
+</form>
+         </div>
+      </div>
+   </div>
+</div>

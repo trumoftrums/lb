@@ -1,0 +1,77 @@
+<div class="page-margin">
+   <div class="row">
+      <div class="col-md-2"><?php echo Wo_LoadPage("sidebar/left-sidebar"); ?>
+         <!-- nothing -->
+      </div>
+      <div class="col-md-10 profile-lists">
+         <div class="list-group">
+            <div class="list-group-item">
+                  <i class="fa fa-align-justify"></i> 
+                  <?php echo $wo['lang']['my_articles'];?>
+                  <span class="<?php echo Wo_RightToLeft('pull-right'); ?>" >
+                  <a  href="<?php echo Wo_SeoLink('index.php?link1=create-blog');?>"><?php echo $wo['lang']['create']; ?></a>
+                  </span>
+            </div>
+            <br>
+            <div class="setting-well" id="blog-list"> 
+                 <?php
+                    $pages = Wo_GetMyBlogs($wo["user"]['id']);
+                    if ($pages && count($pages) > 0) {
+
+                       foreach ($pages as $wo['blog']) {
+                           echo Wo_LoadPage('blog/blog-list');
+                       }
+
+                    } 
+
+                    else {
+                       echo '<h5 class="search-filter-center-text"> ' . $wo['lang']['no_blogs_found'] . '</h5>';
+                    }
+                    
+                  ?>
+        
+                <div class="clear"></div>
+     
+            </div>
+            <div class="loading-alert"></div>
+            <div class="posts_load">
+               <?php if (count($pages) >= 10): ?>
+                  <div class="load-more">
+                          <button class="btn btn-default text-center pointer load-more-my-blogs">
+                          <i class="fa fa-arrow-down progress-icon" data-icon="arrow-down"></i> <?php echo $wo['lang']['load_more_blogs'] ?></button>
+                  </div>
+               <?php endif ?>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- .row -->
+</div>
+<?php echo Wo_LoadPage('blog/delete-blog');?>
+
+<script>
+$(document).ready(function() {
+   $(".delete-blog").on("click", function() {
+      $("#delete-blog").attr('data-blog-id', $(this).attr("id")).modal();      
+   });
+
+  $(".load-more-my-blogs").click(function () {
+      $.ajax({
+         url: Wo_Ajax_Requests_File(),
+         type: 'GET',
+         dataType: 'json',
+         data: {f:"load-my-blogs",offset: ($(".view-blog").length > 0) ? $(".view-blog:last").attr('id') : 0},
+         success:function(data){
+            if (data['status'] == 200) {
+
+                $(".setting-well").append(data['html'])
+             }else{
+
+               $(".posts_load").remove()
+               
+             }
+         }
+      });
+   });
+});
+</script>

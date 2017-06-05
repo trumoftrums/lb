@@ -1,0 +1,71 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-book"></i> Events</div>
+   <div class="setting-well">
+      <div class="clear"></div>
+      <table class="table  table-hover table-bordered table-condensed setting-table">
+         <thead>
+            <tr>
+               <th><?php echo $wo['lang']['id'];?></th>
+               <th>Link</th>
+               <th>Author</th>
+               <th><?php echo $wo['lang']['time'];?></th>
+               <th><?php echo $wo['lang']['action'];?></th>
+            </tr>
+         </thead>
+         <tbody class="page-result manage-pages-list">
+               <?php 
+               foreach (Wo_GetEvents(array('is_admin' => 1, "limit" => 400)) as $wo['event']) {
+                  echo Wo_LoadPage('admin/events/events-list');
+                }
+               ?>
+         </tbody>
+      </table>
+      <span class="center-text"></span>
+   </div>
+</div>
+<div class="modal fade" id="delete-event">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title"><i class="fa fa-exclamation-circle"></i>
+               <?php echo $wo['lang']['delete']; ?>
+            </h4>
+         </div>
+         <div class="modal-body">
+            <p><?php echo $wo['lang']['confirm_delete_post']; ?></p>
+         </div>
+         <div class="modal-footer">
+            <button  type="button" onclick="Wo_DeleteEvent($('#delete-event').attr('data-event-ident'))" class="btn  btn-main"><i class="fa fa-trash-o progress-icon" data-icon="trash-o"></i> <?php echo $wo['lang']['delete']; ?></button>
+            <button  type="button" class="btn btn-default" data-dismiss="modal"><?php echo $wo['lang']['cancel']; ?></button>
+         </div>
+      </div>
+   </div>
+</div>
+
+<script>
+jQuery(document).ready(function($) {
+   $(document).on('click', ".delete-event", function(event) {
+      $("#delete-event").attr('data-event-ident', $(this).attr('id')).modal('show');
+
+  });
+});
+
+function Wo_DeleteEvent(id) {
+  if (!id) {
+   return false;
+  }
+
+  else{
+      $.get(Wo_Ajax_Requests_File(),{f:'delete-event',id: id}, function(data) {
+       if (data.status == 200) {
+         $("#delete-event").modal('hide')
+         $('#EventID_' + id).fadeOut(300, function() {
+           $(this).remove();
+         });
+       }
+     });
+  }
+  
+}
+
+</script>

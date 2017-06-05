@@ -1,0 +1,164 @@
+<?php 
+$selected_google_yes     = ($wo['config']['googleLogin'] == 1)     ? ' checked' : '';
+$selected_facebook_yes   = ($wo['config']['facebookLogin'] == 1)   ? ' checked' : '';
+$selected_twitter_yes    = ($wo['config']['twitterLogin'] == 1)    ? ' checked' : '';
+$selected_linkedin_yes   = ($wo['config']['linkedinLogin'] == 1)   ? ' checked' : '';
+$selected_Vkontakte_yes   = ($wo['config']['VkontakteLogin'] == 1)   ? ' checked' : '';
+$selected_instagram_yes = ($wo['config']['instagramLogin'] == 1)   ? ' checked' : '';
+?>
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-share-square"></i> <?php echo $wo['lang']['social_login']; ?></div>
+   <div class="setting-well">
+      <form action="" method="post" class="admin-social-login-setting form-horizontal">
+         <div class="row">
+            <div class="col-lg-5">
+               <div class="form-group">
+                  <label class="col-md-5" for="facebookLogin"><?php echo $wo['lang']['facebook']; ?> </label>  
+                  <div class="col-md-6">
+                     <input type="checkbox" name="facebookLogin" data-toggle="toggle" data-onstyle="success" data-style="ios" data-offstyle="danger"  <?php echo $selected_facebook_yes;?>>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-md-5" for="googleLogin"><?php echo $wo['lang']['google']; ?> </label>  
+                  <div class="col-md-6">
+                     <input type="checkbox" name="googleLogin" data-toggle="toggle" data-onstyle="success" data-style="ios" data-offstyle="danger"  <?php echo $selected_google_yes;?>>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-md-5" for="twitterLogin"><?php echo $wo['lang']['twitter']; ?> </label>  
+                  <div class="col-md-6">
+                     <input type="checkbox" name="twitterLogin" data-toggle="toggle"  data-onstyle="success" data-style="ios" data-offstyle="danger"  <?php echo $selected_twitter_yes;?>>
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-6">
+               <div class="form-group">
+                  <label class="col-md-3" for="VkontakteLogin"><?php echo $wo['lang']['vkontakte']; ?> </label>  
+                  <div class="col-md-6">
+                     <input type="checkbox" name="VkontakteLogin" data-toggle="toggle" data-onstyle="success" data-style="ios" data-offstyle="danger" <?php echo $selected_Vkontakte_yes;?>>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-md-3" for="linkedinLogin"><?php echo $wo['lang']['linkedin']; ?> </label>  
+                  <div class="col-md-6">
+                     <input type="checkbox" name="linkedinLogin" data-toggle="toggle" data-onstyle="success" data-style="ios" data-offstyle="danger" <?php echo $selected_linkedin_yes;?>>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-md-3" for="instagramLogin"><?php echo $wo['lang']['instagram']; ?> </label>  
+                  <div class="col-md-6">
+                     <input type="checkbox" name="instagramLogin" data-toggle="toggle" data-onstyle="success" data-style="ios" data-offstyle="danger" <?php echo $selected_instagram_yes;?>>
+                  </div>
+               </div>
+            </div>
+            <div class="clear"></div>
+         </div>
+         <h4><i class="fa fa-fw fa-facebook-official" style="color:#395B9A"></i> <?php echo $wo['lang']['facebook'];?></h4>
+         <hr>
+         <div class="form-group">
+            <div class="col-md-8">
+               <input type="text" class="form-control" name="facebookAppId" value="<?php echo $wo['config']['facebookAppId'];?>" placeholder="<?php echo $wo['lang']['app_id']; ?>"> 
+            </div>
+         </div>
+         <div class="form-group">
+            <div class="col-md-8">
+               <input type="text" class="form-control" name="facebookAppKey" value="<?php echo $wo['config']['facebookAppKey'];?>" placeholder="<?php echo $wo['lang']['app_secret_key']; ?>">
+            </div>
+         </div>
+         <br>
+         <h4><i class="fa fa-fw fa-google-plus-square" style="color:#DC493C"></i> <?php echo $wo['lang']['google'];?></h4>
+         <hr>
+         <div class="form-group">
+            <div class="col-md-8">
+               <input type="text" class="form-control" name="googleAppId" value="<?php echo $wo['config']['googleAppId'];?>" placeholder="<?php echo $wo['lang']['app_id']; ?>"> 
+            </div>
+         </div>
+         <div class="form-group">
+            <div class="col-md-8">
+               <input type="text" class="form-control" name="googleAppKey" value="<?php echo $wo['config']['googleAppKey'];?>" placeholder="<?php echo $wo['lang']['app_secret_key']; ?>">
+            </div>
+         </div>
+         <br>
+         <h4><i class="fa fa-fw fa-twitter-square" style="color:#659FCB"></i> <?php echo $wo['lang']['twitter'];?></h4>
+         <hr>
+         <div class="form-group">
+            <div class="col-md-8">
+               <input type="text" class="form-control" name="twitterAppId" value="<?php echo $wo['config']['twitterAppId'];?>" placeholder="<?php echo $wo['lang']['app_id']; ?>"> 
+            </div>
+         </div>
+         <div class="form-group"> 
+            <div class="col-md-8">
+               <input type="text" class="form-control" name="twitterAppKey" value="<?php echo $wo['config']['twitterAppKey'];?>" placeholder="<?php echo $wo['lang']['app_secret_key']; ?>">
+            </div>
+         </div>
+         <br>
+         <h4><i class="fa fa-fw fa-linkedin-square" style="color:#0177B5"></i> <?php echo $wo['lang']['linkedin'];?></h4>
+         <hr>
+         <div class="form-group"> 
+            <div class="col-md-8">
+               <input type="text" class="form-control" name="linkedinAppId" value="<?php echo $wo['config']['linkedinAppId'];?>" placeholder="<?php echo $wo['lang']['app_id']; ?>"> 
+            </div>
+         </div>
+         <div class="form-group"> 
+            <div class="col-md-8">
+               <input type="text" class="form-control" name="linkedinAppKey" value="<?php echo $wo['config']['linkedinAppKey'];?>" placeholder="<?php echo $wo['lang']['app_secret_key']; ?>">
+            </div>
+         </div>
+         <br>
+         <h4><i class="fa fa-fw fa-vk" style="color:#4C75A3"></i> <?php echo $wo['lang']['vkontakte'];?></h4>
+         <hr>
+         <div class="form-group">
+            <div class="col-md-8">
+               <input type="text" class="form-control" name="VkontakteAppId" value="<?php echo $wo['config']['VkontakteAppId'];?>" placeholder="<?php echo $wo['lang']['app_id']; ?>"> 
+            </div>
+         </div>
+         <div class="form-group"> 
+            <div class="col-md-8">
+               <input type="text" class="form-control" name="VkontakteAppKey" value="<?php echo $wo['config']['VkontakteAppKey'];?>" placeholder="<?php echo $wo['lang']['app_secret_key']; ?>">
+            </div>
+         </div>
+         <br>
+         <h4><i class="fa fa-fw fa-instagram" style="color:#7A422B"></i> <?php echo $wo['lang']['instagram'];?></h4>
+         <hr>
+         <div class="form-group">
+            <div class="col-md-8">
+               <input type="text" class="form-control" name="instagramAppId" value="<?php echo $wo['config']['instagramAppId'];?>" placeholder="<?php echo $wo['lang']['app_id']; ?>"> 
+            </div>
+         </div>
+         <div class="form-group"> 
+            <div class="col-md-8">
+               <input type="text" class="form-control" name="instagramAppkey" value="<?php echo $wo['config']['instagramAppkey'];?>" placeholder="<?php echo $wo['lang']['app_secret_key']; ?>">
+            </div>
+         </div>
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+         <div class="form-group"> 
+            <div class="col-md-6">
+               <button type="submit" class="btn btn-main">
+               <i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i>  <?php echo $wo['lang']['save']?>
+               </button>   
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+<script type="text/javascript">
+$(function() {
+    $('form.admin-social-login-setting').ajaxForm({
+      url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=update_social_login_setting',
+      beforeSend: function() {
+        Wo_progressIconLoader($('form.admin-social-login-setting').find('button'));
+      },
+      success: function(data) {
+        if (data.status == 200) {
+          $('form.admin-social-login-setting button').html('<i class="fa fa-check"></i> <?php echo $wo["lang"]["saved"];?>');
+          setTimeout(function () {
+            $('form.admin-social-login-setting button').html('<i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i>  <?php echo $wo["lang"]["save"]?>');
+          }, 2000);
+          
+          Wo_progressIconLoader($('form.admin-social-login-setting').find('button'));
+
+        } 
+      }
+    });
+});
+</script>

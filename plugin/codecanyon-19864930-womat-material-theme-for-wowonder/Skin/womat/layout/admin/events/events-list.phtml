@@ -1,0 +1,23 @@
+<tr class="setting-event" id="EventID_<?php echo $wo['event']['id']?>" >
+   <td><?php echo $wo['event']['id']?></td>
+   <td>
+      <a href="<?php echo $wo['event']['url']; ?>">LINK</a>
+   </td>
+   <td>
+      <a href="<?php echo $wo['event']['user_data']['url']; ?>">
+        <img src="<?php echo $wo['event']['user_data']['avatar']; ?>" class="setting-avatar" >
+         <?php echo $wo['event']['user_data']['name']; ?>
+         <?php echo $wo['event']['poster_id']; ?>
+      </a>
+   </td>
+   <td>
+     <div class="ajax-time">
+         <?php echo ($wo['event']['start_date']);?>
+     </div>
+   </td>
+   <td>
+      <span class="pointer delete-event" id="<?php echo $wo['event']['id']?>">
+      <i class="fa fa-trash-o"></i>
+      </span>
+   </td>
+</tr>

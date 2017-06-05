@@ -1,0 +1,124 @@
+<div class="list-group">
+   <div class="list-group-item"><i class="fa fa-fw fa-cog"></i><?php echo $wo['lang']['general_setting'];?> <a href="<?php echo $wo['setting']['url'];?>" data-ajax="?link1=timeline&u=<?php echo $wo['setting']['page_name'];?>">(<?php echo $wo['setting']['name'];?>)</a></div>
+   <div class="setting-well">
+   <form class="setting-general-form form-horizontal" method="post">
+      <fieldset>
+         <div class="setting-general-alert setting-update-alert"></div>
+         <!-- Text input-->
+         <div class="form-group">
+            <label class="col-md-3" for="page_name"><?php echo $wo['lang']['page_name'];?></label>  
+            <div class="col-md-6">
+               <input id="page_name" name="page_name" type="text" class="form-control input-md" value="<?php echo $wo['setting']['page_name']?>" onkeyup="Wo_CheckPagename(this.value, <?php echo $wo['setting']['page_id'];?>);" autocomplete="off">
+               <span class="help-block checking"></span>  
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="page_title"><?php echo $wo['lang']['page_title'];?></label>  
+            <div class="col-md-6">
+               <input name="page_title" id="page_title" type="text" class="form-control input-md" value="<?php echo $wo['setting']['page_title']?>" autocomplete="off">
+            </div>
+         </div>
+         <!-- Select Basic -->
+         <div class="form-group">
+            <label class="col-md-3" for="page_category"><?php echo $wo['lang']['category'];?></label>
+            <div class="col-md-6">
+               <select id="page_category" name="page_category" class="form-control">
+                  <?php 
+                  foreach ($wo['page_categories'] as $categories => $category) { 
+                    $category_id = $wo['setting']['page_category'];
+                    $selected_contry = ($categories == $category_id) ? ' selected' : '' ;
+                  ?>
+                  <option value="<?php echo $categories;?>" <?php echo $selected_contry;?> ><?php echo $category;?></option>
+                  <?php } ?>
+               </select>
+            </div>
+         </div>
+         <!-- Select Basic -->
+         <div class="form-group">
+            <label class="col-md-3" for="call_action_type"><?php echo $wo['lang']['call_to_action'];?></label>
+            <div class="col-md-6">
+               <select id="call_action_type" name="call_action_type" class="form-control">
+                  <?php 
+                  foreach ($wo['call_action'] as $categories => $category) { 
+                    $category_id = $wo['setting']['call_action_type'];
+                    $selected_action = ($categories == $category_id) ? ' selected' : '' ;
+                  ?>
+                  <option value="<?php echo $categories;?>" <?php echo $selected_action;?> ><?php echo $category;?></option>
+                  <?php } ?>
+               </select>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-3" for="call_action_type_url"><?php echo $wo['lang']['call_to_action_target'];?></label>  
+            <div class="col-md-6">
+               <input name="call_action_type_url" id="call_action_type_url" type="text" class="form-control input-md" value="<?php echo $wo['setting']['call_action_type_url']?>" autocomplete="off">
+            </div>
+         </div>
+         <?php if (Wo_IsAdmin() || Wo_IsModerator()) { ?>
+         <div class="form-group">
+            <?php
+            $selected_verified_yes = ($wo['setting']['verified'] == 1)   ? ' checked' : '';
+            $selected_verified_no  = ($wo['setting']['verified'] == 0)   ? ' checked' : '';
+            ?>
+            <label class="col-md-3" for="verified"><?php echo $wo['lang']['verification']; ?></label>
+            <div class="col-md-6"> 
+               <label class="radio-inline" for="verified-0">
+               <input type="radio" name="verified" id="verified-0" value="verified" <?php echo $selected_verified_yes; ?> >
+               <?php echo $wo['lang']['verified']; ?>
+               </label> 
+               <label class="radio-inline" for="verified-1">
+               <input type="radio" name="verified" id="verified-1" value="notVerified" <?php echo $selected_verified_no; ?>>
+               <?php echo $wo['lang']['not_verified']; ?>
+               </label>
+            </div>
+         </div>
+         <?php } else { ?>
+         <div class="form-group">
+            <label class="col-md-3"><?php echo $wo['lang']['verification'];?></label>  
+            <div class="col-md-3" id="verification-request">
+            <?php 
+            echo Wo_GetVerificationButton($wo['setting']['page_id'],'Page');
+            ?>               
+            </div>
+         </div>
+         <?php } ?>
+         <div class="form-group">
+            <label class="col-md-3"></label>
+            <div class="col-sm-3">
+               <button type="submit" class="btn btn-main">
+               <i class="fa fa-floppy-o progress-icon" data-icon="floppy-o"></i> <?php echo $wo['lang']['save']; ?>
+               </button>
+            </div>
+         </div>
+         <input type="hidden" name="page_id" value="<?php echo $wo['setting']['page_id'];?>">
+         <input type="hidden" name="hash_id" value="<?php echo Wo_CreateSession();?>">
+      </fieldset>
+   </form>
+</div>
+</div>
+<script type="text/javascript">
+$(function() {
+  $('form.setting-general-form').ajaxForm({
+    url: Wo_Ajax_Requests_File() + '?f=pages&s=update_general_settings',
+    beforeSend: function() {
+      Wo_progressIconLoader($('form.setting-general-form').find('button'));
+    },
+    success: function(data) {
+      scrollToTop();
+      if (data.status == 200) {
+        $('.setting-general-alert').html('<div class="alert alert-success">' + data.message + '</div>');
+        $('.alert-success').fadeIn('fast', function() {
+           $(this).delay(2500).slideUp(500, function() {
+              $(this).remove();
+            });
+        });
+      } else {
+          var errors = data.errors.join("<br>");
+          $('.setting-general-alert').html('<div class="alert alert-danger">' + errors + '</div>');
+          $('.alert-danger').fadeIn(300);
+      }
+      Wo_progressIconLoader($('form.setting-general-form').find('button'));
+    }
+  });
+});
+</script>

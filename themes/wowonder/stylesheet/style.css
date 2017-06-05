@@ -21,7 +21,7 @@ button, a { outline: 0 !important; }
 .text-sender-container .outgoing .message-model { -webkit-border-bottom-right-radius: 2px; -moz-border-bottom-right-radius: 2px; -ms-border-bottom-right-radius: 2px; -o-border-bottom-right-radius: 2px; border-bottom-right-radius: 2px; }
 .text-sender-container .incoming .message-model { max-width: 80%; }
 
-.header-brand { float: left; display: block; margin-top: 10px; margin-right: 25px; }
+.header-brand { float: left; display: block; margin-top: 6px; margin-right: 25px; }
 
 .ui-menu-item span { font-size: 13px; }
 
