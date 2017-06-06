@@ -29,11 +29,11 @@ if ($followers_alert == 0) {
 
 </ul>
 <ul class="nav navbar-nav navbar-right <?php echo Wo_RightToLeft('pull-right');?>">
-    <li class="dropdown">
-      <a class="sixteen-font-size" href="<?php echo Wo_SeoLink('');?>" data-ajax="?link1=home" >
+    <!--<li class="dropdown">
+      <a class="sixteen-font-size" href="<?php /*echo Wo_SeoLink('');*/?>" data-ajax="?link1=home" >
           <i class="fa fa-home"></i>
       </a>
-   </li>
+   </li>-->
    <li class="dropdown requests-container" onclick="Wo_OpenRequestsMenu();">
       <span class="new-update-alert<?php echo $followers_hidden_class;?>">
       <?php echo $followers_alert?>
@@ -82,6 +82,28 @@ if ($followers_alert == 0) {
          </li>
       </ul>
    </li>
+    <li>
+        <a href="<?php echo Wo_SeoLink('index.php?link1=search');?>" class="sixteen-font-size show-search-form" >
+            <i class="fa fa-search"></i>
+        </a>
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle sixteen-font-size " data-toggle="dropdown" role="button" aria-expanded="false">
+            <i class="fa fa-usd"></i>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a href="<?php echo Wo_SeoLink('index.php?link1=blogs'); ?>">
+                    <i class="fa fa-clipboard fa-fw icon-drop-menu"></i> <?php echo $wo['lang']['blog'] ?></a>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo Wo_SeoLink('index.php?link1=products'); ?>">
+                    <i class="fa fa-shopping-cart fa-fw icon-drop-menu"></i> <?php echo $wo['lang']['market'];?></a>
+                </a>
+            </li>
+        </ul>
+    </li>
    <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
          <!-- <span id="user-full-name" class="User-Name">
