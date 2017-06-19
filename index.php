@@ -54,7 +54,7 @@ if ($wo['loggedin'] == true && !isset($_GET['link1'])) {
     $page = $_GET['link1'];
 }
 if ((!isset($_GET['link1']) && $wo['loggedin'] == false) || (isset($_GET['link1']) && $wo['loggedin'] == false && $page == 'home')) {
-    $page = 'welcome';
+    $page = 'home-page';
 }
 if ($wo['config']['maintenance_mode'] == 1) {
     if ($wo['loggedin'] == false) {
@@ -233,6 +233,9 @@ switch ($page) {
     case 'blog-category':
         include('sources/blog_category.php');
         break;
+    case 'home-page':
+        include('sources/home_page.php');
+        break;
     
    /* case 'oauth':
         include('sources/oauth.php');
@@ -267,7 +270,7 @@ if (empty($wo['content'])) {
     include('sources/404.php');
 }
 
-echo Wo_Loadpage('home-login');
+echo Wo_Loadpage('container');
 
 mysqli_close($sqlConnect);
 unset($wo);

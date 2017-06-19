@@ -1,0 +1,210 @@
+<style>
+    .col-sm-6{
+        padding:0px;
+    }
+    cv-tag .carousel {
+        width: 97%;
+        margin-left: 1%;
+        float: left;
+    }
+
+    cv-tag .carousel-control.left, .carousel-control.right {
+        background-image:none;
+    }
+
+    .img-responsive{
+        width:100%;
+        height:auto;
+    }
+
+    @media (min-width: 992px ) {
+        cv-tag .carousel-inner .active.left {
+            left: -25%;
+        }
+        cv-tag .carousel-inner .next {
+            left:  25%;
+        }
+        cv-tag .carousel-inner .prev {
+            left: -25%;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 991px ) {
+        cv-tag .carousel-inner .active.left {
+            left: -33.3%;
+        }
+        cv-tag .carousel-inner .next {
+            left:  33.3%;
+        }
+        cv-tag .carousel-inner .prev {
+            left: -33.3%;
+        }
+        cv-tag .carousel-inner .active > div:first-child {
+            display:block;
+        }
+        cv-tag .carousel-inner .active > div:first-child + div {
+            display:block;
+        }
+        cv-tag .carousel-inner .active > div:last-child {
+            display:none;
+        }
+    }
+
+    @media (max-width: 767px) {
+        cv-tag .carousel-inner .active.left {
+            left: -100%;
+        }
+        cv-tag .carousel-inner .next {
+            left:  100%;
+        }
+        cv-tag .carousel-inner .prev {
+            left: -100%;
+        }
+        cv-tag .carousel-inner .active > div {
+            display:none;
+        }
+        cv-tag .carousel-inner .active > div:first-child {
+            display:block;
+        }
+    }
+    .cv-tag .carousel-control.right{
+        top: 40%;
+        width: 40px;
+        right: 10px;
+    }
+    .cv-tag .carousel-control.left{
+        top: 40%;
+        width: 40px;
+        left: 20px;
+    }
+    .cv-cc{
+        float: left;
+        width: 100%;
+    }
+    .cv-cc .cv-left{
+        float: left;
+        width: 70%;
+    }
+    .cv-cc .cv-left .nav-top{
+        float: left;
+        width: 100%;
+    }
+    .cv-cc .cv-left .nav-top .cv-menu{
+        float: left;
+        border: 1px solid #17aa9d;
+        border-radius: 20px;
+    }
+    .cv-cc .cv-left .nav-top .cv-menu a{
+        padding: 6px 20px;
+        float: left;
+        color: #17aa9d;
+        text-transform: uppercase;
+    }
+    .cv-cc .cv-left .nav-top .com-article{
+        background: url(<?php echo $wo['config']['theme_url'];?>/img/icon-cobo.png) 100% / 35px no-repeat !important;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        float: right;
+        width: 180px;
+        height: 35px;
+        padding: 0px 5px;
+        margin-bottom: 14px;
+        border: 1px solid #17aa9d;
+        outline: none;
+    }
+    .cv-cc .cv-left .h4-click{
+
+    }
+</style>
+<div class="page-margin products">
+	<div class="container">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <div class="cv-cc">
+            <div class="cv-left">
+                <div class="nav-top">
+                    <div class="cv-menu">
+                        <a href="#">All</a>
+                        <a href="#">videos</a>
+                        <a href="#">images</a>
+                        <a href="#">news</a>
+                    </div>
+                    <select class="com-article">
+                        <option>Chủ đề 01</option>
+                        <option>Chủ đề 02</option>
+                        <option>Chủ đề 03</option>
+                    </select>
+                </div>
+                <h4 class="h4-click">Click chọn quốc gia yếu thích</h4>
+                <div class="cv-country">
+                    <a class="a-flag" href="#"><img src="<?php echo $wo['config']['theme_url'];?>/img/flag-us.png"/> USA</a>
+                    <a class="a-flag" href="#"><img src="<?php echo $wo['config']['theme_url'];?>/img/flag-us.png"/> USA</a>
+                    <a class="a-flag" href="#"><img src="<?php echo $wo['config']['theme_url'];?>/img/flag-us.png"/> USA</a>
+                    <a class="a-flag" href="#"><img src="<?php echo $wo['config']['theme_url'];?>/img/flag-us.png"/> USA</a>
+                    <span class="sp-more">nhiều hơn <img src="<?php echo $wo['config']['theme_url'];?>/img/icon-three.png"/></span>
+                </div>
+                <div class="cv-tag">
+                    <div class="carousel slide row" data-ride="carousel" data-type="multi" data-interval="40000" id="fruitscarousel1">
+                        <div class="carousel-inner">
+                            <div class="item active item-mxh">
+                                <a class="a-tag" href="#">#Trái</a>
+                            </div>
+                            <div class="item item-mxh">
+                                <a class="a-tag" href="#">#Trái</a>
+                            </div>
+                            <div class="item item-mxh">
+                                <a class="a-tag" href="#">#Trái</a>
+                            </div>
+                            <div class="item item-mxh">
+                                <a class="a-tag" href="#">#Trái</a>
+                            </div>
+                            <div class="item item-mxh">
+                                <a class="a-tag" href="#">#Trái</a>
+                            </div>
+                            <div class="item item-mxh">
+                                <a class="a-tag" href="#">#Trái</a>
+                            </div>
+                            <div class="item item-mxh">
+                                <a class="a-tag" href="#">#Trái</a>
+                            </div>
+                            <div class="item item-mxh">
+                                <a class="a-tag" href="#">#Trái</a>
+                            </div>
+                        </div>
+                        <a class="left carousel-control" href="#fruitscarousel1" data-slide="prev"><img src="./images/arrow-left.png"/></a>
+                        <a class="right carousel-control" href="#fruitscarousel1" data-slide="next"><img src="./images/arrow-right.png"/></a>
+                    </div>
+                </div>
+            </div>
+            <div class="cv-right">
+
+            </div>
+        </div>
+        <div class="cv-social">
+            <p class="p-like-page">Like page</p>
+            <a class="a-social" href="#"><img src="<?php echo $wo['config']['theme_url'];?>/img/icon-g+.png"/></a>
+            <a class="a-social" href="#"><img src="<?php echo $wo['config']['theme_url'];?>/img/icon-fb.png"/></a>
+            <a class="a-social" href="#"><img src="<?php echo $wo['config']['theme_url'];?>/img/icon-yb.png"/></a>
+        </div>
+
+	</div>
+</div>
+
+<script>
+    jQuery('.carousel[data-type="multi"] .item').each(function () {
+        var next = jQuery(this).next();
+        if (!next.length) {
+            next = jQuery(this).siblings(':first');
+        }
+        next.children(':first-child').clone().appendTo(jQuery(this));
+        for (var i = 0; i < 1; i++) {
+            next = next.next();
+            if (!next.length) {
+                next = jQuery(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
+        }
+    });
+</script>
+
