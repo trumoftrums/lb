@@ -177,7 +177,11 @@
       <style>
          .navbar-default {
             background: <?php echo $wo['config']['header_background'];?>; border: none;
-            height:45px;
+            height:55px;
+             border-bottom:3px solid #17aa9d;
+         }
+         .navbar-form{
+             padding-top: 8px;
          }
          .result-bar{
             background-color: <?php echo $wo['config']['btn_background_color'];?> !important;
@@ -342,8 +346,12 @@
          .hash {
             color: <?php echo $wo['config']['btn_background_color'];?>;
          }
+         .navbar-nav>li>a{
+             padding-top: 20px !important;
+         }
          .sixteen-font-size {
             color: #17aa9d !important;
+             padding-top: 20px !important;
             text-shadow: 0 1px 1px <?php echo $wo['config']['header_button_shadow'];?>;
            -webkit-text-shadow: 0 1px 1px <?php echo $wo['config']['header_button_shadow'];?>;
            -moz-text-shadow: 0 1px 1px <?php echo $wo['config']['header_button_shadow'];?>;
@@ -383,7 +391,7 @@
       ?>
       <div class="content-container <?php echo $container?>" style="<?php echo ($wo['page'] == 'timeline' || $wo['page'] == 'page' || $wo['page'] == 'group') ? 'margin-top:25px;' : '';?>">
          <div class="ad-placement-header-footer">
-            <?php 
+            <?php
                $header_ad = Wo_GetAd('header', false);
                if($wo['page'] != 'admin' && $wo['page'] != 'welcome' && !empty($header_ad)) {
                  $timeline_ads = ($wo['page'] == 'timeline' || $wo['page'] == 'page' || $wo['page'] == 'group')  ? 'style="margin-top: 20px;"' : '';
@@ -391,15 +399,15 @@
                } 
                ?>
          </div>
-         <div id="contnet"><?php echo $wo['content'];?></div> 
-         <?php 
+         <div id="contnet"><?php echo $wo['content'];?></div>
+         <?php
             $footer_ad = Wo_GetAd('footer', false);
             if($wo['page'] != 'admin' && $wo['page'] != 'welcome' && !empty($footer_ad)) {
               echo '<div class="contnet">' . $footer_ad . '</div>';
             } 
             ?>
          <footer>
-            <?php 
+            <?php
               if ($wo['page'] != 'welcome' && $wo['page'] != 'register' && $wo['page'] != 'get_news_feed') {
                 echo Wo_LoadPage('footer/content');
               }
@@ -413,14 +421,14 @@
             ?>
          </div>
          <div class="extra">
-            <?php 
+            <?php
                if ($wo['loggedin'] == true && $wo['page'] != 'maintenance') {
                  if ($wo['config']['chatSystem'] == 1 && $wo['page'] != 'get_news_feed') {
                    echo Wo_LoadPage('chat/content');
                  }
                  echo Wo_LoadPage('modals/logged-out');
                  ?>
-            <?php 
+            <?php
                }
                ?>
          </div>

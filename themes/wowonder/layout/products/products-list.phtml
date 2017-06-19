@@ -6,7 +6,7 @@
 			</div>
 		</div>
         <div class="col-md-9 col-sm-8 col-xs-8 cover-info-pro">
-            <div class="col-md-9 cover-title-pro">
+            <div class="col-md-12 cover-title-pro">
 				<div class="product-title">
                     <a href="<?php echo $wo['product']['url']?>">
                         <?php if(count(explode(' ', $wo['product']['name'])) > 9){
@@ -41,11 +41,17 @@
 					<?php echo mb_substr($wo['product']['description'], 0, 150, "UTF-8") . '...';?>
 				</div>
 			</div>
-            <div class="col-md-3 no-padding-right cover-price-phone">
-                <div class="product-price <?php echo Wo_RightToLeft('text-right'); ?>">
+            <div class="col-md-12 no-padding-right cover-price-phone">
+                <div class="product-price <?php echo Wo_RightToLeft('text-left'); ?>">
                     <?php echo number_format($wo['product']['price'],0,",",".").' '?> đ <?php /*echo $wo['config']['classified_currency_s'];*/?>
                 </div>
             </div>
+            <!-- Place this code where you'd like the game to appear -->
+            <div class="miniclip-game-embed" data-game-name="snowfight-io" data-theme="0" data-width="1024" data-height="683" data-language="en"><a href="http://www.miniclip.com/games/snowfight-io/">Play Snowfight.io</a></div>
+            <p style="text-align:center;"><a href="http://www.miniclip.com/games/snowfight-io/" target="_blank">Play Snowfight.io</a> / More <a href="http://www.miniclip.com/games/genre-4/" target="_blank">Winter games</a></p>
+
+            <!-- Insert this code before your </body> tag -->
+            <script src="//static.miniclipcdn.com/js/game-embed.js"></script>
 			<div class="clear"></div>
 		</div>
 		<div class="clear"></div>

@@ -267,7 +267,7 @@ if (empty($wo['content'])) {
     include('sources/404.php');
 }
 
-echo Wo_Loadpage('container');
+echo Wo_Loadpage('home-login');
 
 mysqli_close($sqlConnect);
 unset($wo);
