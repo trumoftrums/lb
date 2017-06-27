@@ -58,7 +58,7 @@ button, a { outline: 0 !important; }
 .left-sidebar ul li a:hover { background: #f1f1f1; }
 
 .search-container .inner-addon .glyphicon { padding: 7px !important; color: #666 !important; }
-.search-container .search-input { -webkit-transition: all 0.3s; -moz-transition: all 0.3s; -ms-transition: all 0.3s; -o-transition: all 0.3s; transition: all 0.3s; -webkit-border-radius: 20px; -moz-border-radius: 20px; -ms-border-radius: 20px; -o-border-radius: 20px; border-radius: 20px; -webkit-border-color: transparent; -moz-border-color: transparent; -ms-border-color: transparent; -o-border-color: transparent; border-color: transparent; width: 250px; height: 30px; color: #777; box-shadow: none; padding-left: 25px; background: transparent; }
+.search-container .search-input { -webkit-transition: all 0.3s; -moz-transition: all 0.3s; -ms-transition: all 0.3s; -o-transition: all 0.3s; transition: all 0.3s; -webkit-border-radius: 10px; -moz-border-radius: 10px; -ms-border-radius: 10px; -o-border-radius: 10px; border-radius: 10px; -webkit-border-color: transparent; -moz-border-color: transparent; -ms-border-color: transparent; -o-border-color: transparent; border-color: transparent; width: 350px; height: 30px; color: #777; box-shadow: none; padding-left: 25px; background: transparent; }
 .search-container .search-input:focus { border-bottom-color: #444; background: #fff; color: #333; }
 
 .search-dropdown-container { width: 250px; }
@@ -152,6 +152,38 @@ button, a { outline: 0 !important; }
 .sidebar-user-data .sidebar-listed-user-avatar img { width: 100%; -webkit-border-radius: 2px; -moz-border-radius: 2px; -ms-border-radius: 2px; -o-border-radius: 2px; border-radius: 2px; margin: 0; padding: 0; display: inline-block; }
 .sidebar-user-data .sidebar-listed-user-name { margin-top: -20px; color: #fff; max-height: 20px; font-size: 10px; background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.8) 100%); background: -webkit-linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.8) 100%); background: -moz-linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.8) 100%); background: -o-linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.8) 100%); padding: 3px; width: 100%; position: absolute; }
 
+.cv-vid-right .sidebar-user-data { width: 31.3%;
+    margin: 1%;
+    height: auto !important;
+    float: left;
+    text-align: center;
+    padding: 0;
+    position: relative;}
+.cv-vid-right .sidebar-user-data .sidebar-listed-user-avatar img {
+    width: 65px;
+    height: 65px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 50%;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+.cv-vid-right .sidebar-user-data .sidebar-listed-user-name {
+    margin-top: -2px;
+    color: #000;
+    max-height: 20px;
+    font-weight: normal;
+    font-size: 12px;
+    padding: 3px;
+    width: 100%;
+    background: transparent;
+    position: initial;
+}
+
+
 .sidebar-conatnier .card.hovercard .cardheader img { width: 100%; }
 .sidebar-conatnier .profile-style .card { margin-bottom: 10px; -webkit-border-radius: 2px; -moz-border-radius: 2px; -ms-border-radius: 2px; -o-border-radius: 2px; border-radius: 2px; -webkit-box-shadow: 0px 0px 6px #dfdfdf; -moz-box-shadow: 0px 0px 6px #dfdfdf; -ms-box-shadow: 0px 0px 6px #dfdfdf; -o-box-shadow: 0px 0px 6px #dfdfdf; box-shadow: 0px 0px 6px #dfdfdf; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; -o-box-sizing: border-box; box-sizing: border-box; }
 .sidebar-conatnier .profile-style .card.promoted { -webkit-border-radius: 0px !important; -moz-border-radius: 0px !important; -ms-border-radius: 0px !important; -o-border-radius: 0px !important; border-radius: 0px !important; margin-bottom: 0px !important; }
@@ -237,7 +269,7 @@ textarea.postText { border: none; padding-top: 12px; padding-left: 50px; height:
 .panel-white .panel-footer { background-color: #fff; border-color: #ddd; }
 
 .post .post-heading { height: 70px; padding: 20px 15px; }
-.post .post-heading .avatar { width: 46px; height: 46px; display: block; }
+.post .post-heading .avatar { width: 46px; height: 46px; display: block;border-radius: 50 }
 .post .post-heading .meta .title { margin-bottom: 0; margin-top: 1px; }
 .post .post-heading .meta .title a { color: #555; margin-right: -7px; }
 .post .post-heading .meta .title a:hover { text-decoration: underline !important; }

@@ -1,6 +1,7 @@
+<?php if($wo['loggedin'] == true) { ?>
 <span id="like-button" class="btn btn-default stat-item" title="<?php echo $wo['lang']['like'];?>">
   <div class="story-react-container">
-     <?php if($wo['story']['is_liked'] === true){ 
+     <?php if($wo['story']['is_liked'] === true){
 	    echo getReactButtonTemplate('', $wo['user']['user_id'], $wo['story']['id']);
      } else { ?>
 	 <span class="text-link story-like-btn opt" onclick="set_reaction($(this), 'like', <?php echo $wo['story']['id']; ?>);" title="<?php echo $wo['lang']['like']; ?>">
@@ -9,3 +10,12 @@
      <span class="emotionreaction"></span>
   </div>
 </span>
+<?php } else { ?>
+<span id="like-button" class="btn btn-default stat-item" title="<?php echo $wo['lang']['like'];?>">
+    <div class="story-react-container">
+         <a class="text-link story-like-btn opt" href="<?php echo Wo_SeoLink('index.php?link1=welcome&last_url=' . urlencode($wo['story']['url']));?>" title="<?php echo $wo['lang']['like']; ?>">
+	 <i class="fa fa-thumbs-o-up progress-icon" data-icon="thumbs-up"></i><?php echo $wo['lang']['like']; ?></a>
+        <span class="emotionreaction"></span>
+  </div>
+</span>
+<?php } ?>

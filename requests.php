@@ -742,7 +742,11 @@ if ($f == 'get_more_hashtag_posts') {
     exit();
 }
 if ($wo['loggedin'] == false) {
-    exit("Please login or signup to continue.");
+    //nghiembao
+    /*var_dump($f);die;
+    if($f != 'load_posts'){
+        exit("Please login or signup to continue.");
+    }*/
 }
 if ($f == "get_more_following") {
     $html = '';

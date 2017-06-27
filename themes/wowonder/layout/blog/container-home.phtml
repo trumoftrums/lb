@@ -389,67 +389,568 @@
         $container = 'normal-container';
       }
       ?>
-      <div class="content-container <?php echo $container?>" style="<?php echo ($wo['page'] == 'timeline' || $wo['page'] == 'page' || $wo['page'] == 'group') ? 'margin-top:25px;' : '';?>">
+      <!--<div class="content-container <?php /*echo $container*/?>" style="<?php /*echo ($wo['page'] == 'timeline' || $wo['page'] == 'page' || $wo['page'] == 'group') ? 'margin-top:25px;' : '';*/?>">
          <div class="ad-placement-header-footer">
             <?php
-               $header_ad = Wo_GetAd('header', false);
+/*               $header_ad = Wo_GetAd('header', false);
                if($wo['page'] != 'admin' && $wo['page'] != 'welcome' && !empty($header_ad)) {
                  $timeline_ads = ($wo['page'] == 'timeline' || $wo['page'] == 'page' || $wo['page'] == 'group')  ? 'style="margin-top: 20px;"' : '';
                  echo '<div class="contnet" ' . $timeline_ads . '>' . $header_ad . '</div>';
                } 
-               ?>
+               */?>
          </div>
-         <div id="contnet"><?php echo $wo['content'];?></div>
+         <div id="contnet"><?php /*echo $wo['content'];*/?></div>
          <?php
-            $footer_ad = Wo_GetAd('footer', false);
+/*            $footer_ad = Wo_GetAd('footer', false);
             if($wo['page'] != 'admin' && $wo['page'] != 'welcome' && !empty($footer_ad)) {
               echo '<div class="contnet">' . $footer_ad . '</div>';
             } 
-            ?>
+            */?>
          <footer>
             <?php
-              if ($wo['page'] != 'welcome' && $wo['page'] != 'register' && $wo['page'] != 'get_news_feed') {
+/*              if ($wo['page'] != 'welcome' && $wo['page'] != 'register' && $wo['page'] != 'get_news_feed') {
                 echo Wo_LoadPage('footer/content');
               }
-             ?>
+             */?>
          </footer>
          <div class="second-footer">
             <?php
-               if (in_array($wo['page'], $wo['footer_pages'])) {
+/*               if (in_array($wo['page'], $wo['footer_pages'])) {
                   echo Wo_LoadPage('footer/content');
                }
-            ?>
+            */?>
          </div>
          <div class="extra">
             <?php
-               if ($wo['loggedin'] == true && $wo['page'] != 'maintenance') {
+/*               if ($wo['loggedin'] == true && $wo['page'] != 'maintenance') {
                  if ($wo['config']['chatSystem'] == 1 && $wo['page'] != 'get_news_feed') {
                    echo Wo_LoadPage('chat/content');
                  }
                  echo Wo_LoadPage('modals/logged-out');
-                 ?>
+                 */?>
             <?php
-               }
-               ?>
+/*               }
+               */?>
          </div>
+      </div>-->
+      <style>
+          .col-sm-6{
+              padding:0px;
+          }
+          cv-tag .carousel {
+              width: 97%;
+              margin-left: 1%;
+              float: left;
+          }
+
+          cv-tag .carousel-control.left, .carousel-control.right {
+              background-image:none;
+          }
+
+          .img-responsive{
+              width:100%;
+              height:auto;
+          }
+
+          @media (min-width: 992px ) {
+              cv-tag .carousel-inner .active.left {
+                  left: -25%;
+              }
+              cv-tag .carousel-inner .next {
+                  left:  25%;
+              }
+              cv-tag .carousel-inner .prev {
+                  left: -25%;
+              }
+          }
+
+          @media (min-width: 768px) and (max-width: 991px ) {
+              cv-tag .carousel-inner .active.left {
+                  left: -33.3%;
+              }
+              cv-tag .carousel-inner .next {
+                  left:  33.3%;
+              }
+              cv-tag .carousel-inner .prev {
+                  left: -33.3%;
+              }
+              cv-tag .carousel-inner .active > div:first-child {
+                  display:block;
+              }
+              cv-tag .carousel-inner .active > div:first-child + div {
+                  display:block;
+              }
+              cv-tag .carousel-inner .active > div:last-child {
+                  display:none;
+              }
+          }
+
+          @media (max-width: 767px) {
+              cv-tag .carousel-inner .active.left {
+                  left: -100%;
+              }
+              cv-tag .carousel-inner .next {
+                  left:  100%;
+              }
+              cv-tag .carousel-inner .prev {
+                  left: -100%;
+              }
+              cv-tag .carousel-inner .active > div {
+                  display:none;
+              }
+              cv-tag .carousel-inner .active > div:first-child {
+                  display:block;
+              }
+          }
+          .cv-tag .carousel-control.right{
+              top: 40%;
+              width: 40px;
+              right: -5px;
+          }
+          .cv-tag .carousel-control.left{
+              top: 40%;
+              width: 40px;
+              left: -5px;
+              background: none;
+          }
+          .cv-cc{
+              width: 83%;
+              float: right;
+          }
+          .cv-cc .cv-left{
+              float: left;
+              width: 70%;
+          }
+          .cv-cc .cv-left .nav-top{
+              float: left;
+              width: 100%;
+          }
+          .cv-cc .cv-left .nav-top .cv-menu{
+              float: left;
+              border: 1px solid #17aa9d;
+              border-radius: 20px;
+          }
+          .cv-cc .cv-left .nav-top .cv-menu a{
+              padding: 6px 20px;
+              float: left;
+              color: #17aa9d;
+              font-size:13px;
+              text-transform: uppercase;
+          }
+          .cv-cc .cv-left .nav-top .com-article{
+              background: url(<?php echo $wo['config']['theme_url'];?>/img/icon-cobo.png) 101% / 33px no-repeat !important;
+              -webkit-appearance: none;
+              -moz-appearance: none;
+              appearance: none;
+              float: right;
+              width: 180px;
+              height: 33px;
+              padding: 0px 5px;
+              margin-bottom: 14px;
+              border: 1px solid #17aa9d;
+              outline: none;
+          }
+          .cv-cc .cv-left .h4-click{
+              float: left;
+              width: 100%;
+              text-decoration: underline;
+              font-size: 16px;
+          }
+          .cv-cc .cv-left .cv-country{
+              float: left;
+              width: 100%;
+              margin-top: 10px;
+          }
+          .cv-cc .cv-left .cv-country .a-flag{
+              width: 20%;
+              float: left;
+          }
+          .cv-cc .cv-left .cv-country .a-flag img{
+              width: 30px;
+          }
+          .cv-cc .cv-left .cv-country .sp-more{
+              margin-top: 10px;
+              float: right;
+          }
+          .cv-cc .cv-left .cv-tag{
+              float: left;
+              width: 100%;
+          }
+          .cv-cc .cv-left .cv-tag .item-mxh{
+              width: 90%;
+              overflow: hidden;
+              margin-left: 6%;
+              margin-top: 20px;
+          }
+          .cv-cc .cv-left .cv-tag .item-mxh .a-tag{
+              background: #17aa9d;
+              margin-right: 2.5%;
+              padding: 2px 0px;
+              float: left;
+              font-size: 13px;
+              border-radius: 50px;
+              color: #fff;
+              text-align: center;
+              width: 10%;
+          }
+          .cv-social{
+              position: fixed;
+              top: 170px;
+              text-align: center;
+              margin-left: 60px;
+          }
+          .cv-social .p-like-page{
+              float: left;
+              font-size: 15px;
+          }
+          .cv-social .a-social{
+              display: block;
+              margin-bottom: 7px;
+          }
+          .cv-social .a-social img{
+              width: 45px;
+          }
+          .cv-right{
+              float: left;
+              width: 28%;
+              margin-left: 2%;
+          }
+          .cv-right .area-ads{
+              background: #17aa9d;
+              float: left;
+              height: 200px;
+              width: 100%;
+          }
+          .cv-cc .cv-left .cv-item-home{
+              float: left;
+              width: 100%;
+              margin-top: 20px;
+          }
+          .cv-cc .cv-left .cv-item-home .item-home{
+              float: left;
+              width: 100%;
+              border: 1px solid #ccc;
+              background: #fff;
+              padding: 15px;
+              margin-bottom: 20px;
+          }
+          .cv-cc .cv-left .cv-item-home .item-home .h3-tit{
+              float: left;
+              width: 100%;
+              text-transform: capitalize;
+              padding: 0px;
+              margin: 7px 0px;
+          }
+          .cv-cc .cv-left .cv-item-home .item-home .sp-date{
+              float: left;
+              width: 100%;
+              font-size: 13px;
+              color: #777;
+          }
+          .cv-cc .cv-left .cv-item-home .item-home .img-ac{
+              margin-top: 20px;
+              float: left;
+              width: 100%;
+          }
+          .cv-cc .cv-left .cv-item-home .item-home .cv-report{
+              float: left;
+              width: 100%;
+              text-align: right;
+              margin-top: 8px;
+          }
+          .cv-cc .cv-left .cv-item-home .item-home .cv-report .sp-report{
+              font-size: 13px;
+          }
+          .cv-cc .cv-left .cv-item-home .item-home .cv-bot{
+              float: left;
+              width: 100%;
+          }
+          .cv-cc .cv-left .cv-item-home .item-home .cv-bot .img-left{
+              float: left;
+          }
+          .cv-cc .cv-left .cv-item-home .item-home .cv-bot .img-right{
+              float: right;
+              margin-top: 35px;
+          }
+          .cv-right .cv-vid-right{
+              float: left;
+              width: 100%;
+          }
+          .cv-right .cv-vid-right .h4-hot-video{
+              float: left;
+              width: 100%;
+              text-align: center;
+              text-transform: uppercase;
+              font-size: 15px;
+              margin: 15px 0px;
+          }
+          .cv-right .cv-vid-right .item-hot-video{
+              float: left;
+              width: 100%;
+              border: 1px solid #ccc;
+              background: #fff;
+              padding: 5px 15px;
+              margin-bottom: 20px;
+          }
+          .cv-right .cv-vid-right .item-hot-video .h3-tit{
+              float: left;
+              width: 100%;
+              text-transform: capitalize;
+              padding: 0px;
+              margin: 7px 0px;
+              line-height: 18px;
+              font-size: 15px;
+          }
+          .cv-right .cv-vid-right .item-hot-video .sp-date{
+              float: left;
+              width: 100%;
+              font-size: 13px;
+              color: #777;
+          }
+          .cv-right .cv-vid-right .item-hot-video .img-ac{
+              margin-top: 10px;
+              float: left;
+              width: 100%;
+          }
+          .cv-right .cv-vid-right .item-hot-video .cv-bot{
+              float: left;
+              width: 100%;
+          }
+          .cv-right .cv-vid-right .item-hot-video .cv-bot .img-left{
+              float: left;
+              width: 65%;
+              margin: 5px 0px;
+          }
+      </style>
+      <div class="page-margin products">
+          <div class="container">
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+              <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+              <div class="cv-cc">
+                  <div class="cv-left">
+                      <div class="nav-top">
+                          <div class="filter-margin">
+                              <div class="btn-group filter-container">
+                                  <button type="button" onclick="Wo_FilterPostBy('all');" class="btn filter btn-main type-all">
+                                      <i class="fa fa-bars progress-icon" data-icon="bars"></i>
+                                      <span class="filter-text"> <?php echo $wo['lang']['all']; ?><span>
+                                  </button>
+                                  <button type="button" onclick="Wo_FilterPostBy('text');" class="btn filter btn-main type-text">
+                                      <i class="fa fa-pencil progress-icon" data-icon="pencil"></i>
+                                      <span class="filter-text"> <?php echo $wo['lang']['text']; ?><span>
+                                  </button>
+                                  <button type="button" onclick="Wo_FilterPostBy('photos');" class="btn filter btn-main type-photos">
+                                      <i class="fa fa-file-image-o progress-icon" data-icon="file-image-o"></i>
+                                      <span class="filter-text"> <?php echo $wo['lang']['photos']; ?><span>
+                                  </button>
+                                  <button type="button" onclick="Wo_FilterPostBy('video');" class="btn filter btn-main type-video">
+                                      <i class="fa fa-film progress-icon" data-icon="film"></i>
+                                      <span class="filter-text"> <?php echo $wo['lang']['videos']; ?><span>
+                                  </button>
+                                  <button type="button" onclick="Wo_FilterPostBy('music');" class="btn filter btn-main type-music">
+                                      <i class="fa fa-music progress-icon" data-icon="music"></i>
+                                      <span class="filter-text"> <?php echo $wo['lang']['sounds']; ?><span>
+                                  </button>
+                                  <button type="button" onclick="Wo_FilterPostBy('files');" class="btn filter btn-main type-files">
+                                      <i class="fa fa-file-text-o progress-icon" data-icon="file-text-o"></i>
+                                      <span class="filter-text"> <?php echo $wo['lang']['files']; ?><span>
+                                  </button>
+                                  <button type="button" onclick="Wo_FilterPostBy('maps');" class="btn filter btn-main type-maps">
+                                      <i class="fa fa-map-marker progress-icon" data-icon="map-marker"></i>
+                                      <span class="filter-text"> <?php echo $wo['lang']['maps']; ?><span>
+                                  </button>
+                              </div>
+                          </div>
+                          <div class="cv-menu">
+                              <a href="#" >All</a>
+                              <a href="#">videos</a>
+                              <a href="#" onclick="Wo_FilterPostBy('photos');">images</a>
+                              <a href="#">news</a>
+                          </div>
+                          <select class="com-article">
+                              <option>Chủ đề 01</option>
+                              <option>Chủ đề 02</option>
+                              <option>Chủ đề 03</option>
+                          </select>
+                      </div>
+                      <h4 class="h4-click">Click chọn quốc gia yêu thích</h4>
+                      <div class="cv-country">
+                          <a class="a-flag" href="#"><img src="<?php echo $wo['config']['theme_url'];?>/img/flag-us.png"/> USA</a>
+                          <a class="a-flag" href="#"><img src="<?php echo $wo['config']['theme_url'];?>/img/flag-eng.png"/> England</a>
+                          <a class="a-flag" href="#"><img src="<?php echo $wo['config']['theme_url'];?>/img/flag-vn.png"/> Vietnam</a>
+                          <a class="a-flag" href="#"><img src="<?php echo $wo['config']['theme_url'];?>/img/flag-can.png"/> Canada</a>
+                          <span class="sp-more">nhiều hơn <img src="<?php echo $wo['config']['theme_url'];?>/img/icon-three.png"/></span>
+                      </div>
+                      <div class="cv-tag">
+                          <div class="carousel slide row" data-ride="carousel" data-type="multi" data-interval="400000" id="fruitscarousel1">
+                              <div class="carousel-inner">
+                                  <div class="item active item-mxh">
+                                      <a class="a-tag" href="#">#Trái</a>
+                                  </div>
+                                  <?php
+                                  $hashtags = Wa_GetTrendingHashs('popular');
+                                  if (count($hashtags) > 0) {
+                                      foreach ($hashtags as $wo['hashtag']) {
+                                          ?>
+                                          <div class="item item-mxh">
+                                              <a class="a-tag" href="<?php echo $wo['hashtag']['url'];?>">#<?php echo $wo['hashtag']['tag'];?></a>
+                                          </div>
+                                          <?php
+                                      }
+                                  }
+                                  ?>
+                              </div>
+                              <a class="left carousel-control" href="#fruitscarousel1" data-slide="prev"><img src="<?php echo $wo['config']['theme_url'];?>/img/icon-prev.png"/></a>
+                              <a class="right carousel-control" href="#fruitscarousel1" data-slide="next"><img src="<?php echo $wo['config']['theme_url'];?>/img/icon-next.png"/></a>
+                          </div>
+                      </div>
+                      <div class="cv-item-home">
+                          <?php
+                          $stories = Wo_GetPosts(array('filter_by' => 'all','publisher_id' => $wo['user_profile']['user_id'],'limit' => 20));
+                          if (count($stories) == 0 && count($pinedstory) == 0) {
+                              echo Wo_LoadPage('story/profile-no-stories');
+                          } else {
+                              foreach ($stories as $wo['story']) {
+                                  echo Wo_LoadPage('story/content');
+                              }
+                          }
+                          ?>
+                      </div>
+                      <div class="load-more pointer" id="load-more-posts" onclick="Wo_GetMorePosts();">
+                    <span class="btn btn-default"><i class="fa fa-chevron-circle-down progress-icon" data-icon="chevron-circle-down"></i> <?php echo $wo['lang']['load_more_posts']; ?><span>
+                      </div>
+                  </div>
+                  <div class="cv-right">
+                      <div class="area-ads">
+
+                      </div>
+                      <div class="cv-vid-right">
+                          <h4 class="h4-hot-video">Videos xem nhiều nhất</h4>
+                          <div class="item-hot-video">
+                              <h3 class="h3-tit">Nếu bạn hy vọng mọi chuyện sẽ trở nên tốt đẹp</h3>
+                              <span class="sp-date">08:00PM - 07/07/2017</span>
+                              <img class="img-ac" src="<?php echo $wo['config']['theme_url'];?>/img/bg-video.png"/>
+                              <div class="cv-bot">
+                                  <img class="img-left" src="<?php echo $wo['config']['theme_url'];?>/img/img-av.png"/>
+                              </div>
+                          </div>
+                          <div class="item-hot-video">
+                              <h3 class="h3-tit">Nếu bạn hy vọng mọi chuyện sẽ trở nên tốt đẹp</h3>
+                              <span class="sp-date">08:00PM - 07/07/2017</span>
+                              <img class="img-ac" src="<?php echo $wo['config']['theme_url'];?>/img/bg-video.png"/>
+                              <div class="cv-bot">
+                                  <img class="img-left" src="<?php echo $wo['config']['theme_url'];?>/img/img-av.png"/>
+                              </div>
+                          </div>
+                          <div class="item-hot-video">
+                              <h3 class="h3-tit">Nếu bạn hy vọng mọi chuyện sẽ trở nên tốt đẹp</h3>
+                              <span class="sp-date">08:00PM - 07/07/2017</span>
+                              <img class="img-ac" src="<?php echo $wo['config']['theme_url'];?>/img/bg-video.png"/>
+                              <div class="cv-bot">
+                                  <img class="img-left" src="<?php echo $wo['config']['theme_url'];?>/img/img-av.png"/>
+                              </div>
+                          </div>
+                          <div class="item-hot-video">
+                              <h3 class="h3-tit">Nếu bạn hy vọng mọi chuyện sẽ trở nên tốt đẹp</h3>
+                              <span class="sp-date">08:00PM - 07/07/2017</span>
+                              <img class="img-ac" src="<?php echo $wo['config']['theme_url'];?>/img/bg-video.png"/>
+                              <div class="cv-bot">
+                                  <img class="img-left" src="<?php echo $wo['config']['theme_url'];?>/img/img-av.png"/>
+                              </div>
+                          </div>
+                          <div class="item-hot-video">
+                              <h3 class="h3-tit">Nếu bạn hy vọng mọi chuyện sẽ trở nên tốt đẹp</h3>
+                              <span class="sp-date">08:00PM - 07/07/2017</span>
+                              <img class="img-ac" src="<?php echo $wo['config']['theme_url'];?>/img/bg-video.png"/>
+                              <div class="cv-bot">
+                                  <img class="img-left" src="<?php echo $wo['config']['theme_url'];?>/img/img-av.png"/>
+                              </div>
+                          </div>
+                          <div class="item-hot-video">
+                              <h3 class="h3-tit">Nếu bạn hy vọng mọi chuyện sẽ trở nên tốt đẹp</h3>
+                              <span class="sp-date">08:00PM - 07/07/2017</span>
+                              <img class="img-ac" src="<?php echo $wo['config']['theme_url'];?>/img/bg-video.png"/>
+                              <div class="cv-bot">
+                                  <img class="img-left" src="<?php echo $wo['config']['theme_url'];?>/img/img-av.png"/>
+                              </div>
+                          </div>
+                          <div class="item-hot-video">
+                              <h3 class="h3-tit">Nếu bạn hy vọng mọi chuyện sẽ trở nên tốt đẹp</h3>
+                              <span class="sp-date">08:00PM - 07/07/2017</span>
+                              <img class="img-ac" src="<?php echo $wo['config']['theme_url'];?>/img/bg-video.png"/>
+                              <div class="cv-bot">
+                                  <img class="img-left" src="<?php echo $wo['config']['theme_url'];?>/img/img-av.png"/>
+                              </div>
+                          </div>
+                          <div class="item-hot-video">
+                              <h3 class="h3-tit">Nếu bạn hy vọng mọi chuyện sẽ trở nên tốt đẹp</h3>
+                              <span class="sp-date">08:00PM - 07/07/2017</span>
+                              <img class="img-ac" src="<?php echo $wo['config']['theme_url'];?>/img/bg-video.png"/>
+                              <div class="cv-bot">
+                                  <img class="img-left" src="<?php echo $wo['config']['theme_url'];?>/img/img-av.png"/>
+                              </div>
+                          </div>
+                          <div class="item-hot-video">
+                              <h3 class="h3-tit">Nếu bạn hy vọng mọi chuyện sẽ trở nên tốt đẹp</h3>
+                              <span class="sp-date">08:00PM - 07/07/2017</span>
+                              <img class="img-ac" src="<?php echo $wo['config']['theme_url'];?>/img/bg-video.png"/>
+                              <div class="cv-bot">
+                                  <img class="img-left" src="<?php echo $wo['config']['theme_url'];?>/img/img-av.png"/>
+                              </div>
+                          </div>
+                          <div class="item-hot-video">
+                              <h3 class="h3-tit">Nếu bạn hy vọng mọi chuyện sẽ trở nên tốt đẹp</h3>
+                              <span class="sp-date">08:00PM - 07/07/2017</span>
+                              <img class="img-ac" src="<?php echo $wo['config']['theme_url'];?>/img/bg-video.png"/>
+                              <div class="cv-bot">
+                                  <img class="img-left" src="<?php echo $wo['config']['theme_url'];?>/img/img-av.png"/>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="cv-social">
+                  <p class="p-like-page">Like page</p>
+                  <a class="a-social" href="#"><img src="<?php echo $wo['config']['theme_url'];?>/img/icon-g+.png"/></a>
+                  <a class="a-social" href="#"><img src="<?php echo $wo['config']['theme_url'];?>/img/icon-fb.png"/></a>
+                  <a class="a-social" href="#"><img src="<?php echo $wo['config']['theme_url'];?>/img/icon-yb.png"/></a>
+              </div>
+
+          </div>
       </div>
+
+      <script>
+          jQuery('.carousel[data-type="multi"] .item').each(function () {
+              var next = jQuery(this).next();
+              if (!next.length) {
+                  next = jQuery(this).siblings(':first');
+              }
+              next.children(':first-child').clone().appendTo(jQuery(this));
+              for (var i = 0; i < 6; i++) {
+                  next = next.next();
+                  if (!next.length) {
+                      next = jQuery(this).siblings(':first');
+                  }
+                  next.children(':first-child').clone().appendTo($(this));
+              }
+          });
+      </script>
+
+
       <!-- JS FILES -->
-      <?php if ($wo['loggedin'] == false) { ?>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-      <?php } ?>
-      <?php if ($wo['loggedin'] == false) { ?>
+      <?php /*if ($wo['loggedin'] == false) { */?>
       <?php if ($wo['config']['reCaptcha'] == 1) { ?>
       <script type="text/javascript" src='https://www.google.com/recaptcha/api.js'></script>
       <?php } ?>
       <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/welcome.js"></script>
-      <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/typed.js-master/js/typed.js"></script>
+      <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/typed.js-master/js/typed11.js"></script>
       <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/script.js"></script>
-      <?php } ?>
-      <?php if ($wo['loggedin'] == true) {?>
-      <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/script.js"></script>
+      <?php /*} */?>
+      <?php /*if ($wo['loggedin'] == true) {*/?>
+
       <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo $wo['config']['google_map_api'];?>&libraries=places"></script>
       <script type="text/javascript" src="<?php echo $wo['config']['theme_url'];?>/javascript/jquery.limit-1.2.source.js"></script>
-      <?php } ?>
+      <?php /*} */?>
       <?php if ($wo['page'] == 'timeline' && $wo['loggedin'] == true && $wo['config']['css_upload'] == 1) { ?>
       <?php if (!empty($wo['user_profile']['css_file']) && file_exists($wo['user_profile']['css_file'])) {?>
       <link class="styled-profile" rel="stylesheet" href="<?php echo Wo_GetMedia($wo['user_profile']['css_file']);?>">
@@ -474,7 +975,6 @@
       <script src="<?php echo $wo['config']['theme_url'];?>/javascript/twilio-common.min.js"></script>
       <script src="<?php echo $wo['config']['theme_url'];?>/javascript/twilio-conversations.min.js"></script>
       <?php } ?>
-      <script src="<?php echo $wo['config']['theme_url'];?>/javascript/bootstrap-toggle.min.js"></script>
       <!-- End 'JS FILES' -->
       <?php if ($wo['page'] == 'admin') { ?>
       <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -486,7 +986,7 @@
       <?php echo Wo_LoadPage('timeago/content'); ?>
       <?php if($wo['loggedin'] == true) { echo Wo_LoadPage('extra_js/content'); }?>
       <!-- Audio FILES -->
-      <?php if ($wo['loggedin'] == true) { ?>
+      <?php /*if ($wo['loggedin'] == true) { */?>
       <audio id="notification-sound" class="sound-controls" preload="auto">
          <source src="<?php echo $wo['config']['theme_url']; ?>/mp3/New-notification.mp3" type="audio/mpeg">
       </audio>
@@ -499,7 +999,7 @@
       <audio id="video-calling-sound" class="sound-controls" preload="auto">
          <source src="<?php echo $wo['config']['theme_url']; ?>/mp3/video_call.mp3" type="audio/mpeg">
       </audio>
-      <?php } ?>
+      <?php /*} */?>
       <!-- End 'Audio FILES' -->
    </body>
    <?php include "plugins/plugin_footer_global.phtml"; /* plugin bigpipe && js */ ?>

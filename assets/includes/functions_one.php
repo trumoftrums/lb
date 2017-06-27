@@ -1445,6 +1445,37 @@ function Wo_GetFollowing($user_id, $type = '', $limit = '', $after_user_id = '')
     }
     return $data;
 }
+
+function Wo_GetFollowingHome($user_id, $type = '', $limit = '', $after_user_id = '') {
+    global $wo, $sqlConnect;
+    $data = array();
+    if (empty($user_id) or !is_numeric($user_id) or $user_id < 1) {
+        return false;
+    }
+    $user_id       = Wo_Secure($user_id);
+    $after_user_id = Wo_Secure($after_user_id);
+    $query         = "SELECT `user_id` FROM " . T_USERS . " WHERE `user_id` IN (SELECT `following_id` FROM " . T_FOLLOWERS . " WHERE `follower_id` = {$user_id} AND `following_id` <> {$user_id} AND `active` = '1') AND `active` = '1' ";
+    if (!empty($after_user_id) && is_numeric($after_user_id)) {
+        $query .= " AND `user_id` < {$after_user_id}";
+    }
+    if ($wo['loggedin'] == true) {
+        $logged_user_id = Wo_Secure($wo['user']['user_id']);
+        $query .= " AND `user_id` NOT IN (SELECT `blocked` FROM " . T_BLOCKS . " WHERE `blocker` = '{$logged_user_id}') AND `user_id` NOT IN (SELECT `blocker` FROM " . T_BLOCKS . " WHERE `blocked` = '{$logged_user_id}')";
+    }
+    if ($type == 'sidebar' && !empty($limit) && is_numeric($limit)) {
+        $query .= " ORDER BY RAND() LIMIT {$limit}";
+    }
+    if ($type == 'profile' && !empty($limit) && is_numeric($limit)) {
+        $query .= " ORDER BY `user_id` DESC LIMIT {$limit}";
+    }
+    $sql_query = mysqli_query($sqlConnect, $query);
+    while ($fetched_data = mysqli_fetch_assoc($sql_query)) {
+        $data[] = Wo_UserData($fetched_data['user_id']);
+    }
+    return $data;
+}
+
+
 function Wo_GetFollowers($user_id, $type = '', $limit = '', $after_user_id = '') {
     global $wo, $sqlConnect;
     $data = array();
@@ -3289,8 +3320,10 @@ function Wo_PostData($post_id, $placement = '', $limited = '') {
             $story['options'] = $options;
         }
     }
+    $story['post_comments']    = Wo_CountPostComment($story['id']);
     if ($wo['loggedin'] == true) {
-        $story['post_comments']    = Wo_CountPostComment($story['id']);
+        /*nghiembao*/
+        /*$story['post_comments']    = Wo_CountPostComment($story['id']);*/
         $story['post_shares']      = Wo_CountShares($story['id']);
         $story['post_likes']       = Wo_CountLikes($story['id']);
         $story['post_wonders']     = Wo_CountWonders($story['id']);
@@ -3392,6 +3425,7 @@ function Wo_GetPostPublisherBox($user_id = 0, $recipient_id = 0) {
         return Wo_LoadPage('story/publisher-box');
     }
 }
+/*nghiembao*/
 function Wo_GetPosts($data = array('filter_by' => 'all', 'after_post_id' => 0, 'page_id' => 0, 'group_id' => 0, 'publisher_id' => 0, 'limit' => 5)) {
     global $wo, $sqlConnect;
     if (empty($data['filter_by'])) {
@@ -3924,6 +3958,55 @@ function Wo_GetActivity($id) {
         return $finel_fetched_data;
     }
 }
+
+function Wo_GetActivityHome($id) {
+    global $sqlConnect, $wo;
+    /*if ($wo['loggedin'] == false) {
+        return false;
+    }*/
+    $user_id = Wo_Secure($wo['user']['user_id']);
+    if (empty($id) || !is_numeric($id) || $id < 1) {
+        return false;
+    }
+    $query = mysqli_query($sqlConnect, "SELECT * FROM " . T_ACTIVITIES . " WHERE `id` = {$id}");
+    if (mysqli_num_rows($query) == 1) {
+        $finel_fetched_data              = mysqli_fetch_assoc($query);
+        $finel_fetched_data['postData']  = Wo_PostData($finel_fetched_data['post_id']);
+        $finel_fetched_data['activator'] = Wo_UserData($finel_fetched_data['user_id']);
+        return $finel_fetched_data;
+    }
+}
+
+function Wo_GetActivitiesHome($data = array('after_activity_id' => 0, 'before_activity_id' => 0, 'limit' => 7)) {
+    global $wo, $sqlConnect;
+    /*if ($wo['loggedin'] == false) {
+        return false;
+    }*/
+    $user_id = 1;
+    $get     = array();
+    if (empty($data['limit'])) {
+        $data['limit'] = 5;
+    }
+    $limit        = Wo_Secure($data['limit']);
+    $subquery_one = " `id` > 0 ";
+    if (!empty($data['after_activity_id']) && is_numeric($data['after_activity_id']) && $data['after_activity_id'] > 0) {
+        $data['after_activity_id'] = Wo_Secure($data['after_activity_id']);
+        $subquery_one              = " `id` < " . $data['after_activity_id'] . " AND `id` <> " . $data['after_activity_id'];
+    } else if (!empty($data['before_activity_id']) && is_numeric($data['before_activity_id']) && $data['before_activity_id'] > 0) {
+        $data['before_activity_id'] = Wo_Secure($data['before_activity_id']);
+        $subquery_one               = " `id` > " . $data['before_activity_id'] . " AND `id` <> " . $data['before_activity_id'];
+    }
+    $query_text = "SELECT `id` FROM " . T_ACTIVITIES . " WHERE {$subquery_one}";
+    $query_text .= " AND `user_id` IN (SELECT `following_id` FROM " . T_FOLLOWERS . " WHERE `follower_id` = {$user_id} AND `active` = '1') AND `user_id` NOT IN ($user_id) ORDER BY `id` DESC LIMIT {$limit}";
+    $sql_query_one = mysqli_query($sqlConnect, $query_text);
+    while ($fetched_data = mysqli_fetch_assoc($sql_query_one)) {
+        if (is_array($fetched_data)) {
+            $get[] = Wo_GetActivityHome($fetched_data['id']);
+        }
+    }
+    return $get;
+}
+
 function Wo_GetActivities($data = array('after_activity_id' => 0, 'before_activity_id' => 0, 'limit' => 5)) {
     global $wo, $sqlConnect;
     if ($wo['loggedin'] == false) {
