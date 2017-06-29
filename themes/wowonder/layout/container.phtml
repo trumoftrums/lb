@@ -389,7 +389,7 @@
         $container = 'normal-container';
       }
       ?>
-      <div class="content-container <?php echo $container?>" style="<?php echo ($wo['page'] == 'timeline' || $wo['page'] == 'page' || $wo['page'] == 'group') ? 'margin-top:25px;' : '';?>">
+      <div class="content-container <?php echo $container?>" style="padding: 0px 2px 0px 0px; <?php echo ($wo['page'] == 'timeline' || $wo['page'] == 'page' || $wo['page'] == 'group') ? 'margin-top:25px;' : '';?>">
          <div class="ad-placement-header-footer">
             <?php
                $header_ad = Wo_GetAd('header', false);
@@ -434,6 +434,14 @@
          </div>
       </div>
       <!-- JS FILES -->
+      <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.9";
+              fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));</script>
       <?php if ($wo['loggedin'] == false) { ?>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <?php } ?>

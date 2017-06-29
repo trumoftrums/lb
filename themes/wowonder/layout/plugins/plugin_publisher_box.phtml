@@ -1,3 +1,371 @@
+<style>
+    .col-sm-6{
+        padding:0px;
+    }
+    cv-tag .carousel {
+        width: 97%;
+        margin-left: 1%;
+        float: left;
+    }
+
+    cv-tag .carousel-control.left, .carousel-control.right {
+        background-image:none;
+    }
+
+    .img-responsive{
+        width:100%;
+        height:auto;
+    }
+
+    @media (min-width: 992px ) {
+        cv-tag .carousel-inner .active.left {
+            left: -25%;
+        }
+        cv-tag .carousel-inner .next {
+            left:  25%;
+        }
+        cv-tag .carousel-inner .prev {
+            left: -25%;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 991px ) {
+        cv-tag .carousel-inner .active.left {
+            left: -33.3%;
+        }
+        cv-tag .carousel-inner .next {
+            left:  33.3%;
+        }
+        cv-tag .carousel-inner .prev {
+            left: -33.3%;
+        }
+        cv-tag .carousel-inner .active > div:first-child {
+            display:block;
+        }
+        cv-tag .carousel-inner .active > div:first-child + div {
+            display:block;
+        }
+        cv-tag .carousel-inner .active > div:last-child {
+            display:none;
+        }
+    }
+
+    @media (max-width: 767px) {
+        cv-tag .carousel-inner .active.left {
+            left: -100%;
+        }
+        cv-tag .carousel-inner .next {
+            left:  100%;
+        }
+        cv-tag .carousel-inner .prev {
+            left: -100%;
+        }
+        cv-tag .carousel-inner .active > div {
+            display:none;
+        }
+        cv-tag .carousel-inner .active > div:first-child {
+            display:block;
+        }
+    }
+    .cv-tag .carousel-control.right{
+        top: 40%;
+        width: 40px;
+        right: -5px;
+    }
+    .cv-tag .carousel-control.left{
+        top: 40%;
+        width: 40px;
+        left: -5px;
+        background: none;
+    }
+    .cv-cc{
+        width: 100%;
+        float: right;
+    }
+    .cv-cc .cv-left{
+        float: left;
+        width: 100%;
+    }
+    .cv-cc .cv-left .nav-top{
+        float: left;
+        width: 100%;
+    }
+    .cv-cc .cv-left .nav-top .cv-menu{
+        float: left;
+        border: 1px solid #17aa9d;
+        border-radius: 20px;
+    }
+    .cv-cc .cv-left .nav-top .cv-menu a{
+        padding: 6px 20px;
+        float: left;
+        color: #17aa9d;
+        font-size:13px;
+        text-transform: uppercase;
+    }
+    .cv-cc .cv-left .nav-top .com-article{
+        background: url(<?php echo $wo['config']['theme_url'];?>/img/icon-cobo.png) 101% / 33px no-repeat !important;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        float: right;
+        width: 180px;
+        height: 33px;
+        padding: 0px 5px;
+        margin-bottom: 14px;
+        border: 1px solid #17aa9d;
+        outline: none;
+    }
+    .cv-cc .cv-left .h4-click{
+        float: left;
+        width: 100%;
+        text-decoration: underline;
+        font-size: 15px;
+    }
+    .cv-cc .cv-left .cv-country{
+        float: left;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .cv-cc .cv-left .cv-country .a-flag{
+        width: 20%;
+        float: left;
+    }
+    .cv-cc .cv-left .cv-country .a-flag img{
+        width: 30px;
+    }
+    .cv-cc .cv-left .cv-country .sp-more{
+        margin-top: 10px;
+        float: right;
+    }
+    .cv-cc .cv-left .cv-country .sp-more .p-more{
+        float: left;
+        margin-right: 5px;
+    }
+    .cv-cc .cv-left .cv-tag{
+        float: left;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .cv-cc .cv-left .cv-tag .item-mxh{
+        width: 90%;
+        overflow: hidden;
+        margin-left: 6%;
+        margin-top: 20px;
+    }
+    .cv-cc .cv-left .cv-tag .item-mxh .a-tag{
+        background: #17aa9d;
+        margin-right: 2.5%;
+        padding: 6px 0px;
+        float: left;
+        font-size: 13px;
+        border-radius: 50px;
+        color: #fff;
+        text-align: center;
+        width: 17%;
+    }
+    .cv-cc .cv-left .cv-tag .item-mxh .a-tag:hover, .cv-cc .cv-left .nav-top .cv-menu a:hover{
+        text-decoration: none;
+    }
+    .cv-social{
+        position: fixed;
+        display: none;
+        top: 170px;
+        text-align: center;
+        margin-left: -75px;
+    }
+    .cv-social .p-like-page{
+        float: left;
+        font-size: 15px;
+    }
+    .cv-social .a-social{
+        display: block;
+        margin-bottom: 7px;
+    }
+    .cv-social .a-social img{
+        width: 45px;
+    }
+    .cv-right{
+        float: left;
+        width: 28%;
+        margin-left: 2%;
+    }
+    .cv-right .area-ads{
+        background: #17aa9d;
+        float: left;
+        height: 200px;
+        width: 100%;
+    }
+    .cv-cc .cv-left .cv-item-home{
+        float: left;
+        width: 100%;
+        margin-top: 20px;
+    }
+    .cv-cc .cv-left .cv-item-home .item-home{
+        float: left;
+        width: 100%;
+        border: 1px solid #ccc;
+        background: #fff;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    .cv-cc .cv-left .cv-item-home .item-home .h3-tit{
+        float: left;
+        width: 100%;
+        text-transform: capitalize;
+        padding: 0px;
+        margin: 7px 0px;
+    }
+    .cv-cc .cv-left .cv-item-home .item-home .sp-date{
+        float: left;
+        width: 100%;
+        font-size: 13px;
+        color: #777;
+    }
+    .cv-cc .cv-left .cv-item-home .item-home .img-ac{
+        margin-top: 20px;
+        float: left;
+        width: 100%;
+    }
+    .cv-cc .cv-left .cv-item-home .item-home .cv-report{
+        float: left;
+        width: 100%;
+        text-align: right;
+        margin-top: 8px;
+    }
+    .cv-cc .cv-left .cv-item-home .item-home .cv-report .sp-report{
+        font-size: 13px;
+    }
+    .cv-cc .cv-left .cv-item-home .item-home .cv-bot{
+        float: left;
+        width: 100%;
+    }
+    .cv-cc .cv-left .cv-item-home .item-home .cv-bot .img-left{
+        float: left;
+    }
+    .cv-cc .cv-left .cv-item-home .item-home .cv-bot .img-right{
+        float: right;
+        margin-top: 35px;
+    }
+    .cv-right .cv-vid-right{
+        float: left;
+        width: 265px;
+        position: fixed;
+    }
+    .cv-right .cv-vid-right .h4-hot-video{
+        float: left;
+        width: 100%;
+        text-align: left;
+        text-transform: uppercase;
+        font-size: 14px;
+        padding: 6px 5px;
+        border-bottom: 1px solid #f1f1f1;
+    }
+    .list-group-item:first-child{
+        text-transform: uppercase;
+    }
+    .cv-right .cv-vid-right .item-hot-video{
+        float: left;
+        width: 100%;
+        border: 1px solid #ccc;
+        background: #fff;
+        padding: 5px 15px;
+        margin-bottom: 20px;
+    }
+    .cv-right .cv-vid-right .item-hot-video .h3-tit{
+        float: left;
+        width: 100%;
+        text-transform: capitalize;
+        padding: 0px;
+        margin: 7px 0px;
+        line-height: 18px;
+        font-size: 15px;
+    }
+    .cv-right .cv-vid-right .item-hot-video .sp-date{
+        float: left;
+        width: 100%;
+        font-size: 13px;
+        color: #777;
+    }
+    .cv-right .cv-vid-right .item-hot-video .img-ac{
+        margin-top: 10px;
+        float: left;
+        width: 100%;
+    }
+    .cv-right .cv-vid-right .item-hot-video .cv-bot{
+        float: left;
+        width: 100%;
+    }
+    .cv-right .cv-vid-right .item-hot-video .cv-bot .img-left{
+        float: left;
+        width: 65%;
+        margin: 5px 0px;
+    }
+    .cv-menu a.active{
+        background: #17aa9d;
+        color: #fff !important;
+        border-radius: 20px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    .cv-mem{
+        float: left;
+        width: 100%;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 0 0 #e3e4e8, 0 0 0 1px #f1f1f1;
+    }
+
+    #sidebar-sticky{
+        float: left;
+        width: 100%;
+    }
+    @media(max-width:990px) {
+        .cv-cc .cv-left {
+            width: 100%;
+        }
+        .cv-right {
+            display: none;
+        }
+        .cv-social {
+            display: none;
+        }
+    }
+    @media(max-width:600px) {
+        .cv-cc .cv-left .nav-top .com-article{
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 0px;
+        }
+        .cv-cc .cv-left .cv-country .a-flag span{
+            width: 100%;
+            float: left;
+        }
+        .cv-cc .cv-left .cv-country .a-flag {
+            width: 21%;
+        }
+        .cv-cc .cv-left .cv-country {
+            text-align: center;
+        }
+        .cv-cc .cv-left .cv-tag .item-mxh .a-tag {
+            margin-right: 1.5%;
+            font-size: 10px;
+            border-radius: 8px;
+            width: 18%;
+        }
+        .cv-cc .cv-left .nav-top .cv-menu {
+            width: 100%;
+        }
+        .cv-cc .cv-left .nav-top .cv-menu a {
+            text-align: center;
+            width: 25%;
+        }
+        .cv-cc .cv-left .cv-country .sp-more{
+            margin-top: 30px;
+        }
+        .cv-cc .cv-left .cv-country .sp-more .p-more{
+            display: none;
+        }
+    }
+</style>
 <?php
 $hashtag = '';
 if (isset($_GET['link1']) && $_GET['link1'] == 'hashtag' && !empty($_GET['hash'])) {
@@ -314,12 +682,12 @@ if (isset($_GET['link1']) && $_GET['link1'] == 'hashtag' && !empty($_GET['hash']
                   <select name="postPrivacy" class="form-control inputsm">
                      <?php if (empty($_GET['p'])) {?>
                         <option value="3"><?php echo $wo['lang']['only_me'];?></option>
-                        <option value="0" selected><?php echo $wo['lang']['everyone'];?></option>
+                        <option value="0"><?php echo $wo['lang']['everyone'];?></option>
                         <?php if ($wo['config']['connectivitySystem'] == 0) { ?>
                         <option value="1"><?php echo $wo['lang']['people_i_follow'];?></option>
                         <option value="2"><?php echo $wo['lang']['people_follow_me'];?></option>
                         <?php } else {?>
-                        <option value="1"><?php echo $wo['lang']['my_friends'];?></option>
+                        <option value="1" selected><?php echo $wo['lang']['my_friends'];?></option>
                         <?php }?>
                      <?php } else { ?>
                         <option value="0"><?php echo $wo['lang']['everyone'];?></option>
@@ -377,8 +745,68 @@ if (isset($_GET['link1']) && $_GET['link1'] == 'hashtag' && !empty($_GET['hash']
     </div>
 </div>
 <?php } ?>
+<div class="cv-cc">
+    <div class="cv-left">
+<div class="nav-top">
+   <!-- <div class="cv-menu">
+        <a href="#" class="active" onclick="Wo_FilterPostBy('all');">All</a>
+        <a href="#" onclick="Wo_FilterPostBy('video');">videos</a>
+        <a href="#" onclick="Wo_FilterPostBy('photos');">images</a>
+        <a href="#" onclick="Wo_FilterPostBy('text');">news</a>
+    </div>-->
+    <!--<select class="com-article">
+        <option>Chủ đề 01</option>
+        <option>Chủ đề 02</option>
+        <option>Chủ đề 03</option>
+    </select>-->
+</div>
+<!--<h4 class="h4-click">Click chọn quốc gia yêu thích</h4>-->
+<div class="cv-country">
+    <a class="a-flag" href="#"><img src="<?php echo $wo['config']['theme_url'];?>/img/flag-us.png"/> <span>USA</span></a>
+    <a class="a-flag" href="#"><img src="<?php echo $wo['config']['theme_url'];?>/img/flag-eng.png"/> <span>England</span></a>
+    <a class="a-flag" href="#"><img src="<?php echo $wo['config']['theme_url'];?>/img/flag-vn.png"/> <span>Vietnam</span></a>
+    <a class="a-flag" href="#"><img src="<?php echo $wo['config']['theme_url'];?>/img/flag-can.png"/> <span>Canada</span></a>
+    <span class="sp-more"><p class="p-more">nhiều hơn </p> <img src="<?php echo $wo['config']['theme_url'];?>/img/icon-three.png"/></span>
+</div>
+<div class="cv-tag">
+    <div class="carousel slide row" data-ride="carousel" data-type="multi" data-interval="400000" id="fruitscarousel1">
+        <div class="carousel-inner">
+            <?php
+            $arrColor = ['#d19800','#8c9c01','#019c84','#01439c','#ae006a','#ffd209'];
+            $hashtags = Wa_GetTrendingHashs('popular');
+            if (count($hashtags) > 0) {
+                foreach ($hashtags as $key => $wo['hashtag']) {
+                    ?>
+                    <div class="item <?php if($key == 0){echo "active";} ?> item-mxh">
+                        <a class="a-tag" style="background: <?php echo $arrColor[$key] ?>" href="<?php echo $wo['hashtag']['url'];?>">#<?php echo $wo['hashtag']['tag'];?></a>
+                    </div>
+                    <?php
+                }
+            }
+            ?>
+        </div>
+        <a class="left carousel-control" href="#fruitscarousel1" data-slide="prev"><img src="<?php echo $wo['config']['theme_url'];?>/img/icon-prev.png"/></a>
+        <a class="right carousel-control" href="#fruitscarousel1" data-slide="next"><img src="<?php echo $wo['config']['theme_url'];?>/img/icon-next.png"/></a>
+    </div>
+</div>
+    </div>
+</div>
 <div id="hidden_inputbox"></div>
 <script type="text/javascript">
+    jQuery('.carousel[data-type="multi"] .item').each(function () {
+        var next = jQuery(this).next();
+        if (!next.length) {
+            next = jQuery(this).siblings(':first');
+        }
+        next.children(':first-child').clone().appendTo(jQuery(this));
+        for (var i = 0; i < 3; i++) {
+            next = next.next();
+            if (!next.length) {
+                next = jQuery(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
+        }
+    });
 $(function () {
   $('.postText').triggeredAutocomplete({
      hidden: '#hidden_inputbox',

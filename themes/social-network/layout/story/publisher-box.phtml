@@ -217,12 +217,12 @@ if (isset($_GET['link1']) && $_GET['link1'] == 'hashtag' && !empty($_GET['hash']
                   <select name="postPrivacy" class="form-control inputsm">
                      <?php if (empty($_GET['p'])) {?>
                         <option value="3"><?php echo $wo['lang']['only_me'];?></option>
-                        <option value="0" selected><?php echo $wo['lang']['everyone'];?></option>
+                        <option value="0"><?php echo $wo['lang']['everyone'];?></option>
                         <?php if ($wo['config']['connectivitySystem'] == 0) { ?>
                         <option value="1"><?php echo $wo['lang']['people_i_follow'];?></option>
                         <option value="2"><?php echo $wo['lang']['people_follow_me'];?></option>
                         <?php } else {?>
-                        <option value="1"><?php echo $wo['lang']['my_friends'];?></option>
+                        <option value="1" selected><?php echo $wo['lang']['my_friends'];?></option>
                         <?php }?>
                      <?php } else { ?>
                         <option value="0"><?php echo $wo['lang']['everyone'];?></option>

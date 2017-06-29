@@ -109,6 +109,7 @@
           </span>
           <?php  }?>
               <!--/*nghiembao*/-->
+            <?php if ($wo['loggedin'] == false) { ?>
               <span class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             <span class="pointer">
@@ -153,7 +154,7 @@
               </li>
             </ul>
           </span>
-
+            <?php } ?>
         </div>
         <div class="meta">
           <div class="title h5">
@@ -680,6 +681,7 @@
                 </a>
             <?php } ?>
 		  <?php
+
 		   //plugin share
 		   if(!empty($wo['plugin_list']['plugin_actived']) && in_array('Share', $wo['plugin_list']['plugin_actived'] )){ ?>
 		   <div class="btn btn-default stat-item" onclick="ShareIt($(this),'<?php echo $wo['story']['id']; ?>');" title="<?php echo $wo['lang']['share'];?>">
@@ -708,6 +710,7 @@
                 </a>
             <?php } ?>
         </div>
+
         <?php /*} else {  */?>
         <!--<span class="<?php /*echo Wo_RightToLeft('pull-right');*/?>"><a href="<?php /*echo Wo_SeoLink('index.php?link1=welcome&last_url=' . urlencode($wo['story']['url']));*/?>"><?php /*echo $wo['lang']['post_login_requriement'];*/?></a></span>
         <div class="clear"></div>-->
