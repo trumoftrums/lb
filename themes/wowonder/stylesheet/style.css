@@ -25,12 +25,115 @@ button, a { outline: 0 !important; }
     width: 20px;
     margin-right: 5px;
 }
-/*.story-react-wrapper img{
-    width: 45px !important;
+.tab-profile-right{
+    float: left;
+    width: 100%;
+    border-radius: 2px 2px 0 0;
+    box-shadow: 0 1px 0 0 #e3e4e8, 0 0 0 1px #f1f1f1;
+    background-color: #fff;
 }
-.story-react-wrapper{
-    width: 390px !important;
-}*/
+.tab-profile-right .h4-your-page{
+    float: left;
+    width: 100%;
+    font-size: 16px;
+    border-bottom: 1px solid #ededed;
+    padding: 5px 10px 10px 10px;
+    margin-bottom: 20px;
+}
+.tab-profile-right .img-ava{
+    float: left;
+    width: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-left: 5px;
+    height: 80px;
+}
+.tab-profile-right .p-us{
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+}
+.tab-profile-right .sp-tntb{
+    display: block;
+    float: left;
+    margin-bottom: 7px;
+}
+.tab-profile-right .sp-tntb img{
+    width: 20px;
+    float: left;
+    margin-right: 4px;
+}
+.tab-profile-right .cv-menu-pro{
+    float: left;
+    width: 100%;
+    background: #17aa9d;
+    text-align: center;
+    margin-top: 15px;
+}
+.tab-profile-right .cv-menu-pro .a-menu-pro{
+    display: inline-block;
+    color: #fff;
+    font-size: 12px;
+    padding: 8px 2px;
+}
+.tab-profile-right .cv-menu-pro .a-menu-pro img{
+
+}
+.tab-profile-right .cv-menu-pro .a-menu-pro span{
+
+}
+.tab-profile-right .cover-cont{
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+.tab-profile-right .cover-cont .cv-as{
+    float: left;
+    width: 100%;
+    margin-top: 15px;
+}
+.tab-profile-right .cover-cont .cv-as .a-ee{
+    background: #a3a3a3;
+    padding: 4px 8px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 13px;
+}
+.tab-profile-right .cover-cont .cv-as .active{
+    background: #b44c00;
+}
+.tab-profile-right .cover-cont .p-earn{
+    font-size: 60px;
+    color: #17aa9d;
+    float: left;
+    width: 100%;
+    font-weight: bold;
+    margin: 0px;
+}
+.tab-profile-right .cover-cont .p-od{
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+.tab-profile-right .cover-cont .icon-coin{
+    width: 90px;
+}
+.tab-profile-right .cover-cont .cv-bt{
+    float: left;
+    width: 100%;
+    border-top: 1px solid #f1f1f1;
+    padding: 10px;
+    margin-top: 20px;
+}
+.tab-profile-right .cover-cont .cv-bt .change-coin img:hover{
+    opacity: 0.7;
+}
+.tab-profile-right .cover-cont .cv-bt .change-coin img{
+    width: 90%;
+}
+
+
+
 .header-brand { float: left; display: block; margin-top: 6px; margin-right: 25px; }
 
 .ui-menu-item span { font-size: 13px; }

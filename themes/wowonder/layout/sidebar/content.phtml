@@ -1,23 +1,64 @@
 <div class="sidebar-conatnier">
     <div class="col-md-3 sidebar">
-        <div class="home profile-style main sidebar-profile-style">
+        <!--<div class="home profile-style main sidebar-profile-style">
             <div class="card hovercard">
                 <div class="cardheader">
-                    <img src="<?php echo $wo['user']['cover']?>" id="cover-image" alt="<?php echo $wo['user']['name']?> Cover Image">
+                    <img src="<?php /*echo $wo['user']['cover']*/?>" id="cover-image" alt="<?php /*echo $wo['user']['name']*/?> Cover Image">
                 </div>
                 <div class="avatar">
-                    <img id="updateImage-<?php echo $wo['user']['user_id']?>" alt="<?php echo $wo['user']['name']?> Profile Picture" src="<?php echo $wo['user']['avatar']?>">
+                    <img id="updateImage-<?php /*echo $wo['user']['user_id']*/?>" alt="<?php /*echo $wo['user']['name']*/?> Profile Picture" src="<?php /*echo $wo['user']['avatar']*/?>">
                 </div>
                 <div class="info">
                     <div class="title">
-                        <a id="user-full-name" data-ajax="?link1=timeline&u=<?php echo $wo['user']['username'];?>" href="<?php echo $wo['user']['url'];?>"><?php echo $wo['user']['name']?></a>
-                        <?php if($wo['user']['verified'] == 1):?>
-                        <i class="fa fa-check-circle verified-color" data-toggle="tooltip" title="<?php echo $wo['lang']['verified_user'];?>"></i>
-                        <?php endif;?>
+                        <a id="user-full-name" data-ajax="?link1=timeline&u=<?php /*echo $wo['user']['username'];*/?>" href="<?php /*echo $wo['user']['url'];*/?>"><?php /*echo $wo['user']['name']*/?></a>
+                        <?php /*if($wo['user']['verified'] == 1):*/?>
+                        <i class="fa fa-check-circle verified-color" data-toggle="tooltip" title="<?php /*echo $wo['lang']['verified_user'];*/?>"></i>
+                        <?php /*endif;*/?>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
+        <ul class="list-group">
+            <div class="tab-profile-right">
+                <h4 class="h4-your-page">Trang của bạn</h4>
+                 <img class="img-ava" src="<?php echo $wo['user']['avatar'] ?>"/>
+                <!--<img class="img-ava" src="<?php /*echo $wo['config']['theme_url'];*/?>/img/chat.png"/>-->
+                <p class="p-us"><?php echo $wo['user']['username'];?></p>
+                <span class="sp-tntb"><img src="<?php echo $wo['config']['theme_url'];?>/img/icon-menu-header/icon-heade-02.png"/>Tin nhắn: 10</span>
+                <span class="sp-tntb"><img src="<?php echo $wo['config']['theme_url'];?>/img/icon-menu-header/icon-heade-03.png"/>Thông báo: 20</span>
+                <div class="cv-menu-pro">
+                    <a class="a-menu-pro" href="#">
+                        <img src="<?php echo $wo['config']['theme_url'];?>/img/icon-info-pro.png"/><br>
+                        <span>Thông tin</span>
+                    </a>
+                    <a class="a-menu-pro" href="#">
+                        <img src="<?php echo $wo['config']['theme_url'];?>/img/icon-invest-pro.png"/><br>
+                        <span>Đầu tư</span>
+                    </a>
+                    <a class="a-menu-pro" href="#">
+                        <img src="<?php echo $wo['config']['theme_url'];?>/img/icon-nt-pro.png"/><br>
+                        <span>Nạp tiền</span>
+                    </a>
+                    <a class="a-menu-pro" href="#">
+                        <img src="<?php echo $wo['config']['theme_url'];?>/img/icon-cv-pro.png"/><br>
+                        <span>Công việc</span>
+                    </a>
+                </div>
+                <div class="cover-cont">
+                    <div class="cv-as">
+                        <a class="a-ee active" href="#">Thu nhập</a>
+                        <a class="a-ee" href="#">Tài sản</a>
+                        <a class="a-ee" href="#">Đóng góp</a>
+                    </div>
+                    <p class="p-earn">100</p>
+                    <p class="p-od">Số tiền kiếm được trong tháng</p>
+                    <img class="icon-coin" src="<?php echo $wo['config']['theme_url'];?>/img/icon-coin.png"/>
+                    <div class="cv-bt">
+                        <a href="#" class="change-coin"><img src="<?php echo $wo['config']['theme_url'];?>/img/coin-to-money.png"/></a>
+                    </div>
+                </div>
+            </div>
+        </ul>
         <?php if ($wo['page'] == 'home') { ?>
         <!--<ul class="list-group filterby">
             <li class="list-group-item hidden" contenteditable="false">Filter by</li>
@@ -32,7 +73,7 @@
         <?php } ?>
         <ul class="list-group trending">
             <li class="list-group-item" contenteditable="false"><i class="fa fa-bolt fa-fw"></i> <?php echo $wo['lang']['trending']; ?></li>
-            <?php 
+            <?php
                 $hashtags = Wa_GetTrendingHashs('popular');
                 if (count($hashtags) > 0) {
                    foreach ($hashtags as $wo['hashtag']) { 
@@ -41,7 +82,7 @@
                 <a href="<?php echo $wo['hashtag']['url'];?>">#<?php echo $wo['hashtag']['tag'];?></a>
             </li>
             <?php
-                } 
+                }
                 }
                 ?>
             <li>
